@@ -1,0 +1,37 @@
+18:05:08 **** Incremental Build of configuration Release for project Gowno ****
+make all 
+Building target: Gowno.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,Gowno.map -mmcu=atmega328p -o "Gowno.elf"  ./LCD/lcd44780.o  ./main.o   
+Finished building target: Gowno.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S Gowno.elf  >"Gowno.lss"
+Finished building: Gowno.lss
+ 
+Create Flash image (ihex format)
+avr-objcopy -R .eeprom -O ihex Gowno.elf  "Gowno.hex"
+Finished building: Gowno.hex
+ 
+Create eeprom image (ihex format)
+avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex Gowno.elf  "Gowno.eep"
+Finished building: Gowno.eep
+ 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega328p Gowno.elf
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:    1044 bytes (3.2% Full)
+(.text + .data + .bootloader)
+
+Data:          6 bytes (0.3% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+18:05:10 Build Finished (took 1s.504ms)
+

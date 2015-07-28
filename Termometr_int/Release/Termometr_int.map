@@ -1,0 +1,554 @@
+Archive member included because of file (symbol)
+
+d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodqi4.o)
+                              ./main.o (__udivmodqi4)
+d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+                              ./main.o (__divmodhi4)
+d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                              d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o (exit)
+d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+                              ./Ethernet/ip_arp_udp_tcp.o (__do_copy_data)
+d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                              ./Ethernet/enc28j60.o (__do_clear_bss)
+d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+                              d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o) (__udivmodhi4)
+d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncmp.o)
+                              ./Ethernet/ip_arp_udp_tcp.o (strncmp)
+d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
+                              ./main.o (strrev)
+d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+                              ./LCD/lcd44780.o (itoa)
+d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(eerd_byte_atmega328p.o)
+                              ./LCD/lcd44780.o (__eerd_byte_m328p)
+
+Allocating common symbols
+Common symbol       size              file
+
+tB                  0x1               ./main.o
+bufor2              0x3               ./main.o
+temp                0x4               ./main.o
+bufor1              0x4               ./main.o
+tA                  0x1               ./main.o
+minus               0x1               ./main.o
+gSensorIDs          0x8               ./1Wire/ds18x20.o
+sensors             0x1               ./main.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00020000         xr
+data             0x00800060         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800100
+LOAD d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+LOAD ./LCD/lcd44780.o
+LOAD ./Ethernet/enc28j60.o
+LOAD ./Ethernet/ip_arp_udp_tcp.o
+LOAD ./1Wire/crc8.o
+LOAD ./1Wire/ds18x20.o
+LOAD ./1Wire/onewire.o
+LOAD ./main.o
+LOAD d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
+LOAD d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a
+LOAD d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000     0x254c
+ *(.vectors)
+ .vectors       0x00000000       0x68 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+                0x00000000                __vectors
+                0x00000000                __vector_default
+ *(.vectors)
+ *(.progmem.gcc*)
+ *(.progmem*)
+ .progmem.data  0x00000068      0x102 ./Ethernet/ip_arp_udp_tcp.o
+                0x00000070                iphdr
+                0x00000068                arpreqhdr
+ .progmem.data  0x0000016a      0x151 ./main.o
+                0x000002bc                . = ALIGN (0x2)
+ *fill*         0x000002bb        0x1 00
+                0x000002bc                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x000002bc        0x0 linker stubs
+ *(.trampolines*)
+                0x000002bc                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x000002bc                __ctors_start = .
+ *(.ctors)
+                0x000002bc                __ctors_end = .
+                0x000002bc                __dtors_start = .
+ *(.dtors)
+                0x000002bc                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x000002bc        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+                0x000002bc                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x000002bc        0xc d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x000002c8       0x16 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+                0x000002c8                __do_copy_data
+ .init4         0x000002de       0x10 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                0x000002de                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x000002ee        0x8 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+ *(.init9)
+ *(.text)
+ .text          0x000002f6        0x4 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+                0x000002f6                __vector_22
+                0x000002f6                __vector_1
+                0x000002f6                __vector_24
+                0x000002f6                __vector_12
+                0x000002f6                __bad_interrupt
+                0x000002f6                __vector_6
+                0x000002f6                __vector_3
+                0x000002f6                __vector_23
+                0x000002f6                __vector_25
+                0x000002f6                __vector_11
+                0x000002f6                __vector_13
+                0x000002f6                __vector_17
+                0x000002f6                __vector_19
+                0x000002f6                __vector_7
+                0x000002f6                __vector_5
+                0x000002f6                __vector_4
+                0x000002f6                __vector_9
+                0x000002f6                __vector_2
+                0x000002f6                __vector_21
+                0x000002f6                __vector_15
+                0x000002f6                __vector_8
+                0x000002f6                __vector_14
+                0x000002f6                __vector_10
+                0x000002f6                __vector_16
+                0x000002f6                __vector_18
+                0x000002f6                __vector_20
+ .text          0x000002fa      0x2cc ./LCD/lcd44780.o
+                0x00000494                lcd_cls
+                0x00000372                _lcd_write_byte
+                0x00000484                lcd_locate
+                0x000003b2                lcd_char
+                0x00000444                lcd_defchar_P
+                0x0000036a                check_BF
+                0x00000522                lcd_defchar_E
+                0x000003c4                lcd_str
+                0x000003a2                lcd_write_cmd
+                0x00000562                lcd_str_E
+                0x00000414                lcd_defchar
+                0x000003e8                lcd_str_P
+                0x0000049c                lcd_init
+                0x0000058e                lcd_int
+                0x000003aa                lcd_write_data
+                0x00000342                _lcd_read_byte
+ .text          0x000005c6      0x4be ./Ethernet/enc28j60.o
+                0x0000060a                enc28j60ReadBuffer
+                0x0000066c                enc28j60SetBank
+                0x00000752                enc28j60Init
+                0x000005f0                enc28j60WriteOp
+                0x000006e4                enc28j60PhyReadH
+                0x000006b4                enc28j60Read
+                0x00000640                enc28j60WriteBuffer
+                0x00000716                enc28j60PhyWrite
+                0x000008ac                enc28j60getrev
+                0x0000095c                enc28j60PacketReceive
+                0x00000950                enc28j60hasRxPkt
+                0x000005c6                enc28j60ReadOp
+                0x000008ba                enc28j60linkup
+                0x000006c8                enc28j60Write
+                0x000008cc                enc28j60PacketSend
+ .text          0x00000a84     0x1170 ./Ethernet/ip_arp_udp_tcp.o
+                0x00000b7a                init_ip_arp_udp_tcp
+                0x00000e9a                client_waiting_gw
+                0x000017c2                make_udp_reply_from_request
+                0x000010f2                www_client_internal_datafill_callback
+                0x000015ae                send_udp_transmit
+                0x00000f78                client_browse_url
+                0x00000bca                check_ip_message_is_from
+                0x00000d66                fill_tcp_data_p
+                0x00001748                make_tcp_synack_from_syn
+                0x00000f42                client_tcp_req
+                0x00000c2e                eth_type_is_ip_and_my_ip
+                0x00001008                www_client_internal_result_callback
+                0x00000c88                fill_ip_hdr_checksum
+                0x00001658                make_tcp_ack_with_data_noflags
+                0x00000ea6                client_store_gw_mac
+                0x00000db2                fill_tcp_data_len
+                0x00000ffe                register_ping_rec_callback
+                0x00000ef8                client_set_gwip
+                0x00000bf6                eth_type_is_arp_and_my_ip
+                0x000015f8                send_udp
+                0x00001716                www_server_reply
+                0x00000fb2                client_http_post
+                0x00000cb6                make_ip
+                0x00000d8c                fill_tcp_data_p2
+                0x0000140a                client_syn
+                0x00001856                make_echo_reply_from_request
+                0x0000150e                client_arp_whohas
+                0x000010b0                fill_tcp_data
+                0x00000cd8                step_seq
+                0x00000d02                make_tcphead
+                0x00000ee8                client_gw_arp_refresh
+                0x00000c6e                make_eth
+                0x00001892                make_arp_answer_from_request
+                0x00000a84                checksum
+                0x00000df0                send_udp_prepare
+                0x000016a8                make_tcp_ack_from_any
+                0x00000f20                client_tcp_set_serverip
+                0x00000dd8                fill_buf_p
+                0x000018e2                packetloop_icmp_tcp
+                0x00000d30                get_tcp_data_len
+ .text          0x00001bf4       0x40 ./1Wire/crc8.o
+                0x00001bf4                crc8
+ .text          0x00001c34      0x3ae ./1Wire/ds18x20.o
+                0x00001e06                DS18X20_read_meas
+                0x00001d58                DS18X20_read_meas_single
+                0x00001ebc                DS18X20_start_meas
+                0x00001ef0                DS18X20_get_power_status
+                0x00001d26                DS18X20_temp_cmp
+                0x00001c34                DS18X20_meas_to_cel
+                0x00001f1a                DS18X20_find_sensor
+                0x00001f4e                search_sensors
+ .text          0x00001fe2      0x166 ./1Wire/onewire.o
+                0x0000210a                ow_command
+                0x00001ff4                ow_reset
+                0x00001fe2                ow_input_pin_state
+                0x0000206a                ow_byte_rd
+                0x00002072                ow_rom_search
+                0x00001fee                ow_parasite_disable
+                0x00001fe8                ow_parasite_enable
+                0x00002048                ow_byte_wr
+                0x00002022                ow_bit_io
+ .text          0x00002148      0x30c ./main.o
+                0x0000222c                http200ok
+                0x000021e2                disp_temp
+                0x0000223e                print_webpage
+                0x00002316                main
+                0x00002148                int2str
+ .text          0x00002454        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodqi4.o)
+ .text          0x00002454        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+ .text          0x00002454        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text          0x00002454        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text          0x00002454        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .text          0x00002454        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+ .text          0x00002454        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncmp.o)
+ .text          0x00002454        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
+ .text          0x00002454        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+ .text          0x00002454        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(eerd_byte_atmega328p.o)
+                0x00002454                . = ALIGN (0x2)
+ *(.text.*)
+ .text.libgcc   0x00002454       0x18 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodqi4.o)
+                0x00002454                __udivmodqi4
+ .text.libgcc   0x0000246c       0x26 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+                0x0000246c                __divmodhi4
+                0x0000246c                _div
+ .text.libgcc   0x00002492        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x00002492        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00002492        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00002492       0x28 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+                0x00002492                __udivmodhi4
+ .text.avr-libc
+                0x000024ba       0x1c d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncmp.o)
+                0x000024ba                strncmp
+ .text.avr-libc
+                0x000024d6       0x20 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
+                0x000024d6                strrev
+ .text.avr-libc
+                0x000024f6       0x42 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+                0x000024f6                itoa
+ .text.avr-libc
+                0x00002538       0x10 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(eerd_byte_atmega328p.o)
+                0x00002538                __eerd_byte_m328p
+                0x00002548                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x00002548        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                0x00002548                exit
+                0x00002548                _exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x00002548        0x4 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ *(.fini0)
+                0x0000254c                _etext = .
+
+.data           0x00800100       0x4a load address 0x0000254c
+                0x00800100                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800100        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+ .data          0x00800100        0x0 ./LCD/lcd44780.o
+ .data          0x00800100        0x0 ./Ethernet/enc28j60.o
+ .data          0x00800100        0x9 ./Ethernet/ip_arp_udp_tcp.o
+ .data          0x00800109        0x0 ./1Wire/crc8.o
+ .data          0x00800109       0x10 ./1Wire/ds18x20.o
+ .data          0x00800119        0x0 ./1Wire/onewire.o
+ .data          0x00800119       0x31 ./main.o
+                0x00800133                tekst
+                0x0080012b                deg
+                0x0080012a                flag
+ .data          0x0080014a        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodqi4.o)
+ .data          0x0080014a        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+ .data          0x0080014a        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .data          0x0080014a        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .data          0x0080014a        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .data          0x0080014a        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+ .data          0x0080014a        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncmp.o)
+ .data          0x0080014a        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
+ .data          0x0080014a        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+ .data          0x0080014a        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(eerd_byte_atmega328p.o)
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x0080014a                . = ALIGN (0x2)
+                0x0080014a                _edata = .
+                0x0080014a                PROVIDE (__data_end, .)
+
+.bss            0x0080014a      0x3d5
+                0x0080014a                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x0080014a        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+ .bss           0x0080014a        0x0 ./LCD/lcd44780.o
+ .bss           0x0080014a        0x3 ./Ethernet/enc28j60.o
+ .bss           0x0080014d       0x36 ./Ethernet/ip_arp_udp_tcp.o
+ .bss           0x00800183        0x0 ./1Wire/crc8.o
+ .bss           0x00800183        0x0 ./1Wire/ds18x20.o
+ .bss           0x00800183        0x0 ./1Wire/onewire.o
+ .bss           0x00800183      0x385 ./main.o
+ .bss           0x00800508        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodqi4.o)
+ .bss           0x00800508        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+ .bss           0x00800508        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .bss           0x00800508        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .bss           0x00800508        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .bss           0x00800508        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+ .bss           0x00800508        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strncmp.o)
+ .bss           0x00800508        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
+ .bss           0x00800508        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+ .bss           0x00800508        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(eerd_byte_atmega328p.o)
+ *(.bss*)
+ *(COMMON)
+ COMMON         0x00800508        0x8 ./1Wire/ds18x20.o
+                0x00800508                gSensorIDs
+ COMMON         0x00800510        0xf ./main.o
+                0x00800510                tB
+                0x00800511                bufor2
+                0x00800514                temp
+                0x00800518                bufor1
+                0x0080051c                tA
+                0x0080051d                minus
+                0x0080051e                sensors
+                0x0080051f                PROVIDE (__bss_end, .)
+                0x0000254c                __data_load_start = LOADADDR (.data)
+                0x00002596                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x0080051f        0x0
+                0x0080051f                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x0080051f                PROVIDE (__noinit_end, .)
+                0x0080051f                _end = .
+                0x0080051f                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges
+ *(.debug_aranges)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info
+ *(.debug_info)
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev
+ *(.debug_abbrev)
+
+.debug_line
+ *(.debug_line)
+
+.debug_frame
+ *(.debug_frame)
+
+.debug_str
+ *(.debug_str)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+OUTPUT(Termometr_int.elf elf32-avr)
+LOAD linker stubs

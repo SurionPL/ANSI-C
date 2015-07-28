@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;Barometr/Adafruit_BMP085.h&apos; to &apos;BMP085.h&apos;" description="Rename resource &apos;Adafruit_BMP085.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Adafruit_BMP085.h" name="BMP085.h" stamp="1437774819518" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;Barometr/Adafruit_BMP085.cpp&apos; to &apos;BMP085.cpp&apos;" description="Rename resource &apos;Adafruit_BMP085.cpp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Adafruit_BMP085.cpp" name="BMP085.cpp" stamp="1437774824132" updateReferences="true"/>
+</session>

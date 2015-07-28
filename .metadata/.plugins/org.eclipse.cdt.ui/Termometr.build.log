@@ -1,0 +1,20 @@
+17:44:38 **** Build of configuration Release for project Termometr ****
+make all 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega328p Termometr.elf
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:    2612 bytes (8.0% Full)
+(.text + .data + .bootloader)
+
+Data:         38 bytes (1.9% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+17:44:41 Build Finished (took 2s.375ms)
+

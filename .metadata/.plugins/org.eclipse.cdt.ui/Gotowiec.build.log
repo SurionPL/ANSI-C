@@ -1,0 +1,80 @@
+17:44:05 **** Build of configuration Release for project Gotowiec ****
+make all 
+Building file: ../crc8.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=1000000UL -MMD -MP -MF"crc8.d" -MT"crc8.d" -c -o "crc8.o" "../crc8.c"
+Finished building: ../crc8.c
+ 
+Building file: ../ds18x20.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=1000000UL -MMD -MP -MF"ds18x20.d" -MT"ds18x20.d" -c -o "ds18x20.o" "../ds18x20.c"
+Finished building: ../ds18x20.c
+ 
+Building file: ../enc28j60.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=1000000UL -MMD -MP -MF"enc28j60.d" -MT"enc28j60.d" -c -o "enc28j60.o" "../enc28j60.c"
+../enc28j60.c:18:1: warning: "F_CPU" redefined
+<command-line>: warning: this is the location of the previous definition
+Finished building: ../enc28j60.c
+ 
+Building file: ../ip_arp_udp_tcp.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=1000000UL -MMD -MP -MF"ip_arp_udp_tcp.d" -MT"ip_arp_udp_tcp.d" -c -o "ip_arp_udp_tcp.o" "../ip_arp_udp_tcp.c"
+Finished building: ../ip_arp_udp_tcp.c
+ 
+Building file: ../main.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=1000000UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
+In file included from ../main.c:23:
+../timeout.h:2:1: warning: "F_CPU" redefined
+<command-line>: warning: this is the location of the previous definition
+Finished building: ../main.c
+ 
+Building file: ../onewire.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=1000000UL -MMD -MP -MF"onewire.d" -MT"onewire.d" -c -o "onewire.o" "../onewire.c"
+In file included from ../onewire.c:20:
+../timeout.h:2:1: warning: "F_CPU" redefined
+<command-line>: warning: this is the location of the previous definition
+Finished building: ../onewire.c
+ 
+Building file: ../websrv_help_functions.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=1000000UL -MMD -MP -MF"websrv_help_functions.d" -MT"websrv_help_functions.d" -c -o "websrv_help_functions.o" "../websrv_help_functions.c"
+Finished building: ../websrv_help_functions.c
+ 
+Building target: Gotowiec.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,Gotowiec.map -mmcu=atmega328p -o "Gotowiec.elf"  ./crc8.o ./ds18x20.o ./enc28j60.o ./ip_arp_udp_tcp.o ./main.o ./onewire.o ./websrv_help_functions.o   
+Finished building target: Gotowiec.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S Gotowiec.elf  >"Gotowiec.lss"
+Finished building: Gotowiec.lss
+ 
+Create Flash image (ihex format)
+avr-objcopy -R .eeprom -O ihex Gotowiec.elf  "Gotowiec.hex"
+Finished building: Gotowiec.hex
+ 
+Create eeprom image (ihex format)
+avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex Gotowiec.elf  "Gotowiec.eep"
+Finished building: Gotowiec.eep
+ 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega328p Gotowiec.elf
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:   12098 bytes (36.9% Full)
+(.text + .data + .bootloader)
+
+Data:        841 bytes (41.1% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+17:44:32 Build Finished (took 27s.113ms)
+

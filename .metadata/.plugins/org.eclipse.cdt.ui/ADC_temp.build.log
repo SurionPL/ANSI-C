@@ -1,0 +1,74 @@
+17:43:21 **** Build of configuration Release for project ADC_temp ****
+make all 
+Building file: ../LCD/lcd44780.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega32 -DF_CPU=11059200UL -MMD -MP -MF"LCD/lcd44780.d" -MT"LCD/lcd44780.d" -c -o "LCD/lcd44780.o" "../LCD/lcd44780.c"
+Finished building: ../LCD/lcd44780.c
+ 
+Building file: ../1wire/crc8.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega32 -DF_CPU=11059200UL -MMD -MP -MF"1wire/crc8.d" -MT"1wire/crc8.d" -c -o "1wire/crc8.o" "../1wire/crc8.c"
+Finished building: ../1wire/crc8.c
+ 
+Building file: ../1wire/ds18x20.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega32 -DF_CPU=11059200UL -MMD -MP -MF"1wire/ds18x20.d" -MT"1wire/ds18x20.d" -c -o "1wire/ds18x20.o" "../1wire/ds18x20.c"
+Finished building: ../1wire/ds18x20.c
+ 
+Building file: ../1wire/onewire.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega32 -DF_CPU=11059200UL -MMD -MP -MF"1wire/onewire.d" -MT"1wire/onewire.d" -c -o "1wire/onewire.o" "../1wire/onewire.c"
+Finished building: ../1wire/onewire.c
+ 
+Building file: ../d_led.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega32 -DF_CPU=11059200UL -MMD -MP -MF"d_led.d" -MT"d_led.d" -c -o "d_led.o" "../d_led.c"
+Finished building: ../d_led.c
+ 
+Building file: ../main.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega32 -DF_CPU=11059200UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
+../main.c: In function 'main':
+../main.c:393: warning: function declared 'noreturn' has a 'return' statement
+Finished building: ../main.c
+ 
+Building file: ../temperatura.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega32 -DF_CPU=11059200UL -MMD -MP -MF"temperatura.d" -MT"temperatura.d" -c -o "temperatura.o" "../temperatura.c"
+Finished building: ../temperatura.c
+ 
+Building target: 06_ADC_TEMP.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,06_ADC_TEMP.map -mmcu=atmega32 -o "06_ADC_TEMP.elf"  ./LCD/lcd44780.o  ./1wire/crc8.o ./1wire/ds18x20.o ./1wire/onewire.o  ./d_led.o ./main.o ./temperatura.o   
+Finished building target: 06_ADC_TEMP.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S 06_ADC_TEMP.elf  >"06_ADC_TEMP.lss"
+Finished building: 06_ADC_TEMP.lss
+ 
+Create Flash image (ihex format)
+avr-objcopy -R .eeprom -O ihex 06_ADC_TEMP.elf  "06_ADC_TEMP.hex"
+Finished building: 06_ADC_TEMP.hex
+ 
+Create eeprom image (ihex format)
+avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex 06_ADC_TEMP.elf  "06_ADC_TEMP.eep"
+Finished building: 06_ADC_TEMP.eep
+ 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega32 06_ADC_TEMP.elf
+AVR Memory Usage
+----------------
+Device: atmega32
+
+Program:    4254 bytes (13.0% Full)
+(.text + .data + .bootloader)
+
+Data:        172 bytes (8.4% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+17:43:46 Build Finished (took 24s.979ms)
+

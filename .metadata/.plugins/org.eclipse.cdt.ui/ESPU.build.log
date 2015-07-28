@@ -1,0 +1,23 @@
+00:09:18 **** Build of configuration Release for project ESPU ****
+make all 
+Building file: ../LCD/lcd44780.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=1000000UL -MMD -MP -MF"LCD/lcd44780.d" -MT"LCD/lcd44780.d" -c -o "LCD/lcd44780.o" "../LCD/lcd44780.c"
+Finished building: ../LCD/lcd44780.c
+ 
+Building file: ../main.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=1000000UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
+../main.c:8:20: warning: avr/io/h: No such file or directory
+In file included from ../main.c:9:
+../LCD/lcd44780.h:160: error: expected ')' before 'y'
+../LCD/lcd44780.h:167: error: expected ')' before 'nr'
+../LCD/lcd44780.h:168: error: expected ')' before 'nr'
+../LCD/lcd44780.h:169: error: expected ')' before 'nr'
+../main.c: In function 'main':
+../main.c:12: warning: implicit declaration of function '_delay_ms'
+../main.c:14: warning: implicit declaration of function 'lcd_locate'
+make: *** [main.o] Error 1
+
+00:09:23 Build Finished (took 5s.24ms)
+

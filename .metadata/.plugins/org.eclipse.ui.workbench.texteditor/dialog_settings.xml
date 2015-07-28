@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="false" key="isRegEx"/>
+		<item value="ERROR" key="selection"/>
+		<item value="false" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="true" key="wrap"/>
+		<item value="false" key="wholeword"/>
+		<list key="findhistory">
+			<item value="error"/>
+			<item value="j"/>
+			<item value="bits"/>
+			<item value="DHT11_PIN"/>
+			<item value="DHT11_PORT"/>
+			<item value="DHT11_DDR"/>
+			<item value="DHT11_INPUTPIN"/>
+			<item value="czujniki_cnt"/>
+		</list>
+		<list key="replacehistory">
+			<item value="data"/>
+			<item value="DHT_IN"/>
+			<item value="DHT_OUT"/>
+			<item value="DHT_DDR"/>
+			<item value="DHT_PIN"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="257" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="380" key="DIALOG_HEIGHT"/>
+		<item value="490" key="DIALOG_Y_ORIGIN"/>
+		<item value="752" key="DIALOG_X_ORIGIN"/>
+	</section>
+</section>

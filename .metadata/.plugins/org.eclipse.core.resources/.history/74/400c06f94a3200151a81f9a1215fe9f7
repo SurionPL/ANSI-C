@@ -1,0 +1,36 @@
+/*
+ * main.c
+ *
+ *  Created on: 4 lut 2015
+ *      Author: Bartek
+ */
+
+#include <avr/io.h>
+#include <util/delay.h>
+#include "USART.h"
+
+//#define FOSC 1000000    // Clock Speed
+//#define BAUD 9600
+#define MYUBRR FOSC/16/BAUD-1
+unsigned int dane=5;
+unsigned char data[]={'B','A','R','T','E','K',' '};
+
+void Send_String(unsigned char data[],unsigned int size) {
+	int i;
+	for(i=0;i<size;i++) {
+		USART_Transmit(data[i]);
+	}
+}
+
+
+int main()
+{
+	DDRB |=(1<<PB1);
+	PORTB|=(1<<PB1);
+
+	USART_Init(MYUBRR);
+	while(1) {
+		Send_String(data,7);
+		_delay_ms(2000);
+	}
+}

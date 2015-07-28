@@ -1,0 +1,6 @@
+DHT11/DHT11.d DHT11/DHT11.o: ../DHT11/DHT11.c ../DHT11/DHT11.h \
+  ../DHT11/../LCD/lcd44780.h
+
+../DHT11/DHT11.h:
+
+../DHT11/../LCD/lcd44780.h:

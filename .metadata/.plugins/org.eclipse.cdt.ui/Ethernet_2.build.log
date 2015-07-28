@@ -1,0 +1,20 @@
+17:51:55 **** Incremental Build of configuration Release for project Ethernet_2 ****
+make all 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega328p Ethernet_2.elf
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:    9638 bytes (29.4% Full)
+(.text + .data + .bootloader)
+
+Data:       1055 bytes (51.5% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+17:51:58 Build Finished (took 3s.91ms)
+

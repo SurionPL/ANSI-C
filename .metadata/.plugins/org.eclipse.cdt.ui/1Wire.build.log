@@ -1,0 +1,44 @@
+23:13:08 **** Incremental Build of configuration Release for project 1Wire ****
+make all 
+Building file: ../main.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=1000000UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
+../main.c: In function 'MeasureTemp':
+../main.c:128: warning: unused variable 'i'
+Finished building: ../main.c
+ 
+Building target: 1Wire.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,1Wire.map -mmcu=atmega8 -o "1Wire.elf"  ./LCD/lcd44780.o  ./main.o   
+Finished building target: 1Wire.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S 1Wire.elf  >"1Wire.lss"
+Finished building: 1Wire.lss
+ 
+Create Flash image (ihex format)
+avr-objcopy -R .eeprom -O ihex 1Wire.elf  "1Wire.hex"
+Finished building: 1Wire.hex
+ 
+Create eeprom image (ihex format)
+avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex 1Wire.elf  "1Wire.eep"
+Finished building: 1Wire.eep
+ 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega8 1Wire.elf
+AVR Memory Usage
+----------------
+Device: atmega8
+
+Program:    2846 bytes (34.7% Full)
+(.text + .data + .bootloader)
+
+Data:         40 bytes (3.9% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+23:13:10 Build Finished (took 2s.85ms)
+
