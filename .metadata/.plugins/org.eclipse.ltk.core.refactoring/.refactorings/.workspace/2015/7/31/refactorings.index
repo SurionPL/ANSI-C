@@ -1,1 +1,3 @@
 1438114379768	Delete resource 'Barometr/BMP180'
+1438374847711	Delete resource 'Barometr/i2c_master.c'
+1438374849372	Delete resource 'Barometr/i2c_master.h'

@@ -1,5 +1,5 @@
 /*
- * I2C.h
+ * twi.h
  *
  *  Created on: 26 lip 2015
  *      Author: Bartek
@@ -14,13 +14,13 @@
 
 
 
-void I2C_SetSpeed(uint16_t speed);
-void I2C_Init();
-void I2C_Start();
-void I2C_Stop();
-void I2C_SendAddr(uint8_t address);
-void I2C_SendByte(uint8_t byte);
-uint8_t I2C_ReciveData_ACK();
-uint8_t I2C_ReciveData_NACK();
-void I2C_ERROR(uint8_t error);
-#endif /* I2C_H_ */
+void twi_set_speed(uint16_t speed);
+void twi_init();
+void twi_start();
+void twi_stop();
+void twi_send_SLA(uint8_t address);
+void twi_send_byte(uint8_t byte);
+uint8_t twi_recive_data_ACK();
+uint8_t twi_recive_data_NACK();
+void twi_ERROR(uint8_t error);
+#endif /* twi_H_ */

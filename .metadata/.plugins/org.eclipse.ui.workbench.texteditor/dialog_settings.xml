@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="ERROR" key="selection"/>
+		<item value="twi" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="i2c"/>
 			<item value="error"/>
 			<item value="j"/>
 			<item value="bits"/>
@@ -15,9 +16,9 @@
 			<item value="DHT11_PORT"/>
 			<item value="DHT11_DDR"/>
 			<item value="DHT11_INPUTPIN"/>
-			<item value="czujniki_cnt"/>
 		</list>
 		<list key="replacehistory">
+			<item value="twi"/>
 			<item value="data"/>
 			<item value="DHT_IN"/>
 			<item value="DHT_OUT"/>

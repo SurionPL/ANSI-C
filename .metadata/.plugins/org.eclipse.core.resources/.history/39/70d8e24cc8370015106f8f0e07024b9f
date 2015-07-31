@@ -1,0 +1,17 @@
+/*
+ * BMP180.c
+ *
+ *  Created on: 28 lip 2015
+ *      Author: Bartek
+ */
+
+#include <avr/io.h>
+#include <util/delay.h>
+#include "I2C.h"
+
+struct Parameters {
+	short AC1,AC2,AC3;
+	unsigned short AC4,AC5,AC6;
+	short B1,B2;
+	short MB
+}*BMP180_param;

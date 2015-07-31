@@ -7,21 +7,18 @@ C_SRCS += \
 ../BMP180.c \
 ../I2C.c \
 ../USART.c \
-../i2c_master.c \
 ../main.c 
 
 OBJS += \
 ./BMP180.o \
 ./I2C.o \
 ./USART.o \
-./i2c_master.o \
 ./main.o 
 
 C_DEPS += \
 ./BMP180.d \
 ./I2C.d \
 ./USART.d \
-./i2c_master.d \
 ./main.d 
 
 
