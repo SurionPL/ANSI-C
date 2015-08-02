@@ -1,0 +1,30 @@
+/*
+ * BMP180.h
+ *
+ *  Created on: 28 lip 2015
+ *      Author: Bartek
+ */
+
+#ifndef BMP180_H_
+#define BMP180_H_
+
+#define BMP180_W 0xEE	//BMP180 Slave Address Write
+#define BMP180_R 0xEF	//BMP180 Slave Address Read
+
+typedef struct
+{
+	short AC1,AC2,AC3;
+	unsigned short AC4,AC5,AC6;
+	short B1,B2;
+	short MB,MC,MD;
+}BMP180_Parameters;
+
+
+
+
+void bmp180_start();
+void bmp180_addr_select(uint8_t address);
+void bmp180_read_param();
+
+
+#endif /* BMP180_H_ */

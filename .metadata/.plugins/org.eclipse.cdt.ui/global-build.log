@@ -1,9 +1,14 @@
-23:24:58 **** Incremental Build of configuration Release for project Barometr ****
+00:50:34 **** Incremental Build of configuration Release for project Barometr ****
 make all 
 Building file: ../BMP180.c
 Invoking: AVR Compiler
 avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"BMP180.d" -MT"BMP180.d" -c -o "BMP180.o" "../BMP180.c"
 Finished building: ../BMP180.c
+ 
+Building file: ../main.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
+Finished building: ../main.c
  
 Building target: Barometr.elf
 Invoking: AVR C Linker
@@ -28,10 +33,10 @@ AVR Memory Usage
 ----------------
 Device: atmega8
 
-Program:     522 bytes (6.4% Full)
+Program:     506 bytes (6.2% Full)
 (.text + .data + .bootloader)
 
-Data:          8 bytes (0.8% Full)
+Data:          6 bytes (0.6% Full)
 (.data + .bss + .noinit)
 
 
