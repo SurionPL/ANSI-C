@@ -9,9 +9,10 @@
 	</section>
 	<section name="ExternalProjectImportWizard">
 		<item value="false" key="WizardProjectsImportPage.STORE_NESTED_PROJECTS"/>
-		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
+		<item value="true" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
 		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="D:\Pendrive\Sandisk\NEW\Polibuda\Książka-Atnel\ECLIPSE\workspace\08_TWI"/>
 			<item value="D:\Eclipse_Workspace\ANSI_C\Termometr_test2"/>
 		</list>
 		<list key="WizardProjectsImportPage.STORE_ARCHIVES">

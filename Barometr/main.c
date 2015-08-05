@@ -14,10 +14,6 @@ char tab[2] = {'O','K'};
 
 #define MYUBRR FOSC/16/BAUD-1
 
-#define BMP_R 0xEF
-#define BMP_W 0xEE
-
-
 int main() {
 	//BMP180_CalibrationParam bmp ={1,2,3,4,5,6,7,8,9,10,11};
 	//uint16_t a=bmp.AC1;
@@ -25,9 +21,9 @@ int main() {
 	DDRB = 1<<PB1;
 	PORTB = 1<<PB1;
 	USART_Init(MYUBRR);
-	twi_init();
-	twi_start();
-	twi_send_SLA(BMP_W);
+	//twi_Init();
+	//twi_Start();
+	//twi_Send_SLA(BMP_W);
 	while(1){
 	}
 }

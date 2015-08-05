@@ -1,0 +1,32 @@
+22:50:40 **** Incremental Build of configuration Release for project 08_TWI ****
+make all 
+Building file: ../LCD/lcd44780.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"LCD/lcd44780.d" -MT"LCD/lcd44780.d" -c -o "LCD/lcd44780.o" "../LCD/lcd44780.c"
+../LCD/lcd44780.c: In function 'data_dir_out':
+../LCD/lcd44780.c:48: error: 'DDRA' undeclared (first use in this function)
+../LCD/lcd44780.c:48: error: (Each undeclared identifier is reported only once
+../LCD/lcd44780.c:48: error: for each function it appears in.)
+../LCD/lcd44780.c: In function 'data_dir_in':
+../LCD/lcd44780.c:61: error: 'DDRA' undeclared (first use in this function)
+../LCD/lcd44780.c: In function 'lcd_sendHalf':
+../LCD/lcd44780.c:74: error: 'PORTA' undeclared (first use in this function)
+../LCD/lcd44780.c: In function 'lcd_readHalf':
+../LCD/lcd44780.c:90: error: 'PINA' undeclared (first use in this function)
+../LCD/lcd44780.c: In function '_lcd_write_byte':
+../LCD/lcd44780.c:110: error: 'PORTA' undeclared (first use in this function)
+../LCD/lcd44780.c: In function '_lcd_read_byte':
+../LCD/lcd44780.c:140: error: 'PORTA' undeclared (first use in this function)
+../LCD/lcd44780.c: In function 'check_BF':
+../LCD/lcd44780.c:163: error: 'PORTA' undeclared (first use in this function)
+../LCD/lcd44780.c: In function 'lcd_write_cmd':
+../LCD/lcd44780.c:176: error: 'PORTA' undeclared (first use in this function)
+../LCD/lcd44780.c: In function 'lcd_write_data':
+../LCD/lcd44780.c:187: error: 'PORTA' undeclared (first use in this function)
+../LCD/lcd44780.c: In function 'lcd_init':
+../LCD/lcd44780.c:483: error: 'DDRA' undeclared (first use in this function)
+../LCD/lcd44780.c:490: error: 'PORTA' undeclared (first use in this function)
+make: *** [LCD/lcd44780.o] Error 1
+
+22:50:41 Build Finished (took 754ms)
+
