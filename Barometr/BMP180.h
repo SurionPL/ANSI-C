@@ -11,11 +11,6 @@
 #define BMP180_W (0xEE)	//BMP180 Slave Address Write
 #define BMP180_R (0xEF)	//BMP180 Slave Address Read
 
-
-
-
-
-
 /*!
  *	@brief this function used for read the calibration
  *	parameter from the register
@@ -73,7 +68,7 @@
 #define BMP180_MB_MSB	0xBA
 #define BMP180_MB_LSB	0xBB
 #define BMP180_MC_MSB	0xBC
-#define BMP180_MC_LB	0xBD
+#define BMP180_MC_LSB	0xBD
 #define BMP180_MD_MSB	0xBE
 #define BMP180_MD_LSB	0xBF
 
@@ -83,12 +78,13 @@
 
 /* Temperature measurement */
 #define BMP180_T_MEASURE	(0x2E)
+#define BMP180_P_MEASURE	(0x34)
 
 /*Presure Measurement Modes*/
-#define BMP180_P_MEASURE_ULP	(0x34)	// Ultra Low Power mode
-#define BMP180_P_MEASURE_ST		(0x74)	// Standard mode
-#define BMP180_P_MEASURE_HR		(0xB4)	// High Resolution mode
-#define BMP180_P_MEASURE_UHR 	(0xF4)	// Ultra High Resolution mode
+//#define BMP180_P_MEASURE_ULP	(0x34)	// Ultra Low Power mode
+//#define BMP180_P_MEASURE_ST		(0x74)	// Standard mode
+//#define BMP180_P_MEASURE_HR		(0xB4)	// High Resolution mode
+//#define BMP180_P_MEASURE_UHR 	(0xF4)	// Ultra High Resolution mode
 
 /*
  * struct bmp180_t {
@@ -113,21 +109,37 @@
 
 */
 
-typedef struct BMP180_t
+typedef enum
+{
+  BMP180_Mode_ULP = 0x34,	// Ultra Low Power mode
+  BMP180_Mode_ST = 	0x74,	// Standard mode
+  BMP180_Mode_HR = 	0xB4,	// High Resolution mode
+  BMP180_Mode_UHR = 0xF4	// Ultra High Resolution mode
+}BMP180Mode_TypeDef;
+
+
+typedef struct
 {
 	short AC1,AC2,AC3;
 	unsigned short AC4,AC5,AC6;
 	short B1,B2;
 	short MB,MC,MD;
-};
+}BMP180_ParamTypDef;
+
+typedef struct
+{
+	BMP180Mode_TypeDef BMP180_Mode;
+}BMP180_InitTypeDef;
 
 
-
-
+//void bmp180_press2alt(unsigned short* pressure);
+void bmp180_init();
 void bmp180_start(uint8_t mode);
+void bmp180_FillStruct(BMP180_ParamTypDef* Bmp180_Param, uint8_t buffer[]);
 //void bmp180_addr_select(uint8_t address);
 void bmp180_read_param();
-void bmp180_get_temp(unsigned char* T);
+void bmp180_get_temp(BMP180_InitTypeDef* BMP180_Init, unsigned char temperature[]);
+void bmp180_get_press(BMP180_InitTypeDef* BMP180_Init, unsigned char pressure[]);
 
 
 #endif /* BMP180_H_ */
