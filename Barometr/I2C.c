@@ -76,7 +76,8 @@ void TWI_Send_SLA(uint8_t address)
 	TWDR = address;
 	TWCR = (1<<TWINT) | (1<<TWEN);
 	while (!(TWCR & (1<<TWINT))); //Czekaj na zakonczenie
-	if (TW_STATUS != status){
+	if (TW_STATUS != status)
+	{
 		TWI_ERROR(I2C_ACK_ERROR); //NACK error
 		//return I2C_ACK_ERROR;
 		//Send_String(table2,2);

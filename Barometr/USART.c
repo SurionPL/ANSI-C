@@ -8,7 +8,7 @@
 #include "USART.h"
 
 
-void USART_Transmit( unsigned char data )
+void USART_Transmit(uint8_t data )
 {
 	/* Wait for empty transmit buffer */
 	while ( !( UCSRA & (1<<UDRE)) );
@@ -16,13 +16,13 @@ void USART_Transmit( unsigned char data )
 	UDR = data;
 }
 
-void USART_Flush(void )
+void USART_Flush(void)
 {
 		unsigned char dummy;
 		while ( UCSRA & (1<<RXC) ) dummy = UDR;
 }
 
-void USART_Init(unsigned int ubrr)
+void USART_Init(uint16_t ubrr)
 {
 	/* Set baud rate */
 	UBRRH = (unsigned char)(ubrr>>8);
@@ -33,7 +33,7 @@ void USART_Init(unsigned int ubrr)
 	UCSRC = (1<<URSEL)|(1<<USBS)|(3<<UCSZ0);
 }
 
-void USART_Transmit_Int( unsigned int data )
+void USART_Transmit_Int(uint16_t data)
 {
 	/* Wait for empty transmit buffer */
 	while ( !( UCSRA & (1<<UDRE)) );
@@ -54,7 +54,7 @@ uint8_t USART_Receive()
 	return UDR;
 }
 
-void Send_String(unsigned char data[], unsigned int size) {
+void USART_Send_String(uint8_t data[], uint16_t size) {
 	int i;
 	for(i=0;i<size;i++) {
 		USART_Transmit(data[i]);

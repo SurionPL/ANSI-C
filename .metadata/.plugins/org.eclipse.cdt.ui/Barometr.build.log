@@ -1,13 +1,10 @@
-15:39:35 **** Incremental Build of configuration Release for project Barometr ****
+00:35:20 **** Incremental Build of configuration Release for project Barometr ****
 make all 
-Building file: ../BMP180.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"BMP180.d" -MT"BMP180.d" -c -o "BMP180.o" "../BMP180.c"
-Finished building: ../BMP180.c
- 
 Building file: ../main.c
 Invoking: AVR Compiler
 avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
+../main.c: In function 'main':
+../main.c:49: warning: pointer targets in passing argument 1 of 'USART_Send_String' differ in signedness
 Finished building: ../main.c
  
 Building target: Barometr.elf
@@ -33,15 +30,15 @@ AVR Memory Usage
 ----------------
 Device: atmega8
 
-Program:    2192 bytes (26.8% Full)
+Program:    4140 bytes (50.5% Full)
 (.text + .data + .bootloader)
 
-Data:         47 bytes (4.6% Full)
+Data:         59 bytes (5.8% Full)
 (.data + .bss + .noinit)
 
 
 Finished building: sizedummy
  
 
-15:39:39 Build Finished (took 4s.259ms)
+00:35:23 Build Finished (took 2s.879ms)
 

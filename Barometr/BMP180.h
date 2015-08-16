@@ -132,14 +132,27 @@ typedef struct
 }BMP180_InitTypeDef;
 
 
-//void bmp180_press2alt(unsigned short* pressure);
-void bmp180_init();
-void bmp180_start(uint8_t mode);
-void bmp180_FillStruct(BMP180_ParamTypDef* Bmp180_Param, uint8_t buffer[]);
+typedef struct
+{
+	BMP180_ParamTypDef BMP180_Parameters;
+	//BMP180_InitTypeDef BMP180_Init;
+	BMP180Mode_TypeDef BMP180_Mode;
+	long UT;
+	long UP;
+	long B5;
+}BMP180_TypeDef;
+
+
+void bmp180_init(BMP180_TypeDef* BMP180_Struct);
+void bmp180_start_temp(BMP180_TypeDef* BMP180_Struct);
+void bmp180_start_press(BMP180_TypeDef* BMP180_Struct);
+void bmp180_FillStruct(BMP180_TypeDef* BMP180_Struct, uint8_t buffer[]);
 //void bmp180_addr_select(uint8_t address);
-void bmp180_read_param();
-void bmp180_get_temp(BMP180_InitTypeDef* BMP180_Init, unsigned char temperature[]);
-void bmp180_get_press(BMP180_InitTypeDef* BMP180_Init, unsigned char pressure[]);
+void bmp180_read_param(BMP180_TypeDef* BMP180_Struct);
+void bmp180_get_temp(BMP180_TypeDef* BMP180_Struct, uint8_t temperature[]);
+void bmp180_get_press(BMP180_TypeDef* BMP180_Struct, int pressure[]);
+void bmp180_send_param(BMP180_TypeDef* BMP180_Struct);
+uint16_t bmp180_read_register(uint8_t address);
 
 
 #endif /* BMP180_H_ */
