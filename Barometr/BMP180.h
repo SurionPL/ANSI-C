@@ -49,30 +49,30 @@
 
 #define BMP180_MEM_START 0xAA
 
-#define BMP180_AC1_MSB	0xAA
-#define BMP180_AC1_LSB	0xAB
-#define BMP180_AC2_MSB	0xAC
-#define BMP180_AC2_LSB	0xAD
-#define BMP180_AC3_MSB	0xAE
-#define BMP180_AC3_LSB	0xAF
-#define BMP180_AC4_MSB	0xB0
-#define BMP180_AC4_LSB	0xB1
-#define BMP180_AC5_MSB	0xB2
-#define BMP180_AC5_LSB	0xB3
-#define BMP180_AC6_MSB	0xB4
-#define BMP180_AC6_LSB	0xB5
-#define BMP180_B1_MSB	0xB6
-#define BMP180_B1_LSB	0xB7
-#define BMP180_B2_MSB	0xB8
-#define BMP180_B2_LSB	0xB9
-#define BMP180_MB_MSB	0xBA
-#define BMP180_MB_LSB	0xBB
-#define BMP180_MC_MSB	0xBC
-#define BMP180_MC_LSB	0xBD
-#define BMP180_MD_MSB	0xBE
-#define BMP180_MD_LSB	0xBF
+#define BMP180_AC1_MSB	0xAA			/* AC1 parameter MSB address */
+#define BMP180_AC1_LSB	0xAB			/* AC1 parameter LSB address */
+#define BMP180_AC2_MSB	0xAC			/* AC2 parameter MSB address */
+#define BMP180_AC2_LSB	0xAD			/* AC2 parameter LSB address */
+#define BMP180_AC3_MSB	0xAE			/* AC3 parameter MSB address */
+#define BMP180_AC3_LSB	0xAF			/* AC3 parameter LSB address */
+#define BMP180_AC4_MSB	0xB0			/* AC4 parameter MSB address */
+#define BMP180_AC4_LSB	0xB1			/* AC4 parameter LSB address */
+#define BMP180_AC5_MSB	0xB2			/* AC5 parameter MSB address */
+#define BMP180_AC5_LSB	0xB3			/* AC5 parameter LSB address */
+#define BMP180_AC6_MSB	0xB4			/* AC6 parameter MSB address */
+#define BMP180_AC6_LSB	0xB5			/* AC5 parameter LSB address */
+#define BMP180_B1_MSB	0xB6			/*  B1 parameter MSB address */
+#define BMP180_B1_LSB	0xB7			/*  B1 parameter LSB address */
+#define BMP180_B2_MSB	0xB8			/*  B2 parameter MSB address */
+#define BMP180_B2_LSB	0xB9			/*  B2 parameter LSB address */
+#define BMP180_MB_MSB	0xBA			/*  MB parameter MSB address */
+#define BMP180_MB_LSB	0xBB			/*  MB parameter LSB address */
+#define BMP180_MC_MSB	0xBC			/*  MC parameter MSB address */
+#define BMP180_MC_LSB	0xBD			/*  MC parameter LSB address */
+#define BMP180_MD_MSB	0xBE			/*  MD parameter MSB address */
+#define BMP180_MD_LSB	0xBF			/*  MD parameter LSB address */
 
-#define BMP180_CHIP_ID_REG	0xD0
+#define BMP180_CHIP_ID_REG	0xD0		/*  Chip ID register address */
 #define BMP180_CHIP_ID		0x55
 
 
@@ -109,12 +109,13 @@
 
 */
 
+
 typedef enum
 {
-  BMP180_Mode_ULP = 0x34,	// Ultra Low Power mode
-  BMP180_Mode_ST = 	0x74,	// Standard mode
-  BMP180_Mode_HR = 	0xB4,	// High Resolution mode
-  BMP180_Mode_UHR = 0xF4	// Ultra High Resolution mode
+  BMP180_Mode_ULP = 0x34,	/* Ultra Low Power mode */
+  BMP180_Mode_ST = 	0x74,	/* Standard mode */
+  BMP180_Mode_HR = 	0xB4,	/* High Resolution mode */
+  BMP180_Mode_UHR = 0xF4	/* Ultra High Resolution mode */
 }BMP180Mode_TypeDef;
 
 

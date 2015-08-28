@@ -1,0 +1,50 @@
+/*
+ * ESP8266.h
+ *
+ *  Created on: 28 sie 2015
+ *      Author: Bartek
+ */
+
+#ifndef ESP8266_H_
+#define ESP8266_H_
+
+
+
+
+/**
+  * @brief  Configuration Mode enumeration
+  */
+typedef enum
+{
+  ESP8266_STA = 1,		// Client mode
+  ESP8266_AP = 	2,      // Acces Point mode
+  ESP8266_BTH = 3		// Both - Client & Acces Point mode
+}ESP8266Mode_TypeDef;
+
+
+
+/**
+  * @brief  DHCP Protocol enabling enumeration
+  */
+typedef enum
+{ DHCP_DISABLE = 0,
+  DHCP_ENABLE
+}ESPDynHostConf_TypeDef;				//?????????????????
+
+
+/**
+  * @brief  ESP8266 Init structure definition
+  */
+typedef struct
+{
+  ESP8266Mode_TypeDef Mode;
+  ESPDynamicHis_TypeDef DHCP_Protocol;
+}ESP8266_InitTypeDef;
+
+
+
+void esp8266_Init();
+void esp8266_Connect(char* ssid, char* password);
+void esp8266_Restart();
+
+#endif /* ESP8266_H_ */

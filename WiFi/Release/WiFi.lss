@@ -1,0 +1,305 @@
+
+WiFi.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000001e8  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000018  00800060  000001e8  0000025c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	24 c0       	rjmp	.+72     	; 0x4c <__bad_interrupt>
+   4:	23 c0       	rjmp	.+70     	; 0x4c <__bad_interrupt>
+   6:	22 c0       	rjmp	.+68     	; 0x4c <__bad_interrupt>
+   8:	21 c0       	rjmp	.+66     	; 0x4c <__bad_interrupt>
+   a:	20 c0       	rjmp	.+64     	; 0x4c <__bad_interrupt>
+   c:	1f c0       	rjmp	.+62     	; 0x4c <__bad_interrupt>
+   e:	1e c0       	rjmp	.+60     	; 0x4c <__bad_interrupt>
+  10:	1d c0       	rjmp	.+58     	; 0x4c <__bad_interrupt>
+  12:	1c c0       	rjmp	.+56     	; 0x4c <__bad_interrupt>
+  14:	1b c0       	rjmp	.+54     	; 0x4c <__bad_interrupt>
+  16:	1a c0       	rjmp	.+52     	; 0x4c <__bad_interrupt>
+  18:	19 c0       	rjmp	.+50     	; 0x4c <__bad_interrupt>
+  1a:	18 c0       	rjmp	.+48     	; 0x4c <__bad_interrupt>
+  1c:	17 c0       	rjmp	.+46     	; 0x4c <__bad_interrupt>
+  1e:	16 c0       	rjmp	.+44     	; 0x4c <__bad_interrupt>
+  20:	15 c0       	rjmp	.+42     	; 0x4c <__bad_interrupt>
+  22:	14 c0       	rjmp	.+40     	; 0x4c <__bad_interrupt>
+  24:	13 c0       	rjmp	.+38     	; 0x4c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	e8 ee       	ldi	r30, 0xE8	; 232
+  3a:	f1 e0       	ldi	r31, 0x01	; 1
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <.do_copy_data_start>
+
+0000003e <.do_copy_data_loop>:
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+
+00000042 <.do_copy_data_start>:
+  42:	a8 37       	cpi	r26, 0x78	; 120
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <.do_copy_data_loop>
+  48:	cc d0       	rcall	.+408    	; 0x1e2 <main>
+  4a:	cc c0       	rjmp	.+408    	; 0x1e4 <_exit>
+
+0000004c <__bad_interrupt>:
+  4c:	d9 cf       	rjmp	.-78     	; 0x0 <__vectors>
+
+0000004e <ESP_InitStruct>:
+  4e:	fc 01       	movw	r30, r24
+  50:	12 82       	std	Z+2, r1	; 0x02
+  52:	11 82       	std	Z+1, r1	; 0x01
+  54:	10 82       	st	Z, r1
+  56:	08 95       	ret
+
+00000058 <ESP_PowerOn>:
+  58:	c0 9a       	sbi	0x18, 0	; 24
+  5a:	08 95       	ret
+
+0000005c <ESP_PowerOff>:
+  5c:	c0 98       	cbi	0x18, 0	; 24
+  5e:	08 95       	ret
+
+00000060 <ESP_SetIP>:
+  60:	80 e0       	ldi	r24, 0x00	; 0
+  62:	08 95       	ret
+
+00000064 <ESP_SetMAC>:
+  64:	80 e0       	ldi	r24, 0x00	; 0
+  66:	08 95       	ret
+
+00000068 <ESP_AccessPoint>:
+  68:	08 95       	ret
+
+0000006a <ESP_Disconnect>:
+  6a:	df 93       	push	r29
+  6c:	cf 93       	push	r28
+  6e:	cd b7       	in	r28, 0x3d	; 61
+  70:	de b7       	in	r29, 0x3e	; 62
+  72:	28 97       	sbiw	r28, 0x08	; 8
+  74:	0f b6       	in	r0, 0x3f	; 63
+  76:	f8 94       	cli
+  78:	de bf       	out	0x3e, r29	; 62
+  7a:	0f be       	out	0x3f, r0	; 63
+  7c:	cd bf       	out	0x3d, r28	; 61
+  7e:	de 01       	movw	r26, r28
+  80:	11 96       	adiw	r26, 0x01	; 1
+  82:	e0 e6       	ldi	r30, 0x60	; 96
+  84:	f0 e0       	ldi	r31, 0x00	; 0
+  86:	88 e0       	ldi	r24, 0x08	; 8
+  88:	01 90       	ld	r0, Z+
+  8a:	0d 92       	st	X+, r0
+  8c:	81 50       	subi	r24, 0x01	; 1
+  8e:	e1 f7       	brne	.-8      	; 0x88 <ESP_Disconnect+0x1e>
+  90:	ce 01       	movw	r24, r28
+  92:	01 96       	adiw	r24, 0x01	; 1
+  94:	68 e0       	ldi	r22, 0x08	; 8
+  96:	70 e0       	ldi	r23, 0x00	; 0
+  98:	94 d0       	rcall	.+296    	; 0x1c2 <USART_Send_String>
+  9a:	28 96       	adiw	r28, 0x08	; 8
+  9c:	0f b6       	in	r0, 0x3f	; 63
+  9e:	f8 94       	cli
+  a0:	de bf       	out	0x3e, r29	; 62
+  a2:	0f be       	out	0x3f, r0	; 63
+  a4:	cd bf       	out	0x3d, r28	; 61
+  a6:	cf 91       	pop	r28
+  a8:	df 91       	pop	r29
+  aa:	08 95       	ret
+
+000000ac <ESP_DeInit>:
+  ac:	df 93       	push	r29
+  ae:	cf 93       	push	r28
+  b0:	00 d0       	rcall	.+0      	; 0xb2 <ESP_DeInit+0x6>
+  b2:	00 d0       	rcall	.+0      	; 0xb4 <ESP_DeInit+0x8>
+  b4:	00 d0       	rcall	.+0      	; 0xb6 <ESP_DeInit+0xa>
+  b6:	cd b7       	in	r28, 0x3d	; 61
+  b8:	de b7       	in	r29, 0x3e	; 62
+  ba:	de 01       	movw	r26, r28
+  bc:	11 96       	adiw	r26, 0x01	; 1
+  be:	e8 e6       	ldi	r30, 0x68	; 104
+  c0:	f0 e0       	ldi	r31, 0x00	; 0
+  c2:	86 e0       	ldi	r24, 0x06	; 6
+  c4:	01 90       	ld	r0, Z+
+  c6:	0d 92       	st	X+, r0
+  c8:	81 50       	subi	r24, 0x01	; 1
+  ca:	e1 f7       	brne	.-8      	; 0xc4 <ESP_DeInit+0x18>
+  cc:	ce 01       	movw	r24, r28
+  ce:	01 96       	adiw	r24, 0x01	; 1
+  d0:	66 e0       	ldi	r22, 0x06	; 6
+  d2:	70 e0       	ldi	r23, 0x00	; 0
+  d4:	76 d0       	rcall	.+236    	; 0x1c2 <USART_Send_String>
+  d6:	26 96       	adiw	r28, 0x06	; 6
+  d8:	0f b6       	in	r0, 0x3f	; 63
+  da:	f8 94       	cli
+  dc:	de bf       	out	0x3e, r29	; 62
+  de:	0f be       	out	0x3f, r0	; 63
+  e0:	cd bf       	out	0x3d, r28	; 61
+  e2:	cf 91       	pop	r28
+  e4:	df 91       	pop	r29
+  e6:	08 95       	ret
+
+000000e8 <ESP_Connect>:
+  e8:	ef 92       	push	r14
+  ea:	ff 92       	push	r15
+  ec:	0f 93       	push	r16
+  ee:	1f 93       	push	r17
+  f0:	df 93       	push	r29
+  f2:	cf 93       	push	r28
+  f4:	cd b7       	in	r28, 0x3d	; 61
+  f6:	de b7       	in	r29, 0x3e	; 62
+  f8:	2b 97       	sbiw	r28, 0x0b	; 11
+  fa:	0f b6       	in	r0, 0x3f	; 63
+  fc:	f8 94       	cli
+  fe:	de bf       	out	0x3e, r29	; 62
+ 100:	0f be       	out	0x3f, r0	; 63
+ 102:	cd bf       	out	0x3d, r28	; 61
+ 104:	18 2f       	mov	r17, r24
+ 106:	09 2f       	mov	r16, r25
+ 108:	f6 2e       	mov	r15, r22
+ 10a:	e7 2e       	mov	r14, r23
+ 10c:	de 01       	movw	r26, r28
+ 10e:	12 96       	adiw	r26, 0x02	; 2
+ 110:	ee e6       	ldi	r30, 0x6E	; 110
+ 112:	f0 e0       	ldi	r31, 0x00	; 0
+ 114:	8a e0       	ldi	r24, 0x0A	; 10
+ 116:	01 90       	ld	r0, Z+
+ 118:	0d 92       	st	X+, r0
+ 11a:	81 50       	subi	r24, 0x01	; 1
+ 11c:	e1 f7       	brne	.-8      	; 0x116 <ESP_Connect+0x2e>
+ 11e:	8c e2       	ldi	r24, 0x2C	; 44
+ 120:	89 83       	std	Y+1, r24	; 0x01
+ 122:	ce 01       	movw	r24, r28
+ 124:	02 96       	adiw	r24, 0x02	; 2
+ 126:	69 e0       	ldi	r22, 0x09	; 9
+ 128:	70 e0       	ldi	r23, 0x00	; 0
+ 12a:	4b d0       	rcall	.+150    	; 0x1c2 <USART_Send_String>
+ 12c:	e1 2f       	mov	r30, r17
+ 12e:	f0 2f       	mov	r31, r16
+ 130:	df 01       	movw	r26, r30
+ 132:	0d 90       	ld	r0, X+
+ 134:	00 20       	and	r0, r0
+ 136:	e9 f7       	brne	.-6      	; 0x132 <ESP_Connect+0x4a>
+ 138:	11 97       	sbiw	r26, 0x01	; 1
+ 13a:	ae 1b       	sub	r26, r30
+ 13c:	bf 0b       	sbc	r27, r31
+ 13e:	81 2f       	mov	r24, r17
+ 140:	90 2f       	mov	r25, r16
+ 142:	bd 01       	movw	r22, r26
+ 144:	3e d0       	rcall	.+124    	; 0x1c2 <USART_Send_String>
+ 146:	ce 01       	movw	r24, r28
+ 148:	01 96       	adiw	r24, 0x01	; 1
+ 14a:	61 e0       	ldi	r22, 0x01	; 1
+ 14c:	70 e0       	ldi	r23, 0x00	; 0
+ 14e:	39 d0       	rcall	.+114    	; 0x1c2 <USART_Send_String>
+ 150:	ef 2d       	mov	r30, r15
+ 152:	fe 2d       	mov	r31, r14
+ 154:	df 01       	movw	r26, r30
+ 156:	0d 90       	ld	r0, X+
+ 158:	00 20       	and	r0, r0
+ 15a:	e9 f7       	brne	.-6      	; 0x156 <ESP_Connect+0x6e>
+ 15c:	11 97       	sbiw	r26, 0x01	; 1
+ 15e:	ae 1b       	sub	r26, r30
+ 160:	bf 0b       	sbc	r27, r31
+ 162:	8f 2d       	mov	r24, r15
+ 164:	9e 2d       	mov	r25, r14
+ 166:	bd 01       	movw	r22, r26
+ 168:	2c d0       	rcall	.+88     	; 0x1c2 <USART_Send_String>
+ 16a:	2b 96       	adiw	r28, 0x0b	; 11
+ 16c:	0f b6       	in	r0, 0x3f	; 63
+ 16e:	f8 94       	cli
+ 170:	de bf       	out	0x3e, r29	; 62
+ 172:	0f be       	out	0x3f, r0	; 63
+ 174:	cd bf       	out	0x3d, r28	; 61
+ 176:	cf 91       	pop	r28
+ 178:	df 91       	pop	r29
+ 17a:	1f 91       	pop	r17
+ 17c:	0f 91       	pop	r16
+ 17e:	ff 90       	pop	r15
+ 180:	ef 90       	pop	r14
+ 182:	08 95       	ret
+
+00000184 <ESP_Init>:
+ 184:	89 e1       	ldi	r24, 0x19	; 25
+ 186:	90 e0       	ldi	r25, 0x00	; 0
+ 188:	0a d0       	rcall	.+20     	; 0x19e <USART_Init>
+ 18a:	08 95       	ret
+
+0000018c <USART_Transmit>:
+ 18c:	5d 9b       	sbis	0x0b, 5	; 11
+ 18e:	fe cf       	rjmp	.-4      	; 0x18c <USART_Transmit>
+ 190:	8c b9       	out	0x0c, r24	; 12
+ 192:	08 95       	ret
+
+00000194 <USART_Flush>:
+ 194:	01 c0       	rjmp	.+2      	; 0x198 <USART_Flush+0x4>
+ 196:	8c b1       	in	r24, 0x0c	; 12
+ 198:	5f 99       	sbic	0x0b, 7	; 11
+ 19a:	fd cf       	rjmp	.-6      	; 0x196 <USART_Flush+0x2>
+ 19c:	08 95       	ret
+
+0000019e <USART_Init>:
+ 19e:	90 bd       	out	0x20, r25	; 32
+ 1a0:	89 b9       	out	0x09, r24	; 9
+ 1a2:	88 e1       	ldi	r24, 0x18	; 24
+ 1a4:	8a b9       	out	0x0a, r24	; 10
+ 1a6:	8e e8       	ldi	r24, 0x8E	; 142
+ 1a8:	80 bd       	out	0x20, r24	; 32
+ 1aa:	08 95       	ret
+
+000001ac <USART_Transmit_Int>:
+ 1ac:	5d 9b       	sbis	0x0b, 5	; 11
+ 1ae:	fe cf       	rjmp	.-4      	; 0x1ac <USART_Transmit_Int>
+ 1b0:	50 98       	cbi	0x0a, 0	; 10
+ 1b2:	90 fd       	sbrc	r25, 0
+ 1b4:	50 9a       	sbi	0x0a, 0	; 10
+ 1b6:	8c b9       	out	0x0c, r24	; 12
+ 1b8:	08 95       	ret
+
+000001ba <USART_Receive>:
+ 1ba:	5f 9b       	sbis	0x0b, 7	; 11
+ 1bc:	fe cf       	rjmp	.-4      	; 0x1ba <USART_Receive>
+ 1be:	8c b1       	in	r24, 0x0c	; 12
+ 1c0:	08 95       	ret
+
+000001c2 <USART_Send_String>:
+ 1c2:	20 e0       	ldi	r18, 0x00	; 0
+ 1c4:	30 e0       	ldi	r19, 0x00	; 0
+ 1c6:	09 c0       	rjmp	.+18     	; 0x1da <USART_Send_String+0x18>
+ 1c8:	fc 01       	movw	r30, r24
+ 1ca:	e2 0f       	add	r30, r18
+ 1cc:	f3 1f       	adc	r31, r19
+ 1ce:	e0 81       	ld	r30, Z
+ 1d0:	5d 9b       	sbis	0x0b, 5	; 11
+ 1d2:	fe cf       	rjmp	.-4      	; 0x1d0 <USART_Send_String+0xe>
+ 1d4:	ec b9       	out	0x0c, r30	; 12
+ 1d6:	2f 5f       	subi	r18, 0xFF	; 255
+ 1d8:	3f 4f       	sbci	r19, 0xFF	; 255
+ 1da:	26 17       	cp	r18, r22
+ 1dc:	37 07       	cpc	r19, r23
+ 1de:	a0 f3       	brcs	.-24     	; 0x1c8 <USART_Send_String+0x6>
+ 1e0:	08 95       	ret
+
+000001e2 <main>:
+ 1e2:	ff cf       	rjmp	.-2      	; 0x1e2 <main>
+
+000001e4 <_exit>:
+ 1e4:	f8 94       	cli
+
+000001e6 <__stop_program>:
+ 1e6:	ff cf       	rjmp	.-2      	; 0x1e6 <__stop_program>

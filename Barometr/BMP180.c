@@ -37,7 +37,7 @@ void bmp180_start_temp(BMP180_TypeDef* BMP180_Struct)				//Zmienic nazwe mode
 }
 
 void bmp180_start_press(BMP180_TypeDef* BMP180_Struct)
-{    //Zmienic nazwe mode
+{
 	TWI_Start();
 	TWI_Send_SLA(BMP180_W);
 	TWI_Write(BMP180_CTRL_MEAS_REG);
@@ -93,11 +93,11 @@ void bmp180_get_temp(BMP180_TypeDef* BMP180_Struct, uint8_t temperature[])
 	TWI_Stop();
 
 	//Algorithm
-	(BMP180_Struct->B5) = 0;
-	(BMP180_Struct->UT) = (((long)UT_MSB)<<8) | ((long)UT_LSB);
+	BMP180_Struct->B5 = 0;
+	BMP180_Struct->UT = (((long)UT_MSB)<<8) | ((long)UT_LSB);
 	long X1 = (((long)(BMP180_Struct->UT)-(long)(BMP180_Struct->BMP180_Parameters.AC6))*(long)(BMP180_Struct->BMP180_Parameters.AC5))>>15;
 	long X2 = ((long)(BMP180_Struct->BMP180_Parameters.MC) << 11)/(X1+(long)(BMP180_Struct->BMP180_Parameters.MD));
-	(BMP180_Struct->B5) = X1 + X2;
+	BMP180_Struct->B5 = X1 + X2;
 	long T = ((BMP180_Struct->B5) + 8) >> 4;
 	temperature[0] = (uint8_t)(T/10);
 	temperature[1] = (uint8_t)(T%10);

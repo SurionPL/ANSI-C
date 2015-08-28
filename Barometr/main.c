@@ -11,7 +11,7 @@
 #include "USART.h"
 #include "BMP180.h"
 #include "I2C.h"
-char tab[2] = {'O','K'};
+
 uint8_t temperature[2];
 int pressure[2];
 
@@ -46,7 +46,7 @@ int main() {
 		sprintf(buffer,"%u",pressure[0]);
 		//USART_Transmit_Int(pressure[0]);
 
-		USART_Send_String(buffer, 5);
+		//USART_Send_String(buffer, 5);
 		//bmp180_send_param(&bmp180_Struct);
 		//USART_Transmit_Int();
 		_delay_ms(5000);

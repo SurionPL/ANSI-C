@@ -8,7 +8,7 @@
 #include "USART.h"
 
 
-void USART_Transmit(uint8_t data )
+void USART_Transmit(uint8_t data)
 {
 	/* Wait for empty transmit buffer */
 	while ( !( UCSRA & (1<<UDRE)) );
@@ -19,7 +19,7 @@ void USART_Transmit(uint8_t data )
 void USART_Flush(void)
 {
 		unsigned char dummy;
-		while ( UCSRA & (1<<RXC) ) dummy = UDR;
+		while ( UCSRA & (1<<RXC)) dummy = UDR;
 }
 
 void USART_Init(uint16_t ubrr)
