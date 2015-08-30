@@ -33,7 +33,7 @@ void USART_Init(uint16_t ubrr)
 	UCSRC = (1<<URSEL)|(1<<USBS)|(3<<UCSZ0);
 }
 
-void USART_Transmit_Int(uint16_t data)
+void USART_TransmitInt(uint16_t data)
 {
 	/* Wait for empty transmit buffer */
 	while ( !( UCSRA & (1<<UDRE)) );
@@ -54,9 +54,18 @@ uint8_t USART_Receive()
 	return UDR;
 }
 
-void USART_Send_String(char data[], uint16_t size) {
+
+void USART_TransmitString(char data[], uint16_t size) {
 	int i;
 	for(i=0;i<size;i++) {
 		USART_Transmit(data[i]);
 	}
 }
+
+void USART_TransmitData(uint8_t data[], uint16_t size) {
+	int i;
+	for(i=0;i<size;i++) {
+		USART_Transmit(data[i]);
+	}
+}
+

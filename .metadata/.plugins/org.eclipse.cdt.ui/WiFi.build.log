@@ -1,8 +1,11 @@
-01:33:56 **** Incremental Build of configuration Release for project WiFi ****
+17:09:36 **** Incremental Build of configuration Release for project WiFi ****
 make all 
 Building file: ../ESP8266.c
 Invoking: AVR Compiler
 avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"ESP8266.d" -MT"ESP8266.d" -c -o "ESP8266.o" "../ESP8266.c"
+../ESP8266.c: In function 'ESP_AccessPoint':
+../ESP8266.c:191: warning: unused variable 'comma'
+../ESP8266.c:190: warning: unused variable 'command'
 Finished building: ../ESP8266.c
  
 Building target: WiFi.elf
@@ -10,21 +13,33 @@ Invoking: AVR C Linker
 avr-gcc -Wl,-Map,WiFi.map -mmcu=atmega8 -o "WiFi.elf"  ./ESP8266.o ./USART.o ./main.o   
 Finished building target: WiFi.elf
  
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S WiFi.elf  >"WiFi.lss"
+Finished building: WiFi.lss
+ 
+Create Flash image (ihex format)
+avr-objcopy -R .eeprom -O ihex WiFi.elf  "WiFi.hex"
+Finished building: WiFi.hex
+ 
+Create eeprom image (ihex format)
+avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex WiFi.elf  "WiFi.eep"
+Finished building: WiFi.eep
+ 
 Invoking: Print Size
 avr-size --format=avr --mcu=atmega8 WiFi.elf
 AVR Memory Usage
 ----------------
 Device: atmega8
 
-Program:     512 bytes (6.3% Full)
+Program:     852 bytes (10.4% Full)
 (.text + .data + .bootloader)
 
-Data:         24 bytes (2.3% Full)
+Data:         78 bytes (7.6% Full)
 (.data + .bss + .noinit)
 
 
 Finished building: sizedummy
  
 
-01:33:57 Build Finished (took 1s.379ms)
+17:09:38 Build Finished (took 2s.46ms)
 

@@ -8,15 +8,13 @@
 #ifndef ESP8266_H_
 #define ESP8266_H_
 
-
-
-
 #define ESP_CHIP_PIN	PB0
 #define ESP_CHIP_PORT	PORTB
 
 
+
 /**
-  * @brief  Configuration Mode enumeration
+  * @Brief  Configuration Mode enumeration
   */
 typedef enum
 {
@@ -26,7 +24,7 @@ typedef enum
 }ESP_Mode_TypeDef;
 
 /**
-  * @brief  DHCP Protocol enabling enumeration
+  * @Brief  DHCP Protocol enabling enumeration
   */
 typedef enum
 { DHCP_DISABLE = 0,
@@ -35,21 +33,21 @@ typedef enum
 
 
 /**
-  * @brief  Configuration ?????????????????? poprawic nazwy?
+  * @Brief  Configuration ?????????????????? poprawic nazwy?
   */
 typedef enum
 {
   AP_ECN_OPEN	= 0,		// ??  ECN czy nie
-  AP_WEP		= 1,		//
-  AP_WPA		= 2,		//
-  AP_WPA2		= 3,		//
-  AP_WPA_WPA2	= 4			//
+  AP_ECN_WEP		= 1,		//
+  AP_ECN_WPA		= 2,		//
+  AP_ECN_WPA2		= 3,		//
+  AP_ECN_WPA_WPA2	= 4			//
 }ESP_SecurityMode_TypeDef;
 
 
 
 /**
-  * @brief  ESP8266 Init structure definition
+  * @Brief  ESP8266 Init structure definition
   */
 typedef struct
 {
@@ -57,6 +55,15 @@ typedef struct
   ESP_DHCP_TypeDef DHCP_Protocol;
   ESP_SecurityMode_TypeDef AP_SecurityMode;		//Czy ma byc tutaj
 }ESP_InitTypeDef;
+
+/**
+  * @Brief  DHCP Protocol enabling enumeration		?????????
+  */
+typedef enum
+{
+	ESP_OK = 0,
+	ESP_ERROR = 1
+}ESP_ErrorFlag;
 
 
 
@@ -67,7 +74,7 @@ void ESP_Init();
 void ESP_DeInit();
 void ESP_Connect(char* ssid, char* password);
 void ESP_Disconnect();
-uint8_t ESP_SetIP(ESP_InitTypeDef* ESP8266_InitStruct);
-uint8_t ESP_SetMAC(ESP_InitTypeDef* ESP8266_InitStruct);
+ESP_ErrorFlag ESP_SetIP(ESP_InitTypeDef* ESP8266_InitStruct, uint8_t* ip_address);
+ESP_ErrorFlag ESP_SetMAC(ESP_InitTypeDef* ESP8266_InitStruct, uint8_t* mac_address);
 void ESP_AccessPoint(ESP_InitTypeDef* ESP8266_InitStruct);
 #endif /* ESP8266_H_ */
