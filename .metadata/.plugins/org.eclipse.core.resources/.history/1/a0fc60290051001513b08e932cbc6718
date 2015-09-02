@@ -1,0 +1,21 @@
+/*
+ * RTC.h
+ *
+ *  Created on: 2 wrz 2015
+ *      Author: Bartek
+ */
+
+#ifndef RTC_H_
+#define RTC_H_
+
+#define DS1307_SLA_W
+#define DS1307_SLA_R
+
+
+
+typedef struct
+{
+
+}RTC_TypeDef;
+
+#endif /* RTC_H_ */

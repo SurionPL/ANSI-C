@@ -1,0 +1,16 @@
+/*
+ * RTC.h
+ *
+ *  Created on: 2 wrz 2015
+ *      Author: Bartek
+ */
+
+#ifndef RTC_H_
+#define RTC_H_
+
+typedef struct
+{
+
+}RTC_TypeDef;
+
+#endif /* RTC_H_ */
