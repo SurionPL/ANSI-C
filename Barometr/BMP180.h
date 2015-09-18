@@ -5,14 +5,31 @@
  *      Author: Bartek
  */
 
+
+/**
+  ******************************************************************************
+  * @ File    BMP180.h
+  * @ Author  Bartlomiej Kusmierczyk
+  * @ Version V1.0
+  * @ Date    28-July-2015
+  * @ Brief   This file contains all the functions prototypes for the BMP180
+  * 		  temperature and pressure sensor library.
+  ******************************************************************************
+  */
+
+
 #ifndef BMP180_H_
 #define BMP180_H_
 
-#define BMP180_W (0xEE)	//BMP180 Slave Address Write
-#define BMP180_R (0xEF)	//BMP180 Slave Address Read
 
-/*!
- *	@brief this function used for read the calibration
+/** @defgroup BMP180 slave address
+  * @{
+  */
+#define BMP180_W ((uint8_t)0xEE)	//BMP180 Slave Address Write
+#define BMP180_R ((uint8_t)0xEF)	//BMP180 Slave Address Read
+
+/*
+ *	@Brief this function used for read the calibration
  *	parameter from the register
  *
  *	Parameter  |  MSB    |  LSB    |  bit
@@ -37,48 +54,56 @@
  *
 */
 
-#define BMP180_ADC_XLSB_REG 0xF8
-#define BMP180_ADC_LSB_REG	0xF7
-#define BMP180_ADC_MSB_REG	0xF6
+/** @ Defgroup: BMP180 registers addresses
+  * @{
+  */
+#define BMP180_ADC_XLSB_REG ((uint8_t)0xF8)
+#define BMP180_ADC_LSB_REG	((uint8_t)0xF7)
+#define BMP180_ADC_MSB_REG	((uint8_t)0xF6)
 
-#define BMP180_CTRL_MEAS_REG 0xF4
+#define BMP180_CTRL_MEAS_REG ((uint8_t)0xF4)
 //#define BMP180_SCO_PARAM
-#define BMP180_SOFT_RST_REG 0xE0
-#define BMP180_SOFT_RST_VAL 0xB6
+#define BMP180_SOFT_RST_REG ((uint8_t)0xE0)
+#define BMP180_SOFT_RST_VAL ((uint8_t)0xB6)
 /*BMP180 Calibration Parameters Addresses*/  //Poprawic nazwe
 
+
+
+/** @ Defgroup: BMP180 slave address
+  * @{
+  */
 #define BMP180_MEM_START 0xAA
 
-#define BMP180_AC1_MSB	0xAA			/* AC1 parameter MSB address */
-#define BMP180_AC1_LSB	0xAB			/* AC1 parameter LSB address */
-#define BMP180_AC2_MSB	0xAC			/* AC2 parameter MSB address */
-#define BMP180_AC2_LSB	0xAD			/* AC2 parameter LSB address */
-#define BMP180_AC3_MSB	0xAE			/* AC3 parameter MSB address */
-#define BMP180_AC3_LSB	0xAF			/* AC3 parameter LSB address */
-#define BMP180_AC4_MSB	0xB0			/* AC4 parameter MSB address */
-#define BMP180_AC4_LSB	0xB1			/* AC4 parameter LSB address */
-#define BMP180_AC5_MSB	0xB2			/* AC5 parameter MSB address */
-#define BMP180_AC5_LSB	0xB3			/* AC5 parameter LSB address */
-#define BMP180_AC6_MSB	0xB4			/* AC6 parameter MSB address */
-#define BMP180_AC6_LSB	0xB5			/* AC5 parameter LSB address */
-#define BMP180_B1_MSB	0xB6			/*  B1 parameter MSB address */
-#define BMP180_B1_LSB	0xB7			/*  B1 parameter LSB address */
-#define BMP180_B2_MSB	0xB8			/*  B2 parameter MSB address */
-#define BMP180_B2_LSB	0xB9			/*  B2 parameter LSB address */
-#define BMP180_MB_MSB	0xBA			/*  MB parameter MSB address */
-#define BMP180_MB_LSB	0xBB			/*  MB parameter LSB address */
-#define BMP180_MC_MSB	0xBC			/*  MC parameter MSB address */
-#define BMP180_MC_LSB	0xBD			/*  MC parameter LSB address */
-#define BMP180_MD_MSB	0xBE			/*  MD parameter MSB address */
-#define BMP180_MD_LSB	0xBF			/*  MD parameter LSB address */
+#define BMP180_AC1_MSB	((uint8_t)0xAA)			/* AC1 parameter MSB address */
+#define BMP180_AC1_LSB	((uint8_t)0xAB)			/* AC1 parameter LSB address */
+#define BMP180_AC2_MSB	((uint8_t)0xAC)			/* AC2 parameter MSB address */
+#define BMP180_AC2_LSB	((uint8_t)0xAD)			/* AC2 parameter LSB address */
+#define BMP180_AC3_MSB	((uint8_t)0xAE)			/* AC3 parameter MSB address */
+#define BMP180_AC3_LSB	((uint8_t)0xAF)			/* AC3 parameter LSB address */
+#define BMP180_AC4_MSB	((uint8_t)0xB0)			/* AC4 parameter MSB address */
+#define BMP180_AC4_LSB	((uint8_t)0xB1)			/* AC4 parameter LSB address */
+#define BMP180_AC5_MSB	((uint8_t)0xB2)			/* AC5 parameter MSB address */
+#define BMP180_AC5_LSB	((uint8_t)0xB3)			/* AC5 parameter LSB address */
+#define BMP180_AC6_MSB	((uint8_t)0xB4)			/* AC6 parameter MSB address */
+#define BMP180_AC6_LSB	((uint8_t)0xB5)			/* AC5 parameter LSB address */
+#define BMP180_B1_MSB	((uint8_t)0xB6)			/*  B1 parameter MSB address */
+#define BMP180_B1_LSB	((uint8_t)0xB7)			/*  B1 parameter LSB address */
+#define BMP180_B2_MSB	((uint8_t)0xB8)			/*  B2 parameter MSB address */
+#define BMP180_B2_LSB	((uint8_t)0xB9)			/*  B2 parameter LSB address */
+#define BMP180_MB_MSB	((uint8_t)0xBA)			/*  MB parameter MSB address */
+#define BMP180_MB_LSB	((uint8_t)0xBB)			/*  MB parameter LSB address */
+#define BMP180_MC_MSB	((uint8_t)0xBC)			/*  MC parameter MSB address */
+#define BMP180_MC_LSB	((uint8_t)0xBD)			/*  MC parameter LSB address */
+#define BMP180_MD_MSB	((uint8_t)0xBE)			/*  MD parameter MSB address */
+#define BMP180_MD_LSB	((uint8_t)0xBF)			/*  MD parameter LSB address */
 
-#define BMP180_CHIP_ID_REG	0xD0		/*  Chip ID register address */
-#define BMP180_CHIP_ID		0x55
+#define BMP180_CHIP_ID_REG	((uint8_t)0xD0)		/*  Chip ID register address */
+#define BMP180_CHIP_ID		((uint8_t)0x55)
 
 
 /* Temperature measurement */
-#define BMP180_T_MEASURE	(0x2E)
-#define BMP180_P_MEASURE	(0x34)
+#define BMP180_T_MEASURE	((uint8_t)0x2E)
+#define BMP180_P_MEASURE	((uint8_t)0x34)
 
 /*Presure Measurement Modes*/
 //#define BMP180_P_MEASURE_ULP	(0x34)	// Ultra Low Power mode
@@ -119,6 +144,9 @@ typedef enum
 }BMP180Mode_TypeDef;
 
 
+/**
+  * @ Brief:  BMP180 Parameters structure definition
+  */
 typedef struct
 {
 	short AC1,AC2,AC3;
@@ -127,12 +155,19 @@ typedef struct
 	short MB,MC,MD;
 }BMP180_ParamTypDef;
 
+
+/**
+  * @ Brief:  BMP180 Init structure definition
+  */
 typedef struct
 {
 	BMP180Mode_TypeDef BMP180_Mode;
 }BMP180_InitTypeDef;
 
 
+/**
+  * @ Brief:  BMP180 structure definition
+  */
 typedef struct
 {
 	BMP180_ParamTypDef BMP180_Parameters;
@@ -144,16 +179,16 @@ typedef struct
 }BMP180_TypeDef;
 
 
-void bmp180_init(BMP180_TypeDef* BMP180_Struct);
-void bmp180_start_temp(BMP180_TypeDef* BMP180_Struct);
-void bmp180_start_press(BMP180_TypeDef* BMP180_Struct);
-void bmp180_FillStruct(BMP180_TypeDef* BMP180_Struct, uint8_t buffer[]);
+void BMP180_Init(BMP180_TypeDef* BMP180_Struct);
+void BMP180_StartTemp(BMP180_TypeDef* BMP180_Struct);
+void BMP180_StartPress(BMP180_TypeDef* BMP180_Struct);
+void BMP180_FillStruct(BMP180_TypeDef* BMP180_Struct, uint8_t buffer[]);
 //void bmp180_addr_select(uint8_t address);
-void bmp180_read_param(BMP180_TypeDef* BMP180_Struct);
-void bmp180_get_temp(BMP180_TypeDef* BMP180_Struct, uint8_t temperature[]);
-void bmp180_get_press(BMP180_TypeDef* BMP180_Struct, int pressure[]);
-void bmp180_send_param(BMP180_TypeDef* BMP180_Struct);
-uint16_t bmp180_read_register(uint8_t address);
+void BMP180_ReadPram(BMP180_TypeDef* BMP180_Struct);
+void BMP180_GetTemp(BMP180_TypeDef* BMP180_Struct, uint8_t temperature[]);
+void BMP180_GetPress(BMP180_TypeDef* BMP180_Struct, int pressure[]);
+void BMP180_SendParam(BMP180_TypeDef* BMP180_Struct);
+uint16_t BMP180_ReadRegister(uint8_t address);
 
 
 #endif /* BMP180_H_ */

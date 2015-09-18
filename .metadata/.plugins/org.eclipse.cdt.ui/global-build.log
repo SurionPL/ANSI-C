@@ -1,42 +1,15 @@
-14:02:14 **** Incremental Build of configuration Release for project RTC ****
+03:20:45 **** Incremental Build of configuration Release for project Barometr ****
 make all 
-Building file: ../I2C.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"I2C.d" -MT"I2C.d" -c -o "I2C.o" "../I2C.c"
-Finished building: ../I2C.c
- 
-Building file: ../RTC.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"RTC.d" -MT"RTC.d" -c -o "RTC.o" "../RTC.c"
-Finished building: ../RTC.c
- 
-Building target: RTC.elf
-Invoking: AVR C Linker
-avr-gcc -Wl,-Map,RTC.map -mmcu=atmega8 -o "RTC.elf"  ./I2C.o ./RTC.o ./USART.o ./main.o   
-Finished building target: RTC.elf
- 
-Invoking: AVR Create Extended Listing
-avr-objdump -h -S RTC.elf  >"RTC.lss"
-Finished building: RTC.lss
- 
-Create Flash image (ihex format)
-avr-objcopy -R .eeprom -O ihex RTC.elf  "RTC.hex"
-Finished building: RTC.hex
- 
-Create eeprom image (ihex format)
-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex RTC.elf  "RTC.eep"
-Finished building: RTC.eep
- 
 Invoking: Print Size
-avr-size --format=avr --mcu=atmega8 RTC.elf
+avr-size --format=avr --mcu=atmega8 Barometr.elf
 AVR Memory Usage
 ----------------
 Device: atmega8
 
-Program:     716 bytes (8.7% Full)
+Program:    4092 bytes (50.0% Full)
 (.text + .data + .bootloader)
 
-Data:          5 bytes (0.5% Full)
+Data:         51 bytes (5.0% Full)
 (.data + .bss + .noinit)
 
 

@@ -5,6 +5,17 @@
  *      Author: Bartek
  */
 
+/**
+  ******************************************************************************
+  * @ File    BMP180.c
+  * @ Author  Bartlomiej Kusmierczyk
+  * @ Version V1.0
+  * @ Date    28-July-2015
+  * @ Brief   This file provides all the GPIO firmware functions.???????
+  ******************************************************************************
+  */
+
+/* Includes ------------------------------------------------------------------*/
 #include <avr/io.h>
 #include <util/delay.h>
 #include "I2C.h"
@@ -16,36 +27,25 @@
  * [1] - fractional part
 */
 
-
-//long UT;
-//long UP;
-//long B5;
-
-
-//BMP180_TypeDef BMP180_Struct;
-
-//static BMP180_ParametersTypDef BMP180_Parameterseters;			//Parameterseter structure
-
-
-void bmp180_start_temp(BMP180_TypeDef* BMP180_Struct)				//Zmienic nazwe mode
+void BMP180_StartTemp(BMP180_TypeDef* BMP180_Struct)				//Zmienic nazwe mode
 {
 	TWI_Start();
 	TWI_Send_SLA(BMP180_W);
-	TWI_Write(BMP180_CTRL_MEAS_REG);
-	TWI_Write(BMP180_T_MEASURE);
+	TWI_WriteByte(BMP180_CTRL_MEAS_REG);
+	TWI_WriteByte(BMP180_T_MEASURE);
 	TWI_Stop();
 }
 
-void bmp180_start_press(BMP180_TypeDef* BMP180_Struct)
+void BMP180_StartPress(BMP180_TypeDef* BMP180_Struct)
 {
 	TWI_Start();
 	TWI_Send_SLA(BMP180_W);
-	TWI_Write(BMP180_CTRL_MEAS_REG);
-	TWI_Write(BMP180_Struct->BMP180_Mode);
+	TWI_WriteByte(BMP180_CTRL_MEAS_REG);
+	TWI_WriteByte(BMP180_Struct->BMP180_Mode);
 	TWI_Stop();
 }
 
-void bmp180_FillStruct(BMP180_TypeDef* BMP180_Struct, uint8_t buffer[])
+void BMP180_FillStruct(BMP180_TypeDef* BMP180_Struct, uint8_t buffer[])
 {
 	BMP180_Struct->BMP180_Parameters.AC1 = (short)((buffer[0]<<8) 			| buffer[1]);			/*AC1 Parameterseter*/
 	BMP180_Struct->BMP180_Parameters.AC2 = (short)((buffer[2]<<8) 			| buffer[3]);			/*AC2 Parameterseter*/
@@ -61,7 +61,7 @@ void bmp180_FillStruct(BMP180_TypeDef* BMP180_Struct, uint8_t buffer[])
 }
 
 
-void bmp180_read_param(BMP180_TypeDef* BMP180_Struct)
+void BMP180_ReadParam(BMP180_TypeDef* BMP180_Struct)
 {
 	uint8_t buffer[22];
 	for(uint8_t i = 0; i<22; i++) {
@@ -69,41 +69,45 @@ void bmp180_read_param(BMP180_TypeDef* BMP180_Struct)
 	}
 	TWI_Start();
 	TWI_Send_SLA(BMP180_W);
-	TWI_Write(BMP180_AC1_MSB);
+	TWI_WriteByte(BMP180_AC1_MSB);
 	TWI_RStart();
 	TWI_Send_SLA(BMP180_R);
-	TWI_Read(buffer,22);
+	//TWI_ReadBytes(buffer,22);
+	for (uint8_t i=0; i<21; i++) {			//   ?
+		buffer[i] = TWI_ReadByte_ACK();
+	}
+	buffer[21] = TWI_ReadByte_NACK();
 	//TWI_Stop();
-	bmp180_FillStruct(BMP180_Struct, buffer);
+	BMP180_FillStruct(BMP180_Struct, buffer);
 }
 
 
 
-void bmp180_get_temp(BMP180_TypeDef* BMP180_Struct, uint8_t temperature[])
+void BMP180_GetTemp(BMP180_TypeDef* BMP180_Struct, uint8_t temperature[])
 {
 	uint8_t UT_MSB = 0, UT_LSB = 0;
 	BMP180_Struct->UT = 0;
 	TWI_Start();
 	TWI_Send_SLA(BMP180_W);
-	TWI_Write(BMP180_ADC_MSB_REG);
+	TWI_WriteByte(BMP180_ADC_MSB_REG);
 	TWI_RStart();
 	TWI_Send_SLA(BMP180_R);
-	UT_MSB = TWI_Read_ACK();
-	UT_LSB = TWI_Read_NACK();
+	UT_MSB = TWI_ReadByte_ACK();
+	UT_LSB = TWI_ReadByte_NACK();
 	TWI_Stop();
 
 	//Algorithm
 	BMP180_Struct->B5 = 0;
-	BMP180_Struct->UT = (((long)UT_MSB)<<8) | ((long)UT_LSB);
-	long X1 = (((long)(BMP180_Struct->UT)-(long)(BMP180_Struct->BMP180_Parameters.AC6))*(long)(BMP180_Struct->BMP180_Parameters.AC5))>>15;
+	BMP180_Struct->UT = (((long)UT_MSB) << 8) | ((long)UT_LSB);
+	long X1 = (((long)(BMP180_Struct->UT)-(long)(BMP180_Struct->BMP180_Parameters.AC6))*(long)(BMP180_Struct->BMP180_Parameters.AC5)) >> 15;
 	long X2 = ((long)(BMP180_Struct->BMP180_Parameters.MC) << 11)/(X1+(long)(BMP180_Struct->BMP180_Parameters.MD));
 	BMP180_Struct->B5 = X1 + X2;
-	long T = ((BMP180_Struct->B5) + 8) >> 4;
-	temperature[0] = (uint8_t)(T/10);
-	temperature[1] = (uint8_t)(T%10);
+	long T = ((BMP180_Struct->B5) + 8L) >> 4;
+	temperature[0] = (uint8_t)(T/10L);
+	temperature[1] = (uint8_t)(T%10L);
 }
 
-void bmp180_get_press(BMP180_TypeDef* BMP180_Struct, int pressure[])
+void BMP180_GetPress(BMP180_TypeDef* BMP180_Struct, int pressure[])
 {
 	uint8_t UP_MSB  = 0;
 	uint8_t UP_LSB  = 0;
@@ -113,39 +117,39 @@ void bmp180_get_press(BMP180_TypeDef* BMP180_Struct, int pressure[])
 	BMP180_Struct->UP = 0;
 	TWI_Start();
 	TWI_Send_SLA(BMP180_W);
-	TWI_Write(BMP180_ADC_MSB_REG);
+	TWI_WriteByte(BMP180_ADC_MSB_REG);
 	TWI_RStart();
 	TWI_Send_SLA(BMP180_R);
-	UP_MSB = TWI_Read_ACK();
-	UP_LSB = TWI_Read_ACK();
-	UP_XLSB = TWI_Read_NACK();
+	UP_MSB = TWI_ReadByte_ACK();
+	UP_LSB = TWI_ReadByte_ACK();
+	UP_XLSB = TWI_ReadByte_NACK();
 	TWI_Stop();
-	(BMP180_Struct->UP) = ((((long)UP_MSB)<<16) | (((long)UP_LSB)<<8) | (((long)UP_XLSB))) >> (8-OSS);
+	(BMP180_Struct->UP) = ((((long)UP_MSB) << 16) | (((long)UP_LSB) << 8) | (((long)UP_XLSB))) >> (8 - OSS);
 
-	/*Pressure algorithm*/
+	/* Pressure algorithm */
 
-	long B6 = (BMP180_Struct->B5)-400;
-	long X1 = (((long)(BMP180_Struct->BMP180_Parameters.B2))*((B6*B6)>>12))>>11;
-	long X2 = ((long)(BMP180_Struct->BMP180_Parameters.AC2)*B6)>>11;
+	long B6 = (BMP180_Struct->B5) - 400L;
+	long X1 = (((long)BMP180_Struct->BMP180_Parameters.B2)*((B6*B6) >> 12)) >> 11;
+	long X2 = (((long)BMP180_Struct->BMP180_Parameters.AC2)*B6)>>11;
 	long X3 = X1 + X2;
-	long B3 = ((((((long)(BMP180_Struct->BMP180_Parameters.AC1))<<2)+X3)<<OSS)+2)>>2;
+	long B3 = ((((((long)BMP180_Struct->BMP180_Parameters.AC1) << 2) + X3)<< OSS) + 2L) >> 2;
 	X1 = ((long)(BMP180_Struct->BMP180_Parameters.AC3)*B6) >> 13;
-	X2 = (((long)(BMP180_Struct->BMP180_Parameters.B1))*((B6*B6) >> 12))>>16;
-	X3 = ((X1 + X2) + 2) >> 2;
-	unsigned long B4 = ((long)(BMP180_Struct->BMP180_Parameters.AC4) * (unsigned long)(X3 + 32768)) >> 15;
-	unsigned long B7 = ((unsigned long)(BMP180_Struct->UP)-B3)*(50000 >> OSS);
+	X2 = (((long)BMP180_Struct->BMP180_Parameters.B1)*((B6*B6) >> 12)) >> 16;
+	X3 = ((X1 + X2) + 2L) >> 2;
+	unsigned long B4 = (((long)BMP180_Struct->BMP180_Parameters.AC4) * ((unsigned long)(X3 + 32768UL))) >> 15;
+	unsigned long B7 = (((unsigned long)BMP180_Struct->UP) - B3) * (50000UL >> OSS);
 
-	if (B7 < 0x80000000)
+	if (B7 < 0x80000000UL)
 	{
-		P = (B7 << 1) / B4;
+		P = (long)((B7 << 1) / B4);
 	}
 	else
 	{
-		P = (B7 / B4) << 1;  // <<1   == *2
+		P = (long)((B7 / B4) << 1);  // <<1   == *2
 	}
-	X1 = (((P >> 8)*(P >> 8))*3038) >> 16;
+	X1 = (((P >> 8) * (P >> 8)) * 3038L) >> 16;
 	X2 = (-7357L * P) >> 16;
-	P = (P + X1 + X2 + 3791) >> 4;
+	P = (P + X1 + X2 + 3791L) >> 4;
 
 	pressure[0] = (int)P;
 	//pressure[1] = (uint16_t)(P % 100);
@@ -153,14 +157,14 @@ void bmp180_get_press(BMP180_TypeDef* BMP180_Struct, int pressure[])
 
 
 
-void bmp180_init(BMP180_TypeDef* BMP180_Struct)
+void BMP180_Init(BMP180_TypeDef* BMP180_Struct)
 {
 	TWI_Init();
-	bmp180_read_param(BMP180_Struct);
+	BMP180_ReadParam(BMP180_Struct);
 }
 
 
-void bmp180_send_param(BMP180_TypeDef* BMP180_Struct)
+void BMP180_SendParam(BMP180_TypeDef* BMP180_Struct)
 {
 	USART_Transmit_Int(BMP180_Struct->BMP180_Parameters.AC1);
 	unsigned char sp[] = " ";
@@ -172,16 +176,16 @@ void bmp180_send_param(BMP180_TypeDef* BMP180_Struct)
 	USART_Transmit_Int(BMP180_Struct->BMP180_Parameters.AC4);
 	USART_Send_String(sp,1);
 	USART_Transmit_Int(BMP180_Struct->BMP180_Parameters.AC5);
-		USART_Send_String(sp,1);
+	USART_Send_String(sp,1);
 
 }
 
-uint16_t bmp180_read_register(uint8_t address)
+uint16_t BMP180_ReadRegister(uint8_t address)//?????????
 {
 	TWI_Start();
 	TWI_Send_SLA(BMP180_W);
-	TWI_Write(address);
+	TWI_WriteByte(address);
 	TWI_RStart();
 	TWI_Send_SLA(BMP180_R);
-	return 0;
+	return 0;  //?????
 }

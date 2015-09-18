@@ -1,0 +1,47 @@
+01:40:15 **** Incremental Build of configuration Release for project LUX ****
+make all 
+Building file: ../BH1750.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"BH1750.d" -MT"BH1750.d" -c -o "BH1750.o" "../BH1750.c"
+Finished building: ../BH1750.c
+ 
+Building file: ../main.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
+Finished building: ../main.c
+ 
+Building target: LUX.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,LUX.map -mmcu=atmega8 -o "LUX.elf"  ./BH1750.o ./I2C.o ./USART.o ./main.o   
+Finished building target: LUX.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S LUX.elf  >"LUX.lss"
+Finished building: LUX.lss
+ 
+Create Flash image (ihex format)
+avr-objcopy -R .eeprom -O ihex LUX.elf  "LUX.hex"
+Finished building: LUX.hex
+ 
+Create eeprom image (ihex format)
+avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex LUX.elf  "LUX.eep"
+Finished building: LUX.eep
+ 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega8 LUX.elf
+AVR Memory Usage
+----------------
+Device: atmega8
+
+Program:     932 bytes (11.4% Full)
+(.text + .data + .bootloader)
+
+Data:          5 bytes (0.5% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+01:40:17 Build Finished (took 2s.546ms)
+

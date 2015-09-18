@@ -1,10 +1,13 @@
-/*
- * ESP8266.h
- *
- *  Created on: 28 sie 2015
- *      Author: Bartek
- */
-
+/**
+  ******************************************************************************
+  * @ File:    ESP8266.h
+  * @ Author:  Bartlomiej Kusmierczyk
+  * @ Version: V1.0
+  * @ Date:    28 August 2015
+  * @ Brief:   This file contains all the functions prototypes for the ADC
+  * 		   firmware library.?????????????
+  ******************************************************************************
+  */
 #ifndef ESP8266_H_
 #define ESP8266_H_
 

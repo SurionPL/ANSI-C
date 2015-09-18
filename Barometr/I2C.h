@@ -21,9 +21,9 @@ void TWI_Start();
 void TWI_RStart();
 void TWI_Stop();
 void TWI_Send_SLA(uint8_t address);
-void TWI_Write(uint8_t byte);
-uint8_t TWI_Read_ACK();
-uint8_t TWI_Read_NACK();
+void TWI_WriteByte(uint8_t byte);
+uint8_t TWI_ReadByte_ACK();
+uint8_t TWI_ReadByte_NACK();
 void TWI_ERROR(uint8_t error);
-void TWI_Read(uint8_t buffer[], uint8_t size);
+inline void TWI_ReadBytes(uint8_t buffer[], uint8_t size);
 #endif /* TWI_H_ */

@@ -12,8 +12,8 @@
 #include "BMP180.h"
 #include "I2C.h"
 
-uint8_t temperature[2];
-int pressure[2];
+//uint8_t temperature[2];
+//int pressure[2];
 
 
 char buffer[5];
@@ -24,25 +24,26 @@ int main() {
 	DDRB  = 1<<PB1;
 	PORTB = 1<<PB1;
 
-	bmp180_Struct.BMP180_Mode=BMP180_Mode_ST;
-
+	//bmp180_Struct.BMP180_Mode=BMP180_Mode_ST;
+	bmp180_Struct.BMP180_Mode=0x74;
 	uint8_t temperature[2] = {0,0};
-	bmp180_init(&bmp180_Struct);
+	int pressure[2] = {0,0};
+	BMP180_Init(&bmp180_Struct);
 	USART_Init(MYUBRR);
 
 	//temperature[0] = 0;
 	pressure[0] = 0;
-	bmp180_start_temp(&bmp180_Struct);
+	BMP180_StartTemp(&bmp180_Struct);
 	_delay_ms(20);
-	bmp180_get_temp(&bmp180_Struct, temperature);
+	BMP180_GetTemp(&bmp180_Struct, temperature);
 
 	//unsigned char ciag[] = " TEMP: ";
 	//USART_Send_String(ciag, 6);
 	while(1){
-		bmp180_start_press(&bmp180_Struct);
-		_delay_ms(20);
+		BMP180_StartPress(&bmp180_Struct);
+		_delay_ms(50);
 
-		bmp180_get_press(&bmp180_Struct, pressure);
+		BMP180_GetPress(&bmp180_Struct, pressure);
 		sprintf(buffer,"%u",pressure[0]);
 		//USART_Transmit_Int(pressure[0]);
 
