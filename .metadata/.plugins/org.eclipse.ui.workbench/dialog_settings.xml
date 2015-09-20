@@ -10,8 +10,8 @@
 		<item value="true" key="internalFilter"/>
 	</section>
 	<section name="org.eclipse.ui.internal.QuickAccess">
-		<item value="526" key="dialogHeight"/>
-		<item value="1023" key="dialogWidth"/>
+		<item value="718" key="dialogHeight"/>
+		<item value="960" key="dialogWidth"/>
 		<list key="textEntries">
 		</list>
 		<list key="orderedElements">
@@ -32,7 +32,7 @@
 	</section>
 	<section name="ImportExportAction">
 		<item value="org.eclipse.ui.wizards.export.FileSystem" key="ImportExportPage.STORE_SELECTED_EXPORT_WIZARD_ID"/>
-		<item value="org.eclipse.ui.wizards.import.ExternalProject" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>
+		<item value="org.eclipse.ui.wizards.import.FileSystem" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>
 		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
 			<item value="org.eclipse.ui.Basic"/>
 			<item value="org.eclipse.cdt.ui.importWizardCategory"/>
@@ -53,11 +53,11 @@
 		<item value="true" key="WizardFileSystemResourceImportPage1.STORE_CREATE_CONTAINER_STRUCTURE_ID"/>
 		<item value="false" key="WizardFileSystemResourceImportPage1.STORE_OVERWRITE_EXISTING_RESOURCES_ID"/>
 		<list key="WizardFileSystemResourceImportPage1.STORE_SOURCE_NAMES_ID">
+			<item value="D:\Pendrive\Sandisk\NEW\Polibuda\Książka-Atnel\ECLIPSE\workspace\07_UART\MKUART"/>
+			<item value="D:\Pendrive\Sandisk\NEW\Polibuda\Książka-Atnel\ECLIPSE\workspace\08_TWI\I2C_TWI"/>
 			<item value="C:\Users\Bartek\Desktop\BMP180_driver-master"/>
 			<item value="D:\Sandisk\NEW\Polibuda\Książka-Atnel\ECLIPSE\workspace\06_ADC_TEMP"/>
 			<item value="C:\Users\Bartek\Desktop\eth_rem_tempctl-0.9"/>
-			<item value="C:\Users\Bartek\Desktop\DSP_Lab3"/>
-			<item value="C:\Users\Bartek\Desktop\DSP_Lab2"/>
 		</list>
 	</section>
 </section>

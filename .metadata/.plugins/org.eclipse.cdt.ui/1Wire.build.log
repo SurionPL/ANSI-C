@@ -1,10 +1,10 @@
-23:13:08 **** Incremental Build of configuration Release for project 1Wire ****
+17:22:44 **** Build of configuration Release for project 1Wire ****
 make all 
 Building file: ../main.c
 Invoking: AVR Compiler
 avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=1000000UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
 ../main.c: In function 'MeasureTemp':
-../main.c:128: warning: unused variable 'i'
+../main.c:131: warning: unused variable 'i'
 Finished building: ../main.c
  
 Building target: 1Wire.elf
@@ -30,7 +30,7 @@ AVR Memory Usage
 ----------------
 Device: atmega8
 
-Program:    2846 bytes (34.7% Full)
+Program:    2848 bytes (34.8% Full)
 (.text + .data + .bootloader)
 
 Data:         40 bytes (3.9% Full)
@@ -40,5 +40,5 @@ Data:         40 bytes (3.9% Full)
 Finished building: sizedummy
  
 
-23:13:10 Build Finished (took 2s.85ms)
+17:22:47 Build Finished (took 2s.770ms)
 

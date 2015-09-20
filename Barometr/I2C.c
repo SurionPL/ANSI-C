@@ -5,11 +5,24 @@
  *      Author: Bartek
  */
 
+/**
+  *******************************************************************************
+  * @ File    I2C.h
+  * @ Author  Bartlomiej Kusmierczyk
+  * @ Version V1.0
+  * @ Date    26-July-2015
+  * @ Brief   This file contains all the TWI interface firmware functions.
+  *******************************************************************************
+  */
+
+
+
+/* Includes -------------------------------------------------------------------*/
 #include <avr/io.h>
 #include <util/delay.h>
 #include <util/TWI.h>
 #include "I2C.h"
-#include "USART.h"
+//#include "USART.h"
 
 //Dodac jakas error flag!
 uint8_t TWI_ErrorFlag = 0;
@@ -17,8 +30,13 @@ uint8_t TWI_ErrorFlag = 0;
 char table[2] = {'O','K'};			//?????????
 char table2[2] = {'N','O'};
 
-void TWI_SetSpeed(uint16_t speed)
+//void TWI_Init(TWI_InitTypeDef* TWI_InitStruct)
+
+void TWI_Init(uint16_t speed)
 {
+	TWCR = (1<<TWEA) | (1<<TWEN);
+
+
 	speed=(4000000/speed/100-16)/2;
 	uint8_t prescaler = 0;
 	while(speed>255) {
@@ -27,13 +45,6 @@ void TWI_SetSpeed(uint16_t speed)
 	}
 	TWSR = (TWSR & ((1<<TWPS1) | (1<<TWPS0))) | prescaler;
 	TWBR = speed;
-}
-
-
-void TWI_Init()
-{
-	TWCR = (1<<TWEA) | (1<<TWEN);
-	TWI_SetSpeed(100000/100);
 }
 
 void TWI_Start()  //Dodac zwracanie statusu wszedzie!
@@ -68,7 +79,7 @@ void TWI_Stop()
 	TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
 }
 
-void TWI_Send_SLA(uint8_t address)
+void TWI_Write_SLA(uint8_t address)
 {
 	uint8_t status;
 	if((address & 0x01) == 0) status = TW_MT_SLA_ACK;
@@ -114,16 +125,43 @@ uint8_t TWI_ReadByte_ACK()
 }
 
 
-inline void TWI_ReadBytes(uint8_t buffer[], uint8_t size) {
-	for (uint8_t i=0; i<size-1; i++) {
-		buffer[i] = TWI_ReadByte_ACK();
-	}
-	buffer[size-1]=TWI_ReadByte_NACK();
-	TWI_Stop();
-}
+
+
 
 void TWI_ERROR(uint8_t error)
 {
 	TWI_ErrorFlag = error;
 	//Wypelnic czyms do interfejsu z uzytkownikiem
+}
+
+
+void TWI_ReadBytes(uint8_t SLA, uint8_t address ,uint8_t size, uint8_t* buffer)
+{
+	TWI_Start();
+	TWI_Write_SLA(SLA);
+	TWI_WriteByte(address);
+	TWI_RStart();
+	TWI_Write_SLA(SLA+1);
+	//while (size--) *buffer++ = size ? TWI_ReadByte_ACK() : ( len ? ACK : NACK );
+	while(size--)
+	{
+		*buffer++ = size ? TWI_ReadByte_ACK() : TWI_ReadByte_NACK();
+	}
+
+
+	/*
+	for (uint8_t i=0; i<size-1; i++) {
+		buffer[i] = TWI_ReadByte_ACK();
+	}
+	buffer[size-1]=TWI_ReadByte_NACK();
+	*/
+}
+
+void TWI_WriteBytes(uint8_t SLA, uint8_t address ,uint8_t size, uint8_t* buffer)
+{
+	TWI_Start();
+	TWI_Write_SLA(SLA);
+	TWI_WriteByte(address);
+	while (size--) TWI_WriteByte(*buffer++);
+	TWI_Stop();
 }

@@ -3,11 +3,11 @@ USART.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000000e4  00000000  00000000  00000094  2**1
+  0 .text         00000104  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         0000000a  00800060  000000e4  00000178  2**0
+  1 .data         0000000a  00800060  00000104  00000198  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000001  0080006a  0080006a  00000182  2**0
+  2 .bss          00000001  0080006a  0080006a  000001a2  2**0
                   ALLOC
 
 Disassembly of section .text:
@@ -45,8 +45,8 @@ Disassembly of section .text:
   32:	10 e0       	ldi	r17, 0x00	; 0
   34:	a0 e6       	ldi	r26, 0x60	; 96
   36:	b0 e0       	ldi	r27, 0x00	; 0
-  38:	e4 ee       	ldi	r30, 0xE4	; 228
-  3a:	f0 e0       	ldi	r31, 0x00	; 0
+  38:	e4 e0       	ldi	r30, 0x04	; 4
+  3a:	f1 e0       	ldi	r31, 0x01	; 1
   3c:	02 c0       	rjmp	.+4      	; 0x42 <.do_copy_data_start>
 
 0000003e <.do_copy_data_loop>:
@@ -71,8 +71,8 @@ Disassembly of section .text:
   52:	ab 36       	cpi	r26, 0x6B	; 107
   54:	b1 07       	cpc	r27, r17
   56:	e1 f7       	brne	.-8      	; 0x50 <.do_clear_bss_loop>
-  58:	2d d0       	rcall	.+90     	; 0xb4 <main>
-  5a:	42 c0       	rjmp	.+132    	; 0xe0 <_exit>
+  58:	3d d0       	rcall	.+122    	; 0xd4 <main>
+  5a:	52 c0       	rjmp	.+164    	; 0x100 <_exit>
 
 0000005c <__bad_interrupt>:
   5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
@@ -99,9 +99,9 @@ Disassembly of section .text:
   7a:	80 bd       	out	0x20, r24	; 32
   7c:	08 95       	ret
 
-0000007e <USART_Transmit_Int>:
+0000007e <USART_TransmitInt>:
   7e:	5d 9b       	sbis	0x0b, 5	; 11
-  80:	fe cf       	rjmp	.-4      	; 0x7e <USART_Transmit_Int>
+  80:	fe cf       	rjmp	.-4      	; 0x7e <USART_TransmitInt>
   82:	50 98       	cbi	0x0a, 0	; 10
   84:	90 fd       	sbrc	r25, 0
   86:	50 9a       	sbi	0x0a, 0	; 10
@@ -114,50 +114,68 @@ Disassembly of section .text:
   90:	8c b1       	in	r24, 0x0c	; 12
   92:	08 95       	ret
 
-00000094 <Send_String>:
+00000094 <USART_TransmitString>:
   94:	20 e0       	ldi	r18, 0x00	; 0
   96:	30 e0       	ldi	r19, 0x00	; 0
-  98:	09 c0       	rjmp	.+18     	; 0xac <Send_String+0x18>
+  98:	09 c0       	rjmp	.+18     	; 0xac <USART_TransmitString+0x18>
   9a:	fc 01       	movw	r30, r24
   9c:	e2 0f       	add	r30, r18
   9e:	f3 1f       	adc	r31, r19
   a0:	e0 81       	ld	r30, Z
   a2:	5d 9b       	sbis	0x0b, 5	; 11
-  a4:	fe cf       	rjmp	.-4      	; 0xa2 <Send_String+0xe>
+  a4:	fe cf       	rjmp	.-4      	; 0xa2 <USART_TransmitString+0xe>
   a6:	ec b9       	out	0x0c, r30	; 12
   a8:	2f 5f       	subi	r18, 0xFF	; 255
   aa:	3f 4f       	sbci	r19, 0xFF	; 255
   ac:	26 17       	cp	r18, r22
   ae:	37 07       	cpc	r19, r23
-  b0:	a0 f3       	brcs	.-24     	; 0x9a <Send_String+0x6>
+  b0:	a0 f3       	brcs	.-24     	; 0x9a <USART_TransmitString+0x6>
   b2:	08 95       	ret
 
-000000b4 <main>:
-  b4:	cf 93       	push	r28
-  b6:	df 93       	push	r29
-  b8:	b9 9a       	sbi	0x17, 1	; 23
-  ba:	c1 9a       	sbi	0x18, 1	; 24
-  bc:	89 e1       	ldi	r24, 0x19	; 25
-  be:	90 e0       	ldi	r25, 0x00	; 0
-  c0:	d7 df       	rcall	.-82     	; 0x70 <USART_Init>
-  c2:	c4 e6       	ldi	r28, 0x64	; 100
-  c4:	d0 e0       	ldi	r29, 0x00	; 0
-  c6:	82 e6       	ldi	r24, 0x62	; 98
-  c8:	90 e0       	ldi	r25, 0x00	; 0
-  ca:	67 e0       	ldi	r22, 0x07	; 7
-  cc:	70 e0       	ldi	r23, 0x00	; 0
-  ce:	e2 df       	rcall	.-60     	; 0x94 <Send_String>
-  d0:	80 e1       	ldi	r24, 0x10	; 16
-  d2:	97 e2       	ldi	r25, 0x27	; 39
-  d4:	fe 01       	movw	r30, r28
-  d6:	31 97       	sbiw	r30, 0x01	; 1
-  d8:	f1 f7       	brne	.-4      	; 0xd6 <main+0x22>
-  da:	01 97       	sbiw	r24, 0x01	; 1
-  dc:	d9 f7       	brne	.-10     	; 0xd4 <main+0x20>
-  de:	f3 cf       	rjmp	.-26     	; 0xc6 <main+0x12>
+000000b4 <USART_TransmitData>:
+  b4:	20 e0       	ldi	r18, 0x00	; 0
+  b6:	30 e0       	ldi	r19, 0x00	; 0
+  b8:	09 c0       	rjmp	.+18     	; 0xcc <USART_TransmitData+0x18>
+  ba:	fc 01       	movw	r30, r24
+  bc:	e2 0f       	add	r30, r18
+  be:	f3 1f       	adc	r31, r19
+  c0:	e0 81       	ld	r30, Z
+  c2:	5d 9b       	sbis	0x0b, 5	; 11
+  c4:	fe cf       	rjmp	.-4      	; 0xc2 <USART_TransmitData+0xe>
+  c6:	ec b9       	out	0x0c, r30	; 12
+  c8:	2f 5f       	subi	r18, 0xFF	; 255
+  ca:	3f 4f       	sbci	r19, 0xFF	; 255
+  cc:	26 17       	cp	r18, r22
+  ce:	37 07       	cpc	r19, r23
+  d0:	a0 f3       	brcs	.-24     	; 0xba <USART_TransmitData+0x6>
+  d2:	08 95       	ret
 
-000000e0 <_exit>:
-  e0:	f8 94       	cli
+000000d4 <main>:
+  d4:	cf 93       	push	r28
+  d6:	df 93       	push	r29
+  d8:	b9 9a       	sbi	0x17, 1	; 23
+  da:	c1 9a       	sbi	0x18, 1	; 24
+  dc:	89 e1       	ldi	r24, 0x19	; 25
+  de:	90 e0       	ldi	r25, 0x00	; 0
+  e0:	c7 df       	rcall	.-114    	; 0x70 <USART_Init>
+  e2:	c4 e6       	ldi	r28, 0x64	; 100
+  e4:	d0 e0       	ldi	r29, 0x00	; 0
+  e6:	82 e6       	ldi	r24, 0x62	; 98
+  e8:	90 e0       	ldi	r25, 0x00	; 0
+  ea:	67 e0       	ldi	r22, 0x07	; 7
+  ec:	70 e0       	ldi	r23, 0x00	; 0
+  ee:	d2 df       	rcall	.-92     	; 0x94 <USART_TransmitString>
+  f0:	80 e1       	ldi	r24, 0x10	; 16
+  f2:	97 e2       	ldi	r25, 0x27	; 39
+  f4:	fe 01       	movw	r30, r28
+  f6:	31 97       	sbiw	r30, 0x01	; 1
+  f8:	f1 f7       	brne	.-4      	; 0xf6 <main+0x22>
+  fa:	01 97       	sbiw	r24, 0x01	; 1
+  fc:	d9 f7       	brne	.-10     	; 0xf4 <main+0x20>
+  fe:	f3 cf       	rjmp	.-26     	; 0xe6 <main+0x12>
 
-000000e2 <__stop_program>:
-  e2:	ff cf       	rjmp	.-2      	; 0xe2 <__stop_program>
+00000100 <_exit>:
+ 100:	f8 94       	cli
+
+00000102 <__stop_program>:
+ 102:	ff cf       	rjmp	.-2      	; 0x102 <__stop_program>

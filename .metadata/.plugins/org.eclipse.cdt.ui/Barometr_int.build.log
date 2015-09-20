@@ -1,0 +1,20 @@
+23:50:16 **** Incremental Build of configuration Release for project Barometr_int ****
+make all 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega8 Barometr_int.elf
+AVR Memory Usage
+----------------
+Device: atmega8
+
+Program:    2806 bytes (34.3% Full)
+(.text + .data + .bootloader)
+
+Data:        186 bytes (18.2% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+23:50:17 Build Finished (took 1s.887ms)
+

@@ -20,7 +20,7 @@ int main()
 
 	USART_Init(MYUBRR);
 	while(1) {
-		Send_String(data,7);
+		USART_TransmitString(data,7);
 		//USART_Transmit_Int(5);
 		//byte = USART_Receive();
 		//if(byte == 'T') PORTB^=(1<<PB1);

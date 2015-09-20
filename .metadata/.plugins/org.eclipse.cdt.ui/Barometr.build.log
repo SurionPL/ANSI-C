@@ -1,20 +1,52 @@
-03:20:45 **** Incremental Build of configuration Release for project Barometr ****
+23:07:38 **** Incremental Build of configuration Release for project Barometr ****
 make all 
+Building file: ../BMP180.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"BMP180.d" -MT"BMP180.d" -c -o "BMP180.o" "../BMP180.c"
+Finished building: ../BMP180.c
+ 
+Building file: ../I2C.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"I2C.d" -MT"I2C.d" -c -o "I2C.o" "../I2C.c"
+Finished building: ../I2C.c
+ 
+Building file: ../main.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
+Finished building: ../main.c
+ 
+Building target: Barometr.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,Barometr.map -mmcu=atmega8 -o "Barometr.elf"  ./MKUART/mkuart.o  ./I2C_TWI/i2c_twi.o  ./BMP180.o ./I2C.o ./main.o   
+Finished building target: Barometr.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S Barometr.elf  >"Barometr.lss"
+Finished building: Barometr.lss
+ 
+Create Flash image (ihex format)
+avr-objcopy -R .eeprom -O ihex Barometr.elf  "Barometr.hex"
+Finished building: Barometr.hex
+ 
+Create eeprom image (ihex format)
+avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex Barometr.elf  "Barometr.eep"
+Finished building: Barometr.eep
+ 
 Invoking: Print Size
 avr-size --format=avr --mcu=atmega8 Barometr.elf
 AVR Memory Usage
 ----------------
 Device: atmega8
 
-Program:    4092 bytes (50.0% Full)
+Program:    3376 bytes (41.2% Full)
 (.text + .data + .bootloader)
 
-Data:         51 bytes (5.0% Full)
+Data:        184 bytes (18.0% Full)
 (.data + .bss + .noinit)
 
 
 Finished building: sizedummy
  
 
-03:20:45 Build Finished (took 547ms)
+23:07:41 Build Finished (took 3s.399ms)
 

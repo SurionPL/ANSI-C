@@ -1,0 +1,93 @@
+/*
+ * main.c
+ *
+ *  Created on: 24 lip 2015
+ *      Author: Bartek
+ */
+
+#include <avr/io.h>
+#include <util/delay.h>
+#include <stdio.h>
+//#include "USART.h"
+#include "BMP180.h"
+#include "I2C.h"
+#include <stdlib.h>
+#include "MKUART/mkuart.h"
+#include <avr/pgmspace.h>
+#include "avr/interrupt.h"
+
+//uint8_t temperature[2];
+//int pressure[2];
+void SendToUart(void);
+long temp, press;
+char buffer[15];
+//#define MYUBRR FOSC/16/BAUD-1
+BMP180_TypeDef bmp180_Struct;
+
+int main() {
+	DDRB  = 1<<PB1;
+	PORTB = 1<<PB1;
+
+	//bmp180_Struct.BMP180_Mode=BMP180_Mode_ST;
+	bmp180_Struct.BMP180_Mode=0x74;
+	uint8_t temperature[2] = {0,0};
+	long pressure[2] = {0,0};
+	BMP180_Init(&bmp180_Struct);
+	//USART_Init(MYUBRR);
+    //USART_Init(MYUBRR);             // inicjalizacja UART
+	USART_Init(__UBRR);
+	uart_puts("Hello!\n");
+	//temperature[0] = 0;
+	//pressure[0] = 0;
+	//BMP180_StartTemp(&bmp180_Struct);
+	_delay_ms(20);
+	//BMP180_GetTemp(&bmp180_Struct);
+	sei();
+	//unsigned char ciag[] = " TEMP: ";
+	//USART_Send_String(ciag, 6);
+	while(1){
+		BMP180_StartTemp(&bmp180_Struct);
+		_delay_ms(50);
+		BMP180_StartPress(&bmp180_Struct);
+		_delay_ms(50);
+		BMP180_GetPress(&bmp180_Struct, pressure);
+		//BMP180_SendUPUT(&bmp180_Struct);
+		//sprintf(buffer,"T= %d,%d *C ",temperature[0],temperature[1]);
+		//sprintf(buffer," P= %d ",(pressure[0]/100));
+		//BMP180_SendParam(&bmp180_Struct);
+		//itoa(pressure[0], buffer, 13);
+		//itoa(value, string, radix);
+		//USART_Transmit_Int(pressure[0]);
+		//char tab[1] = " ";
+		//char tab2[7] = " Trolo ";
+		//USART_TransmitString(tab, 3);
+		//USART_TransmitString(buffer, 15);
+
+		//USART_TransmitString(tab2, 7);
+		//bmp180_send_param(&bmp180_Struct);
+		//USART_Transmit_Int();
+
+        /*uart_puts(" Cisnienie:");
+        uart_putint( press/100, 10);
+        uart_puts(".");
+        if (press%100<10) uart_puts("0");
+        uart_putint( press%100, 10 );
+        uart_puts("\r\n");*/
+	}
+}
+
+void SendToUart(void){
+        //uart_puts("************** T ******************\r\n");
+        uart_puts("Temperatura:");
+        uart_putint( temp/10, 10 );
+        uart_puts(".");
+        uart_putint( temp%10, 10 );
+        uart_puts(" \t");
+        //uart_puts("************** P ******************\r\n");
+        uart_puts(" Cisnienie:");
+        uart_putint( press/100, 10 );
+        uart_puts(".");
+        if (press%100<10) uart_puts("0");
+        uart_putint( press%100, 10 );
+        uart_puts("\r\n");
+}
