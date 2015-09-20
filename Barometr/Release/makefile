@@ -9,7 +9,6 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include MKUART/subdir.mk
--include I2C_TWI/subdir.mk
 -include subdir.mk
 -include objects.mk
 

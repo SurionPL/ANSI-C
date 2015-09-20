@@ -1,5 +1,10 @@
-23:07:38 **** Incremental Build of configuration Release for project Barometr ****
+16:10:15 **** Incremental Build of configuration Release for project Barometr ****
 make all 
+Building file: ../MKUART/mkuart.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"MKUART/mkuart.d" -MT"MKUART/mkuart.d" -c -o "MKUART/mkuart.o" "../MKUART/mkuart.c"
+Finished building: ../MKUART/mkuart.c
+ 
 Building file: ../BMP180.c
 Invoking: AVR Compiler
 avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"BMP180.d" -MT"BMP180.d" -c -o "BMP180.o" "../BMP180.c"
@@ -17,7 +22,7 @@ Finished building: ../main.c
  
 Building target: Barometr.elf
 Invoking: AVR C Linker
-avr-gcc -Wl,-Map,Barometr.map -mmcu=atmega8 -o "Barometr.elf"  ./MKUART/mkuart.o  ./I2C_TWI/i2c_twi.o  ./BMP180.o ./I2C.o ./main.o   
+avr-gcc -Wl,-Map,Barometr.map -mmcu=atmega8 -o "Barometr.elf"  ./MKUART/mkuart.o  ./BMP180.o ./I2C.o ./main.o   
 Finished building target: Barometr.elf
  
 Invoking: AVR Create Extended Listing
@@ -38,7 +43,7 @@ AVR Memory Usage
 ----------------
 Device: atmega8
 
-Program:    3376 bytes (41.2% Full)
+Program:    3096 bytes (37.8% Full)
 (.text + .data + .bootloader)
 
 Data:        184 bytes (18.0% Full)
@@ -48,5 +53,5 @@ Data:        184 bytes (18.0% Full)
 Finished building: sizedummy
  
 
-23:07:41 Build Finished (took 3s.399ms)
+16:10:17 Build Finished (took 2s.531ms)
 

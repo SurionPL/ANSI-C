@@ -2,8 +2,6 @@ Archive member included because of file (symbol)
 
 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_mulsi3.o)
                               ./BMP180.o (__mulsi3)
-d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
-                              ./I2C_TWI/i2c_twi.o (__udivmodhi4)
 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodsi4.o)
                               ./BMP180.o (__udivmodsi4)
 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_divmodsi4.o)
@@ -18,6 +16,8 @@ d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\li
                               ./MKUART/mkuart.o (itoa)
 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(strrev.o)
                               d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(itoa.o) (strrev)
+d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
+                              d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(itoa.o) (__udivmodhi4)
 
 Allocating common symbols
 Common symbol       size              file
@@ -47,7 +47,6 @@ Linker script and memory map
 
 LOAD d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4/crtm8.o
 LOAD ./MKUART/mkuart.o
-LOAD ./I2C_TWI/i2c_twi.o
 LOAD ./BMP180.o
 LOAD ./I2C.o
 LOAD ./main.o
@@ -145,7 +144,7 @@ LOAD d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xcd8
+.text           0x00000000      0xbc0
  *(.vectors)
  .vectors       0x00000000       0x26 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4/crtm8.o
                 0x00000000                __vectors
@@ -226,73 +225,65 @@ LOAD d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
                 0x0000005e                USART_Init
                 0x00000114                uart_getc
                 0x0000008c                uart_putc
- .text          0x000001be      0x118 ./I2C_TWI/i2c_twi.o
-                0x000001f2                TWI_write
-                0x000001da                TWI_start
-                0x00000200                TWI_read
-                0x00000262                TWI_read_buf
-                0x000001e6                TWI_stop
-                0x00000216                TWI_write_buf
-                0x000001be                i2cSetBitrate
- .text          0x000002d6      0x5bc ./BMP180.o
-                0x000002d8                BMP180_SendUPUT
-                0x00000696                BMP180_GetTemp
-                0x000002da                BMP180_GetUP
-                0x0000063c                BMP180_GetUT
-                0x00000758                BMP180_Init
-                0x000002d6                BMP180_SendParam
-                0x00000880                BMP180_StartTemp
-                0x0000086c                BMP180_StartPress
-                0x00000360                BMP180_GetPress
- .text          0x00000892      0x188 ./I2C.o
-                0x0000097e                TWI_ReadByte_ACK
-                0x000008de                TWI_Start
-                0x00000962                TWI_ReadByte_NACK
-                0x0000099a                TWI_ERROR
-                0x000009a0                TWI_ReadBytes
-                0x00000892                TWI_Init
-                0x00000912                TWI_Stop
-                0x00000918                TWI_Write_SLA
-                0x00000946                TWI_WriteByte
-                0x000009e2                TWI_WriteBytes
-                0x000008f8                TWI_RStart
- .text          0x00000a1a      0x17c ./main.o
-                0x00000afa                InterfaceInit
-                0x00000b02                main
-                0x00000a1a                SendToUart
- .text          0x00000b96        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_mulsi3.o)
- .text          0x00000b96        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
- .text          0x00000b96        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodsi4.o)
- .text          0x00000b96        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_divmodsi4.o)
- .text          0x00000b96        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
- .text          0x00000b96        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_copy_data.o)
- .text          0x00000b96        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clear_bss.o)
- .text          0x00000b96        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(itoa.o)
- .text          0x00000b96        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(strrev.o)
-                0x00000b96                . = ALIGN (0x2)
+ .text          0x000001be      0x5bc ./BMP180.o
+                0x000001c0                BMP180_SendUPUT
+                0x0000057e                BMP180_GetTemp
+                0x000001c2                BMP180_GetUP
+                0x00000524                BMP180_GetUT
+                0x00000640                BMP180_Init
+                0x000001be                BMP180_SendParam
+                0x00000768                BMP180_StartTemp
+                0x00000754                BMP180_StartPress
+                0x00000248                BMP180_GetPress
+ .text          0x0000077a      0x188 ./I2C.o
+                0x00000866                TWI_ReadByte_ACK
+                0x000007c6                TWI_Start
+                0x0000084a                TWI_ReadByte_NACK
+                0x00000882                TWI_ERROR
+                0x00000888                TWI_ReadBytes
+                0x0000077a                TWI_Init
+                0x000007fa                TWI_Stop
+                0x00000800                TWI_Write_SLA
+                0x0000082e                TWI_WriteByte
+                0x000008ca                TWI_WriteBytes
+                0x000007e0                TWI_RStart
+ .text          0x00000902      0x17c ./main.o
+                0x000009e2                InterfaceInit
+                0x000009ea                main
+                0x00000902                SendToUart
+ .text          0x00000a7e        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_mulsi3.o)
+ .text          0x00000a7e        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodsi4.o)
+ .text          0x00000a7e        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_divmodsi4.o)
+ .text          0x00000a7e        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
+ .text          0x00000a7e        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_copy_data.o)
+ .text          0x00000a7e        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clear_bss.o)
+ .text          0x00000a7e        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(itoa.o)
+ .text          0x00000a7e        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(strrev.o)
+ .text          0x00000a7e        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
+                0x00000a7e                . = ALIGN (0x2)
  *(.text.*)
- .text.libgcc   0x00000b96       0x3e d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_mulsi3.o)
-                0x00000b96                __mulsi3
- .text.libgcc   0x00000bd4       0x28 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
-                0x00000bd4                __udivmodhi4
- .text.libgcc   0x00000bfc       0x44 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodsi4.o)
-                0x00000bfc                __udivmodsi4
- .text.libgcc   0x00000c40       0x36 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_divmodsi4.o)
-                0x00000c40                __divmodsi4
- .text.libgcc   0x00000c76        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
- .text.libgcc   0x00000c76        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_copy_data.o)
- .text.libgcc   0x00000c76        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000a7e       0x3e d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_mulsi3.o)
+                0x00000a7e                __mulsi3
+ .text.libgcc   0x00000abc       0x44 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodsi4.o)
+                0x00000abc                __udivmodsi4
+ .text.libgcc   0x00000b00       0x36 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_divmodsi4.o)
+                0x00000b00                __divmodsi4
+ .text.libgcc   0x00000b36        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
+ .text.libgcc   0x00000b36        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000b36        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clear_bss.o)
  .text.avr-libc
-                0x00000c76       0x3e d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(itoa.o)
-                0x00000c76                itoa
+                0x00000b36       0x3e d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(itoa.o)
+                0x00000b36                itoa
  .text.avr-libc
-                0x00000cb4       0x20 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(strrev.o)
-                0x00000cb4                strrev
-                0x00000cd4                . = ALIGN (0x2)
+                0x00000b74       0x20 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(strrev.o)
+                0x00000b74                strrev
+ .text.libgcc   0x00000b94       0x28 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
+                0x00000b94                __udivmodhi4
+                0x00000bbc                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000cd4        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
-                0x00000cd4                exit
-                0x00000cd4                _exit
+ .fini9         0x00000bbc        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
+                0x00000bbc                exit
+                0x00000bbc                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -311,23 +302,21 @@ LOAD d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000cd4        0x4 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
+ .fini0         0x00000bbc        0x4 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000cd8                _etext = .
+                0x00000bc0                _etext = .
 
-.data           0x00800060       0x58 load address 0x00000cd8
+.data           0x00800060       0x58 load address 0x00000bc0
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4/crtm8.o
  .data          0x00800060        0x0 ./MKUART/mkuart.o
- .data          0x00800060        0x0 ./I2C_TWI/i2c_twi.o
  .data          0x00800060        0x0 ./BMP180.o
  .data          0x00800060        0x4 ./I2C.o
                 0x00800060                table
                 0x00800062                table2
  .data          0x00800064       0x53 ./main.o
  .data          0x008000b7        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_mulsi3.o)
- .data          0x008000b7        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
  .data          0x008000b7        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodsi4.o)
  .data          0x008000b7        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_divmodsi4.o)
  .data          0x008000b7        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
@@ -335,6 +324,7 @@ LOAD d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
  .data          0x008000b7        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clear_bss.o)
  .data          0x008000b7        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(itoa.o)
  .data          0x008000b7        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(strrev.o)
+ .data          0x008000b7        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
  *(.data*)
  *(.rodata)
  *(.rodata*)
@@ -349,13 +339,11 @@ LOAD d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
  *(.bss)
  .bss           0x008000b8        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4/crtm8.o
  .bss           0x008000b8        0x0 ./MKUART/mkuart.o
- .bss           0x008000b8        0x0 ./I2C_TWI/i2c_twi.o
  .bss           0x008000b8        0x0 ./BMP180.o
  .bss           0x008000b8        0x1 ./I2C.o
                 0x008000b8                TWI_ErrorFlag
  .bss           0x008000b9        0x0 ./main.o
  .bss           0x008000b9        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_mulsi3.o)
- .bss           0x008000b9        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
  .bss           0x008000b9        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodsi4.o)
  .bss           0x008000b9        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_divmodsi4.o)
  .bss           0x008000b9        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
@@ -363,6 +351,7 @@ LOAD d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
  .bss           0x008000b9        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clear_bss.o)
  .bss           0x008000b9        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(itoa.o)
  .bss           0x008000b9        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(strrev.o)
+ .bss           0x008000b9        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
  *(.bss*)
  *(COMMON)
  COMMON         0x008000b9       0x34 ./MKUART/mkuart.o
@@ -378,8 +367,8 @@ LOAD d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
                 0x00800110                temp
                 0x00800114                press
                 0x00800118                PROVIDE (__bss_end, .)
-                0x00000cd8                __data_load_start = LOADADDR (.data)
-                0x00000d30                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000bc0                __data_load_start = LOADADDR (.data)
+                0x00000c18                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800118        0x0
                 0x00800118                PROVIDE (__noinit_start, .)

@@ -7,14 +7,14 @@
 
 
 /**
-  ******************************************************************************
+  *******************************************************************************
   * @ File    BMP180.h
   * @ Author  Bartlomiej Kusmierczyk
   * @ Version V1.0
   * @ Date    28-July-2015
   * @ Brief   This file contains all the functions prototypes for the BMP180
   * 		  temperature and pressure sensor library.
-  ******************************************************************************
+  *******************************************************************************
   */
 
 
@@ -22,14 +22,14 @@
 #define BMP180_H_
 
 
-/** @defgroup BMP180 slave address
+/** @ Defgroup: BMP180 slave address
   * @{
   */
-#define BMP180_W ((uint8_t)0xEE)	//BMP180 Slave Address Write
-#define BMP180_R ((uint8_t)0xEF)	//BMP180 Slave Address Read
+#define BMP180_SLA ((uint8_t)0xEE)	//BMP180 Slave Address
+
 
 /*
- *	@Brief this function used for read the calibration
+ *	@ Brief: this function used for read the calibration
  *	parameter from the register
  *
  *	Parameter  |  MSB    |  LSB    |  bit
@@ -105,34 +105,13 @@
 #define BMP180_T_MEASURE	((uint8_t)0x2E)
 #define BMP180_P_MEASURE	((uint8_t)0x34)
 
-/*Presure Measurement Modes*/
-//#define BMP180_P_MEASURE_ULP	(0x34)	// Ultra Low Power mode
-//#define BMP180_P_MEASURE_ST		(0x74)	// Standard mode
-//#define BMP180_P_MEASURE_HR		(0xB4)	// High Resolution mode
-//#define BMP180_P_MEASURE_UHR 	(0xF4)	// Ultra High Resolution mode
-
-/*
- * struct bmp180_t {
-	struct bmp180_calib_param_t calib_param;    //<calibration data
-	u8 mode;<power mode
-	u8 chip_id; <chip id
-	u8 ml_version;<ml version
-	u8 al_version;<al version
-	u8 dev_addr;<device address
-	u8 sensortype;< sensor type
-
-	s32 param_b5;<pram
-	s32 number_of_samples;<sample calculation
-	s16 oversamp_setting;<oversampling setting
-	s16 sw_oversamp;<software oversampling
-
-	BMP180_WR_FUNC_PTR;< bus write function pointer
-	BMP180_RD_FUNC_PTR;< bus read function pointer
-	void (*delay_msec)(BMP180_MDELAY_DATA_TYPE);< delay function pointer
-};
-
-
-*/
+/** @ Defgroup: BMP180 pressure measurment modes
+  * @{
+  */
+#define BMP180_P_MEASURE_ULP	((uint8_t)0x34)	// Ultra Low Power mode
+#define BMP180_P_MEASURE_ST		((uint8_t)0x74)	// Standard mode
+#define BMP180_P_MEASURE_HR		((uint8_t)0xB4)	// High Resolution mode
+#define BMP180_P_MEASURE_UHR 	((uint8_t)0xF4)	// Ultra High Resolution mode
 
 
 typedef enum
@@ -143,52 +122,44 @@ typedef enum
   BMP180_Mode_UHR = 0xF4	/* Ultra High Resolution mode */
 }BMP180Mode_TypeDef;
 
-
-/**
-  * @ Brief:  BMP180 Parameters structure definition
-  */
-typedef struct
-{
-	short AC1,AC2,AC3;
-	unsigned short AC4,AC5,AC6;
-	short B1,B2;
-	short MB,MC,MD;
-}BMP180_ParamTypDef;
-
-
-/**
-  * @ Brief:  BMP180 Init structure definition
-  */
-typedef struct
-{
-	BMP180Mode_TypeDef BMP180_Mode;
-}BMP180_InitTypeDef;
-
-
 /**
   * @ Brief:  BMP180 structure definition
   */
 typedef struct
 {
-	BMP180_ParamTypDef BMP180_Parameters;
-	//BMP180_InitTypeDef BMP180_Init;
 	BMP180Mode_TypeDef BMP180_Mode;
+	short AC1,AC2,AC3;
+	unsigned short AC4,AC5,AC6;
+	short B1,B2;
+	short MB,MC,MD;
+	long B5;
 	long UT;
 	long UP;
-	long B5;
 }BMP180_TypeDef;
 
 
-void BMP180_Init(BMP180_TypeDef* BMP180_Struct);
-void BMP180_StartTemp(BMP180_TypeDef* BMP180_Struct);
-void BMP180_StartPress(BMP180_TypeDef* BMP180_Struct);
-void BMP180_FillStruct(BMP180_TypeDef* BMP180_Struct, uint8_t buffer[]);
-//void bmp180_addr_select(uint8_t address);
-void BMP180_ReadPram(BMP180_TypeDef* BMP180_Struct);
-void BMP180_GetTemp(BMP180_TypeDef* BMP180_Struct, uint8_t temperature[]);
-void BMP180_GetPress(BMP180_TypeDef* BMP180_Struct, long pressure[]);
-void BMP180_SendParam(BMP180_TypeDef* BMP180_Struct);
-uint16_t BMP180_ReadRegister(uint8_t address);
+/**
+  * @ Brief:  BMP180 Init structure definition
+  */
+/*typedef struct
+{
+	BMP180Mode_TypeDef BMP180_Mode;
+}BMP180_InitTypeDef;*/
+
+
+
+/** @ Defgroup: BMP180 functions
+  */
+//void BMP180_Init(BMP180_InitTypeDef* BMP180_Struct);
+void BMP180_Init(BMP180Mode_TypeDef BMP180_Mode);
+void BMP180_StartTemp();
+void BMP180_StartPress();
+long BMP180_GetTemp();
+long BMP180_GetPress();
+void BMP180_SendParam();
+long BMP180_GetUT();
+long BMP180_GetUP();
+void BMP180_SendUPUT();
 
 
 #endif /* BMP180_H_ */

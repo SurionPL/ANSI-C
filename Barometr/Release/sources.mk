@@ -23,5 +23,4 @@ C_DEPS :=
 SUBDIRS := \
 . \
 MKUART \
-I2C_TWI \
 

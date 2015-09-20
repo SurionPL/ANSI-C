@@ -23,10 +23,10 @@
 
 
 /** @ Defgroup: BMP180 slave address
-  * @{
+  *
   */
-#define BMP180_W ((uint8_t)0xEE)	//BMP180 Slave Address Write
-#define BMP180_R ((uint8_t)0xEF)	//BMP180 Slave Address Read
+#define BMP180_SLA ((uint8_t)0xEE)	//BMP180 Slave Address
+
 
 /*
  *	@ Brief: this function used for read the calibration
@@ -147,6 +147,9 @@ typedef struct
 }BMP180_InitTypeDef;*/
 
 
+
+/** @ Defgroup: BMP180 functions
+  */
 //void BMP180_Init(BMP180_InitTypeDef* BMP180_Struct);
 void BMP180_Init(BMP180Mode_TypeDef BMP180_Mode);
 void BMP180_StartTemp();
