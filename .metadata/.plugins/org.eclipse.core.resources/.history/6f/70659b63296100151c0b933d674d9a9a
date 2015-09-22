@@ -81,9 +81,6 @@ typedef struct
 {
 	NewState RTC_Oscillator;
 	RTC_OutFreq_TypeDef RTC_OutFreq;
-	NewState RTC_Alarm1Int;
-	NewState RTC_Alarm2Int;
-
 
 } RTC_InitTypeDef;
 

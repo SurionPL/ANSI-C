@@ -12,11 +12,17 @@
 #include "I2C.h"
 #include "RTC.h"
 
-void RTC_Init(RTC_InitTypeDef* RTC_InitStruct) {
+
+
+
+void RTC_Init(RTC_InitTypeDef* RTC_InitStruct)
+{
 
 }
 
-void RTC_GetTemp(int8_t* integer, uint8_t* fract) {
+
+void RTC_GetTemp(int8_t* integer, uint8_t* fract)
+{
 
 	uint8_t temporary = 0;
 	TWI_Start();
@@ -27,16 +33,15 @@ void RTC_GetTemp(int8_t* integer, uint8_t* fract) {
 	*integer = TWI_ReadByte_ACK();
 	temporary = TWI_ReadByte_NACK();
 	TWI_Stop();
-	if (temporary != 0)
+	if(temporary != 0)
 		*fract = (temporary >> 6) * 25;
 	else
 		*fract = 0;
 }
 
-uint8_t RTC_DecToBCD(uint8_t decimal) {
-	return ((decimal / 10) << 4) | (decimal % 10);
-}
 
-uint8_t RTC_BCDToDec(uint8_t bcd) {
-	return ((((bcd >> 4) & 0x0F) * 10) | (bcd & 0x0F));
+uint8_t RTC_DecToBCD(uint8_t decimal)
+{
+	return ((decimal/10) | 1;
 }
+uint8_t RTC_BCDToDec()

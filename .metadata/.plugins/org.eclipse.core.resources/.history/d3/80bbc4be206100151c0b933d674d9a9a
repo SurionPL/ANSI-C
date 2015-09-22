@@ -66,7 +66,7 @@ typedef struct {
 	uint8_t century;
 } RTC_DateTimeTypedef;
 
-//frequency of the square-wave outpu
+
 typedef enum
 {
 	Freq_1Hz = 0,
@@ -81,9 +81,6 @@ typedef struct
 {
 	NewState RTC_Oscillator;
 	RTC_OutFreq_TypeDef RTC_OutFreq;
-	NewState RTC_Alarm1Int;
-	NewState RTC_Alarm2Int;
-
 
 } RTC_InitTypeDef;
 
@@ -96,7 +93,6 @@ void RTC_SetDate(RTC_DateTimeTypedef*);
 void RTC_SetTime(RTC_DateTimeTypedef*);
 void RTC_SetDateTime(RTC_DateTimeTypedef*);
 void RTC_GetTemp(int8_t* integer, uint8_t* fract);
-uint8_t RTC_DecToBCD(uint8_t decimal);
-uint8_t RTC_BCDToDec(uint8_t bcd);
+uint8_t RTC_DecToBCD(uint8_t decimal)
 
 #endif /* RTC_H_ */

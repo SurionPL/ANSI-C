@@ -1,4 +1,4 @@
-01:58:51 **** Incremental Build of configuration Release for project RTC ****
+14:43:45 **** Incremental Build of configuration Release for project RTC ****
 make all 
 Building file: ../RTC.c
 Invoking: AVR Compiler
@@ -28,7 +28,7 @@ AVR Memory Usage
 ----------------
 Device: atmega8
 
-Program:     814 bytes (9.9% Full)
+Program:     888 bytes (10.8% Full)
 (.text + .data + .bootloader)
 
 Data:          5 bytes (0.5% Full)
@@ -38,5 +38,5 @@ Data:          5 bytes (0.5% Full)
 Finished building: sizedummy
  
 
-01:58:53 Build Finished (took 2s.141ms)
+14:43:49 Build Finished (took 3s.839ms)
 
