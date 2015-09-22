@@ -1,0 +1,29 @@
+/*
+ * RTC.c
+
+ *
+ *  Created on: 2 wrz 2015
+ *      Author: Bartlomiej Kusmierczyk
+ *      Library for DS1307
+ */
+
+#include <avr/io.h>
+#include <util/delay.h>
+#include "I2C.h"
+#include "RTC.h"
+
+
+
+
+void RTC_Init()
+{
+
+}
+
+
+void RTC_GetTemp(int8_t* integer, uint8_t* fract)
+{
+	uint16_t data = 0;
+	TWI_Start();
+	TWI_Write_SLA(DS3231_SLA);
+}

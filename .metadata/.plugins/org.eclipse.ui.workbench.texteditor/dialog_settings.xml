@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="UT" key="selection"/>
+		<item value="DS3231" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="DS1307"/>
 			<item value="UT"/>
 			<item value="UP"/>
 			<item value="Send_SLA"/>
@@ -15,9 +16,9 @@
 			<item value="Parameters"/>
 			<item value="OSS"/>
 			<item value="short"/>
-			<item value="getup"/>
 		</list>
 		<list key="replacehistory">
+			<item value="DS3231"/>
 			<item value="Write_SLA"/>
 			<item value="Struct"/>
 			<item value="int"/>
@@ -25,7 +26,6 @@
 			<item value="TransmitString"/>
 			<item value="Transmit"/>
 			<item value="Parameters"/>
-			<item value="Parameter"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

@@ -1,0 +1,60 @@
+/*
+ * RTC.h
+ *
+ *  Created on: 2 wrz 2015
+ *      Author: Bartek
+ */
+
+#ifndef RTC_H_
+#define RTC_H_
+
+#define DS3231_W 0xD0				//Data write
+#define DS3231_R 0xD1
+
+#define SQW_PIN  PB1
+#define SQW_PORT PORTB
+
+#define DS3231_SEC			((uint8_t)0x00)	//DS3231 Control Register address
+#define DS3231_MIN			((uint8_t)0x01)	//DS3231 Control Register address
+#define DS3231_HRS			((uint8_t)0x02)	//DS3231 Control Register address
+#define DS3231_DAY			((uint8_t)0x03)	//DS3231 Control Register address
+#define DS3231_DATE			((uint8_t)0x04)	//DS3231 Control Register address
+#define DS3231_MTH			((uint8_t)0x05)	//DS3231 Control Register address
+#define DS3231_YEAR			((uint8_t)0x06)	//DS3231 Control Register address
+#define DS3231_ALARM1_SEC	((uint8_t)0x07)
+#define DS3231_ALARM1_MIN	((uint8_t)0x08)
+#define DS3231_ALARM1_HRS	((uint8_t)0x09)
+#define DS3231_ALARM1_DD	((uint8_t)0x0A)
+#define DS3231_ALARM2_MIN	((uint8_t)0x0B)
+#define DS3231_ALARM2_HRS	((uint8_t)0x0C)
+#define DS3231_ALARM2_DD	((uint8_t)0x0D)
+#define DS3231_CR	((uint8_t)0x0D)
+#define DS3231_CSR	((uint8_t)0x0D)
+#define DS3231_TEMP_MSB	((uint8_t)0x0D)
+#define DS3231_TEMP_LSB	((uint8_t)0x0D)
+
+
+typedef struct
+{
+
+}RTC_TypeDef;
+
+
+typedef struct
+{
+	uint8_t  seconds;
+	uint8_t  minutes;
+	uint8_t  hours;
+	uint8_t  day;
+	uint8_t  day_of_week;
+	uint8_t  month;
+	uint16_t year;
+	uint8_t  century;
+}RTC_DataTimeTypedef;
+
+
+void RTC_Init();
+void RTC_SetDate(uint16_t year, uint8_t month, uint8_t day);
+void RTC_SetTime(uint8_t hour, uint8_t minute, uint8_t second);
+void RTC_SetDateTime(uint16_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t minute, uint8_t second);
+#endif /* RTC_H_ */

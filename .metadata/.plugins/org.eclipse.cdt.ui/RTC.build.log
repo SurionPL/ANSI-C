@@ -1,10 +1,5 @@
-14:02:14 **** Incremental Build of configuration Release for project RTC ****
+01:58:51 **** Incremental Build of configuration Release for project RTC ****
 make all 
-Building file: ../I2C.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"I2C.d" -MT"I2C.d" -c -o "I2C.o" "../I2C.c"
-Finished building: ../I2C.c
- 
 Building file: ../RTC.c
 Invoking: AVR Compiler
 avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"RTC.d" -MT"RTC.d" -c -o "RTC.o" "../RTC.c"
@@ -33,7 +28,7 @@ AVR Memory Usage
 ----------------
 Device: atmega8
 
-Program:     716 bytes (8.7% Full)
+Program:     814 bytes (9.9% Full)
 (.text + .data + .bootloader)
 
 Data:          5 bytes (0.5% Full)
@@ -43,5 +38,5 @@ Data:          5 bytes (0.5% Full)
 Finished building: sizedummy
  
 
-14:02:16 Build Finished (took 2s.734ms)
+01:58:53 Build Finished (took 2s.141ms)
 
