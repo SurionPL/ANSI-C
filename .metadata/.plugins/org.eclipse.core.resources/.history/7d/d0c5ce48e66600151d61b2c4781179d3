@@ -1,0 +1,263 @@
+/*
+ * RTC.c
+
+ *
+ *  Created on: 2 wrz 2015
+ *      Author: Bartlomiej Kusmierczyk
+ *      Library for DS1307
+ */
+
+#include <avr/io.h>
+#include <util/delay.h>
+#include "I2C.h"
+#include "RTC.h"
+
+
+//delault 24 hours format
+RTC_RegistersTypeDef RTC_RegistersStruct;
+
+void RTC_Init(RTC_InitTypeDef* RTC_InitStruct) {
+
+	RTC_RegistersStruct.RTC_Alarm1 = RTC_InitStruct->RTC_Alarm1;
+	RTC_RegistersStruct.RTC_Alarm2 = RTC_InitStruct->RTC_Alarm2;
+
+	RTC_RegistersStruct.CR = 0;
+
+	if(RTC_InitStruct->RTC_Oscillator == DISABLE) {
+		RTC_RegistersStruct.CR |= EOSC;
+
+	}
+
+	if((RTC_InitStruct->RTC_SQW == SQW_Disable) && ((RTC_InitStruct->RTC_Alarm1 != Alarm1_Disable) | (RTC_InitStruct->RTC_Alarm1 != Alarm1_Disable)))
+	{
+		//RTC_RegistersStruct.CR |= INTCN;
+	}
+
+
+	if(RTC_InitStruct->RTC_Alarm1 != Alarm1_Disable)
+	{
+		RTC_RegistersStruct.CR |= A1IE;
+	}
+	if(RTC_InitStruct->RTC_Alarm2 != Alarm2_Disable)
+	{
+		RTC_RegistersStruct.CR |= A2IE;
+	}
+
+	/*
+	if(RTC_InitStruct->RTC_Alarm1 == ENABLE)
+	{
+		RTC_RegistersStruct.CR |= A1IE;
+	}
+	if(RTC_InitStruct->RTC_Alarm2 == ENABLE)
+	{
+		RTC_RegistersStruct.CR |= A2IE;
+	}*/
+
+	TWI_Start();
+	TWI_Write_SLA(DS3231_SLA);
+	TWI_WriteByte(DS3231_CR);
+	TWI_WriteByte(RTC_RegistersStruct.CR);
+	TWI_Stop();
+
+
+}
+
+
+void RTC_SetAlarm(RTC_AlarmTypedef* RTC_AlarmStruct)
+{
+	if((RTC_RegistersStruct.RTC_Alarm1 != Alarm1_Disable) | (RTC_RegistersStruct.RTC_Alarm2 != Alarm2_Disable))
+	{
+		if((RTC_AlarmStruct->seconds 	 >= 60) | (RTC_AlarmStruct->seconds 	< 0)) RTC_AlarmStruct->seconds = 0;
+		if((RTC_AlarmStruct->minutes 	 >= 60) | (RTC_AlarmStruct->minutes 	< 0)) RTC_AlarmStruct->minutes = 0;
+		if((RTC_AlarmStruct->hours   	 >  24) | (RTC_AlarmStruct->hours   	< 0)) RTC_AlarmStruct->hours = 0;
+		if((RTC_AlarmStruct->day     	 >  31) | (RTC_AlarmStruct->day     	< 0)) RTC_AlarmStruct->day = 0;
+		if((RTC_AlarmStruct->day_of_week >   7) | (RTC_AlarmStruct->day_of_week < 1)) RTC_AlarmStruct->day_of_week = 0;
+		if((RTC_AlarmStruct->month 		 >  12) | (RTC_AlarmStruct->month 		< 0)) RTC_AlarmStruct->month = 0;
+		if((RTC_AlarmStruct->year 		 > 100) | (RTC_AlarmStruct->year 		< 0)) RTC_AlarmStruct->year = 15;
+
+		if(RTC_RegistersStruct.RTC_Alarm1 != Alarm1_Disable)
+		{
+			uint8_t alarm[4];
+
+			if(RTC_RegistersStruct.RTC_Alarm1 == Alarm1_OncePerSec)
+			{
+				alarm[0] = A1M1;
+				alarm[1] = A1M2;
+				alarm[2] = A1M3;
+				alarm[3] = A1M4;
+			}
+			else if(RTC_RegistersStruct.RTC_Alarm1 == Alarm1_Sec)
+			{
+				alarm[0] = RTC_DecToBCD(RTC_AlarmStruct->seconds);
+				alarm[1] = A1M2;
+				alarm[2] = A1M3;
+				alarm[3] = A1M4;
+			}
+			else if(RTC_RegistersStruct.RTC_Alarm1 == Alarm1_MinSec)
+			{
+				alarm[0] = RTC_DecToBCD(RTC_AlarmStruct->seconds);
+				alarm[1] = RTC_DecToBCD(RTC_AlarmStruct->minutes);
+				alarm[2] = A1M3;
+				alarm[3] = A1M4;
+			}
+			else if(RTC_RegistersStruct.RTC_Alarm1 == Alarm1_HoursMinSec)
+			{
+				alarm[0] = RTC_DecToBCD(RTC_AlarmStruct->seconds);
+				alarm[1] = RTC_DecToBCD(RTC_AlarmStruct->minutes);
+				alarm[2] = RTC_DecToBCD(RTC_AlarmStruct->hours);
+				alarm[3] = A1M4;
+			}
+			else if(RTC_RegistersStruct.RTC_Alarm1 == Alarm1_DateHoursMinSec)
+			{
+				alarm[0] = RTC_DecToBCD(RTC_AlarmStruct->seconds);
+				alarm[1] = RTC_DecToBCD(RTC_AlarmStruct->minutes);
+				alarm[2] = RTC_DecToBCD(RTC_AlarmStruct->hours);
+				alarm[3] = RTC_DecToBCD(RTC_AlarmStruct->day);
+			}
+			else if(RTC_RegistersStruct.RTC_Alarm1 == Alarm1_DayHoursMinSec)
+			{
+				alarm[0] = RTC_DecToBCD(RTC_AlarmStruct->seconds);
+				alarm[1] = RTC_DecToBCD(RTC_AlarmStruct->minutes);
+				alarm[2] = RTC_DecToBCD(RTC_AlarmStruct->hours);
+				alarm[3] = DY_DT | RTC_DecToBCD(RTC_AlarmStruct->day_of_week);
+			}
+			else
+			{
+				alarm[0] = A1M1;
+				alarm[1] = A1M2;
+				alarm[2] = A1M3;
+				alarm[3] = A1M4;
+			}
+			TWI_WriteBytes(DS3231_SLA, DS3231_ALARM1_SEC, 4, alarm);
+		}
+		if(RTC_RegistersStruct.RTC_Alarm2 != Alarm2_Disable)
+		{
+
+			uint8_t alarm[3];// = {0,0,0,0};
+			if(RTC_RegistersStruct.RTC_Alarm2 == Alarm2_OncePerMin)
+			{
+				alarm[0] = A2M2;
+				alarm[1] = A2M3;
+				alarm[2] = A2M4;
+			}
+			else if(RTC_RegistersStruct.RTC_Alarm2 == Alarm2_Min)
+			{
+				alarm[0] = RTC_DecToBCD(RTC_AlarmStruct->minutes);
+				alarm[1] = A2M3;
+				alarm[2] = A2M4;
+			}
+			else if(RTC_RegistersStruct.RTC_Alarm2 == Alarm2_HoursMin)
+			{
+				alarm[0] = RTC_DecToBCD(RTC_AlarmStruct->minutes);
+				alarm[1] = RTC_DecToBCD(RTC_AlarmStruct->hours);
+				alarm[2] = A2M4;
+			}
+			else if(RTC_RegistersStruct.RTC_Alarm2 == Alarm2_DateHoursMin)
+			{
+				alarm[0] = RTC_DecToBCD(RTC_AlarmStruct->minutes);
+				alarm[1] = RTC_DecToBCD(RTC_AlarmStruct->hours);
+				alarm[2] = RTC_DecToBCD(RTC_AlarmStruct->day);
+			}
+			else if(RTC_RegistersStruct.RTC_Alarm2 == Alarm2_DayHoursMin)
+			{
+				alarm[0] = RTC_DecToBCD(RTC_AlarmStruct->minutes);
+				alarm[1] = RTC_DecToBCD(RTC_AlarmStruct->hours);
+				alarm[2] = DY_DT | RTC_DecToBCD(RTC_AlarmStruct->day_of_week);
+			}
+			else
+			{
+				alarm[0] = A2M2;
+				alarm[1] = A2M3;
+				alarm[2] = A2M4;
+			}
+			TWI_WriteBytes(DS3231_SLA, DS3231_ALARM2_MIN, 3, alarm);
+		}
+
+		RTC_RegistersStruct.CR |= INTCN;
+
+		TWI_Start();
+		TWI_Write_SLA(DS3231_SLA);
+		TWI_WriteByte(DS3231_CR);
+		TWI_WriteByte(RTC_RegistersStruct.CR);
+		TWI_Stop();
+	}
+}
+
+
+void RTC_GetTemp(int8_t* integer, uint8_t* fract) {
+
+	uint8_t temporary = 0;
+	TWI_Start();
+	TWI_Write_SLA(DS3231_SLA);
+	TWI_WriteByte(DS3231_TEMP_MSB);
+	TWI_RStart();
+	TWI_Write_SLA(DS3231_SLA + 1);
+	*integer = TWI_ReadByte_ACK();
+	temporary = TWI_ReadByte_NACK();
+	TWI_Stop();
+	if (temporary != 0)
+		*fract = (temporary >> 6) * 25;
+	else
+		*fract = 0;
+}
+
+uint8_t RTC_DecToBCD(uint8_t decimal) {
+	return ((decimal / 10) << 4) | (decimal % 10);
+}
+
+uint8_t RTC_BCDToDec(uint8_t bcd) {
+	return ((((bcd >> 4) & 0x0F) * 10) | (bcd & 0x0F));
+}
+
+
+
+void RTC_SetTime(RTC_DateTimeTypedef* DateTimeStruct)
+{
+	uint8_t time[3];
+	time[0] = RTC_DecToBCD(DateTimeStruct->seconds);
+	time[1] = RTC_DecToBCD(DateTimeStruct->minutes);
+	time[2] = RTC_DecToBCD(DateTimeStruct->hours);
+	TWI_WriteBytes(DS3231_SLA, DS3231_SEC, 3, time);
+}
+
+void RTC_SetDate(RTC_DateTimeTypedef* DateTimeStruct)
+{
+	uint8_t date[4];
+	//date[0] = RTC_DecToBCD(DateTimeStruct->day_of_week);
+	date[0] = DateTimeStruct->day_of_week;
+	date[1] = RTC_DecToBCD(DateTimeStruct->day);
+	date[2] = RTC_DecToBCD(DateTimeStruct->month);
+	date[2] = RTC_DecToBCD(DateTimeStruct->year);
+	TWI_WriteBytes(DS3231_SLA, DS3231_DAY, 4, date);
+}
+
+void RTC_SetTimeDate(RTC_DateTimeTypedef* DateTimeStruct)
+{
+	RTC_SetTime(DateTimeStruct);
+	RTC_SetDate(DateTimeStruct);
+}
+
+void RTC_GetTime(RTC_DateTimeTypedef* DateTimeStruct)
+{
+	uint8_t time[3];
+	TWI_ReadBytes(DS3231_SLA, DS3231_SEC, 3, time);
+	DateTimeStruct->seconds = RTC_BCDToDec(time[0]);
+	DateTimeStruct->minutes = RTC_BCDToDec(time[1]);
+	DateTimeStruct->hours =   RTC_BCDToDec(time[2]);
+}
+
+void RTC_GetDate(RTC_DateTimeTypedef* DateTimeStruct)
+{
+	uint8_t date[4];
+	TWI_ReadBytes(DS3231_SLA, DS3231_SEC, 4, date);
+	DateTimeStruct->day_of_week = date[0];
+	DateTimeStruct->day   		= RTC_BCDToDec(date[1]);
+	DateTimeStruct->month 		= RTC_BCDToDec(date[2]);
+	DateTimeStruct->year  		= RTC_BCDToDec(date[3]);
+}
+
+void RTC_GetTimeDate(RTC_DateTimeTypedef* DateTimeStruct)
+{
+	RTC_GetTime(DateTimeStruct);
+	RTC_GetDate(DateTimeStruct);
+}

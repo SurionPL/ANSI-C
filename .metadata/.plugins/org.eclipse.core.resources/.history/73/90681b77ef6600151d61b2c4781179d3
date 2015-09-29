@@ -1,0 +1,35 @@
+/*
+ * main.c
+ *
+ *  Created on: 2 wrz 2015
+ *      Author: Bartek
+ */
+
+#include <avr/io.h>
+#include <util/delay.h>
+#include "RTC.h"
+#include "I2C.h"
+
+int main() {
+	TWI_Init(100000/100);
+
+	RTC_InitTypeDef RTC_Init;
+	RTC_Init.BB_SQW = DISABLE;
+	RTC_Init.RTC_Alarm1=Alarm1_Disable;
+	RTC_Init.RTC_Alarm2=Alarm2_Disable;
+	RTC_Init.RTC_Oscillator = DISABLE;
+
+	typedef struct {
+		NewState RTC_Oscillator;
+		RTC_SQWFreqTypeDef RTC_SQW;
+		NewState BB_SQW;
+		//NewState RTC_Alarm1;
+		//NewState RTC_Alarm2;
+		//NewState Interrupt;
+		RTC_Alarm1TypeDef RTC_Alarm1;
+		RTC_Alarm2TypeDef RTC_Alarm2;
+
+	} RTC_InitTypeDef;
+
+while(1){} 
+}
