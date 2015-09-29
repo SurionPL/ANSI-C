@@ -23,9 +23,8 @@
 
 
 /** @ Defgroup: BMP180 slave address
-  *
   */
-#define BMP180_SLA ((uint8_t)0xEE)	//BMP180 Slave Address
+#define BMP180_SLA ((uint8_t)0xEE)
 
 
 /*
@@ -55,7 +54,6 @@
 */
 
 /** @ Defgroup: BMP180 registers addresses
-  * @{
   */
 #define BMP180_ADC_XLSB_REG ((uint8_t)0xF8)
 #define BMP180_ADC_LSB_REG	((uint8_t)0xF7)
@@ -70,7 +68,6 @@
 
 
 /** @ Defgroup: BMP180 slave address
-  * @{
   */
 #define BMP180_MEM_START 0xAA
 

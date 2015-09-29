@@ -1,3 +1,5 @@
 1443561887780	Delete resource 'RTC/MKUART'
 1443562024268	Delete resource 'RTC/USART.c'
 1443562025524	Delete resource 'RTC/USART.h'
+1443566727203	Delete resource 'LUX/I2C.c'
+1443566728618	Delete resource 'LUX/I2C.h'
