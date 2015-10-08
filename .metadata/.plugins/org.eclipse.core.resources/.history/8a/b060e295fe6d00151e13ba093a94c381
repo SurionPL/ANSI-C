@@ -19,15 +19,6 @@
 #define HTU21D_READ_UR			((uint8_t)0xE7) /* Read User Register */
 #define HTU21D_SOFT_RESET		((uint8_t)0xFE) /* Soft Reset */
 
-
-#define HTU21D_UR_DEFAULT ((uint8_t)0x02)
-
-typedef struct
-{
-	uint8_t UR;
-
-}HTU21D_RegistersTypeDef;
-
 typedef enum
 {
 	Humidity12b_Temperature14b = 0,
@@ -35,11 +26,11 @@ typedef enum
 	Humidity10b_Temperature13b,
 	Humidity11b_Temperature11b,
 
-}HTU21D_ResolutionTypeDef;
+};
 
 
 
-void HTU21D_Init(HTU21D_ResolutionTypeDef Resolution);
+void HTU21D_Init();
 void HTU21D_StartTemperature_NHM();
 void HTU21D_StartHumidity_NHM();
 void HTU21D_GetTemperature_HM();

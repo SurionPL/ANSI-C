@@ -20,13 +20,6 @@
 #define HTU21D_SOFT_RESET		((uint8_t)0xFE) /* Soft Reset */
 
 
-#define HTU21D_UR_DEFAULT ((uint8_t)0x02)
-
-typedef struct
-{
-	uint8_t UR;
-
-}HTU21D_RegistersTypeDef;
 
 typedef enum
 {

@@ -105,10 +105,10 @@
 /** @ Defgroup: BMP180 pressure measurement modes
   * @{
   */
-#define BMP180_P_MEASURE_ULP	((uint8_t)0x34)	/* Ultra Low Power mode */
-#define BMP180_P_MEASURE_ST		((uint8_t)0x74)	/* Standard mode */
-#define BMP180_P_MEASURE_HR		((uint8_t)0xB4)	/* High Resolution mode */
-#define BMP180_P_MEASURE_UHR 	((uint8_t)0xF4)	/* Ultra High Resolution mode */
+#define BMP180_P_MEASURE_ULP	((uint8_t)0x34)	// Ultra Low Power mode
+#define BMP180_P_MEASURE_ST		((uint8_t)0x74)	// Standard mode
+#define BMP180_P_MEASURE_HR		((uint8_t)0xB4)	// High Resolution mode
+#define BMP180_P_MEASURE_UHR 	((uint8_t)0xF4)	// Ultra High Resolution mode
 
 
 /** @ Defgroup: BMP180 pressure measurement modes enumeration

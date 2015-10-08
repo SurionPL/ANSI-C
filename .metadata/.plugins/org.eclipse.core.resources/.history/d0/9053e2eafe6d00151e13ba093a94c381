@@ -99,9 +99,9 @@ long BMP180_GetTemp() {
 }
 
 /**
- * @ Brief  	Gets the uncompensed pressure from sensor and calculate it to Pa (Pascal) units.
+ * @ Brief  	 Gets the uncompensed pressure from sensor and calculate it to Pa (Pascal) units.
  * @ Parameter  None.
- * @ Retval 	Pressure in Pa.
+ * @ Retval 	 Pressure in Pa.
  */
 long BMP180_GetPress() {
 	uint8_t OSS = ((BMP180_Struct.BMP180_Mode) & 0xC0) >> 6;  // ? czy uint8_t
