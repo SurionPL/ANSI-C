@@ -1,0 +1,24 @@
+/*
+ * HTU21D.c
+ *
+ *  Created on: 1 paü 2015
+ *      Author: Bartek
+ */
+
+#include <avr/io.h>
+#include <util/delay.h>
+#include "HTU21D.h"
+
+#define HTU21D_SLA ((uint8_t)0x80)
+
+
+#define HTU21D_TEMP_MEAS_HM ((uint8_t)0xE3)
+#define HTU21D_HUM_MEAS_HM ((uint8_t)0xE5)
+#define HTU21D_TEMP_MEAS_NHM ((uint8_t)0xF3)
+#define HTU21D_HUM_MEAS_HM ((uint8_t)0xF5)
+
+void HTU21D_StartTemperature_NHM();
+void HTU21D_StartHumidity_NHM();
+void HTU21D_GetTemperature_HM();
+void HTU21D_GetHumidity_HM();
+void HTU21D_

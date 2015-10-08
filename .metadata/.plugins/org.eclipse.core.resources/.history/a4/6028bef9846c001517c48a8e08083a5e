@@ -1,0 +1,15 @@
+/*
+ * HTU21D.c
+ *
+ *  Created on: 1 paü 2015
+ *      Author: Bartek
+ */
+
+#include <avr/io.h>
+#include <util/delay.h>
+#include "HTU21D.h"
+
+void HTU21D_StartTemperature_NHM()
+{
+int i = HTU21D_TEMP_MEAS_HM;
+}

@@ -1,0 +1,13 @@
+/*
+ * HTU21D.c
+ *
+ *  Created on: 1 paü 2015
+ *      Author: Bartek
+ */
+
+#include <avr/io.h>
+#include <util/delay.h>
+int main() {
+
+while(1){} 
+}
