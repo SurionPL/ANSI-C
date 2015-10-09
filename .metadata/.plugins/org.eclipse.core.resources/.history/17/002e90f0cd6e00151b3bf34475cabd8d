@@ -36,43 +36,21 @@ void HTU21D_GetTemperature_NHM(int8_t* integer, uint8_t* fractional)
 	int16_t temperature;
 	TWI_Start();
 	TWI_Write_SLA(HTU21D_SLA + 1);
-	msb = TWI_ReadByte_ACK();
-	lsb = TWI_ReadByte_ACK();
-	checksum = TWI_ReadByte_NACK();
+	TWI_ReadByte(msb);
+	TWI_ReadByte(lsb);
+	TWI_ReadByte(checksum);
 	TWI_Stop();
-	if((lsb & 0x02) == HTU21D_TYPE_TEMPERATURE)
+	if(lsb & 0x02 == HTU21D_TYPE_TEMPERATURE)
 	{
-		temperature = -4685 + ((((uint32_t)17572) * (((uint16_t)msb) | (lsb & 0xFC))) >> 16);
-		//*integer = temperature / 100;
-		//*fractional = temperature % 100;
+		temperature = -4685 + ((17572 * (((uint16_t)msb) | (lsb & 0xFC)) >> 16));
+		//*integer =
 	}
 }
 
 
-uint8_t HTU21D_GetHumidity_NHM()
+void HTU21D_GetHumidity_NHM()
 {
 	//dodac checksum
-	uint8_t msb, lsb, checksum;
-	int8_t humidity;
-	TWI_Start();
-	TWI_Write_SLA(HTU21D_SLA + 1);
-	msb = TWI_ReadByte_ACK();
-	lsb = TWI_ReadByte_ACK();
-	checksum = TWI_ReadByte_NACK();
-	TWI_Stop();
-	if((lsb & 0x02) == HTU21D_TYPE_HUMIDITY)
-	{
-		humidity = -6 + (((uint32_t)125 * ((uint16_t)msb | (lsb & 0xFC))) >> 16 );
-
-		if(humidity < 0) return (0);
-
-		return ((uint8_t)humidity);
-	}
-	else
-	{
-		return (0);
-	}
-
 }
 
 void HTU21D_GetTemperature_HM()

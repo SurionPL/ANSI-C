@@ -22,10 +22,6 @@
 
 #define HTU21D_UR_DEFAULT ((uint8_t)0x02)
 
-
-#define HTU21D_TYPE_TEMPERATURE ((uint8_t)0x00)
-#define HTU21D_TYPE_HUMIDITY	((uint8_t)0x02)
-
 typedef struct
 {
 	uint8_t UR;
@@ -46,8 +42,8 @@ typedef enum
 void HTU21D_Init(HTU21D_ResolutionTypeDef Resolution);
 void HTU21D_StartTemperature_NHM();
 void HTU21D_StartHumidity_NHM();
-void HTU21D_GetTemperature_NHM(int8_t* integer, uint8_t* fractional);
-uint8_t HTU21D_GetHumidity_NHM();
+void HTU21D_GetTemperature_NHM(uint8_t* integerTemp, uint8_t* fractionalTemp);
+void HTU21D_GetHumidity_NHM();
 void HTU21D_GetTemperature_HM();
 void HTU21D_GetHumidity_HM();
 //void HTU21D_

@@ -1,14 +1,9 @@
-02:32:41 **** Incremental Build of configuration Release for project Wilgotnosc ****
+00:03:16 **** Incremental Build of configuration Release for project Wilgotnosc ****
 make all 
 Building file: ../HTU21D.c
 Invoking: AVR Compiler
 avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"HTU21D.d" -MT"HTU21D.d" -c -o "HTU21D.o" "../HTU21D.c"
 Finished building: ../HTU21D.c
- 
-Building file: ../main.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
-Finished building: ../main.c
  
 Building target: Wilgotnosc.elf
 Invoking: AVR C Linker
@@ -33,15 +28,15 @@ AVR Memory Usage
 ----------------
 Device: atmega8
 
-Program:    1192 bytes (14.6% Full)
+Program:    1416 bytes (17.3% Full)
 (.text + .data + .bootloader)
 
-Data:         80 bytes (7.8% Full)
+Data:         81 bytes (7.9% Full)
 (.data + .bss + .noinit)
 
 
 Finished building: sizedummy
  
 
-02:32:46 Build Finished (took 4s.906ms)
+00:03:18 Build Finished (took 1s.922ms)
 

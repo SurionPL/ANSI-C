@@ -53,7 +53,7 @@ uint8_t HTU21D_GetHumidity_NHM()
 {
 	//dodac checksum
 	uint8_t msb, lsb, checksum;
-	int8_t humidity;
+	int16_t humidity;
 	TWI_Start();
 	TWI_Write_SLA(HTU21D_SLA + 1);
 	msb = TWI_ReadByte_ACK();
@@ -62,17 +62,10 @@ uint8_t HTU21D_GetHumidity_NHM()
 	TWI_Stop();
 	if((lsb & 0x02) == HTU21D_TYPE_HUMIDITY)
 	{
-		humidity = -6 + (((uint32_t)125 * ((uint16_t)msb | (lsb & 0xFC))) >> 16 );
-
-		if(humidity < 0) return (0);
-
-		return ((uint8_t)humidity);
+		humidity = -6 + ((125 * ((uint16_t)msb | (lsb & 0xFC))) >> 16 );
+		//*integer = temperature / 100;
+		//*fractional = temperature % 100;
 	}
-	else
-	{
-		return (0);
-	}
-
 }
 
 void HTU21D_GetTemperature_HM()

@@ -46,8 +46,8 @@ typedef enum
 void HTU21D_Init(HTU21D_ResolutionTypeDef Resolution);
 void HTU21D_StartTemperature_NHM();
 void HTU21D_StartHumidity_NHM();
-void HTU21D_GetTemperature_NHM(int8_t* integer, uint8_t* fractional);
-uint8_t HTU21D_GetHumidity_NHM();
+void HTU21D_GetTemperature_NHM(uint8_t* integer, uint8_t* fractional);
+void HTU21D_GetHumidity_NHM();
 void HTU21D_GetTemperature_HM();
 void HTU21D_GetHumidity_HM();
 //void HTU21D_

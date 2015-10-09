@@ -62,15 +62,15 @@ uint8_t HTU21D_GetHumidity_NHM()
 	TWI_Stop();
 	if((lsb & 0x02) == HTU21D_TYPE_HUMIDITY)
 	{
-		humidity = -6 + (((uint32_t)125 * ((uint16_t)msb | (lsb & 0xFC))) >> 16 );
+		humidity = -6 + ((125 * ((uint16_t)msb | (lsb & 0xFC))) >> 16 );
 
-		if(humidity < 0) return (0);
+		if(humidity < 0) return 0;
 
-		return ((uint8_t)humidity);
+		return (uint8_t)humidity;
 	}
 	else
 	{
-		return (0);
+		return 0;
 	}
 
 }
