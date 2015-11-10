@@ -1,0 +1,19 @@
+00:27:48 **** Incremental Build of configuration Release for project WiFi_Client ****
+make all 
+Building file: ../ESP8266_Cl.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"ESP8266_Cl.d" -MT"ESP8266_Cl.d" -c -o "ESP8266_Cl.o" "../ESP8266_Cl.c"
+../ESP8266_Cl.c: In function 'ESP_Connect':
+../ESP8266_Cl.c:65: error: expected ',' or ';' before 'char'
+../ESP8266_Cl.c:66: warning: implicit declaration of function 'USART_TransmitString'
+../ESP8266_Cl.c: In function 'ESP_SetIP':
+../ESP8266_Cl.c:144: error: 'ESP_InitTypeDef' has no member named 'Mode'
+../ESP8266_Cl.c:149: warning: implicit declaration of function 'USART_TransmitData'
+../ESP8266_Cl.c: In function 'ESP_SetMAC':
+../ESP8266_Cl.c:162: error: 'ESP_InitTypeDef' has no member named 'Mode'
+../ESP8266_Cl.c:166: error: expected ',' or ';' before 'USART_TransmitString'
+../ESP8266_Cl.c:165: warning: unused variable 'command'
+make: *** [ESP8266_Cl.o] Error 1
+
+00:27:49 Build Finished (took 734ms)
+

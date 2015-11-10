@@ -10,7 +10,6 @@
  *      Pin ADDR conected do GND
  */
 
-
 /**
   *******************************************************************************
   * @ File    BH1750.h
@@ -31,8 +30,9 @@
 //#define BH1750_ADD_PORT	PORTB
 
 
-
-#define BH1750_SLA 	((uint8_t)0x46)				//Data write
+/** @ Defgroup: BH1750 slave address
+  */
+#define BH1750_SLA 	((uint8_t)0x46)
 
 
 #define BH1750_Power_OFF	((uint8_t)0x00)
@@ -40,40 +40,14 @@
 #define BH1750_RESET		((uint8_t)0x07)
 
 
-/** @ Defgroup: BH1750 measurment modes definition
+/** @ Defgroup: BH1750 measurement modes definition
   */
-#define BH1750_CHR_MODE    ((uint8_t)0x10)		// BH1750 Continuously H-Resolution Mode
-#define BH1750_CHR_MODE2   ((uint8_t)0x11)		// Continuously H-Resolution Mode2	(0,5 lx)
-#define BH1750_CLR_MODE    ((uint8_t)0x13)		// Continuously L-Resolution Mode
-#define BH1750_OTHR_MODE   ((uint8_t)0x20)		// One Time H-Resolution Mode
-#define BH1750_OTHR_MODE2  ((uint8_t)0x21)		// One Time H-Resolution Mode2
-#define BH1750_OTLR_MODE   ((uint8_t)0x23)		// One Time L-Resolution Mode
-
-
-
-/**
-  * @Brief  BH1750 measurment mode enumeration
-  */
-/*typedef enum
-{
-	BH1750_Mode_CHR   = 0x10,		// BH1750 Continuously H-Resolution Mode
-	BH1750_Mode2_CHR  = 0x11,		// BH1750 Continuously H-Resolution Mode2
-	BH1750_Mode_CLR   = 0x13,		// BH1750 Continuously L-Resolution Mode
-	BH1750_Mode_OTHR  = 0x20,		// BH1750 One Time H-Resolution Mode
-	BH1750_Mode2_OTHR = 0x21,		// BH1750 One Time H-Resolution Mode2
-	BH1750_Mode_OTLR  = 0x23		// BH1750 One Time L-Resolution Mode
-
-
-
-}BH1750Mode_TypeDef;*/
-
-
-
-//typedef struct
-//{
-	//BH1750Mode_TypeDef Mode;
-//}BH1750_InitTypeDef;
-
+#define BH1750_CHR_MODE    ((uint8_t)0x10)		/* BH1750 Continuously H-Resolution Mode */
+#define BH1750_CHR_MODE2   ((uint8_t)0x11)		/* Continuously H-Resolution Mode2 */
+#define BH1750_CLR_MODE    ((uint8_t)0x13)		/* Continuously L-Resolution Mode */
+#define BH1750_OTHR_MODE   ((uint8_t)0x20)		/* One Time H-Resolution Mode */
+#define BH1750_OTHR_MODE2  ((uint8_t)0x21)		/* One Time H-Resolution Mode2 */
+#define BH1750_OTLR_MODE   ((uint8_t)0x23)		/* One Time L-Resolution Mode */
 
 
 /** @ Defgroup: BH1750 functions

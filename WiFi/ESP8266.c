@@ -44,7 +44,23 @@ void ESP_Init(ESP_InitTypeDef* ESP8266_InitStruct)
 {
   //Send
 	//ESP_PowerOn();
-	USART_Init(MYUBRR);
+	if(ESP8266_InitStruct->Mode == ESP8266_AP)
+	{
+		char command[11] = {'A','T','+','C','W','M','O','D','E','=','2'};
+
+	}
+	else if(ESP8266_InitStruct->Mode == ESP8266_BOTH)
+	{
+		char command[11] = {'A','T','+','C','W','M','O','D','E','=','3'};
+
+	}
+	else //default STA (Client)
+	{
+		char command[11] = {'A','T','+','C','W','M','O','D','E','=','1'};
+
+	}
+
+	//USART_Init(MYUBRR);
 
 
 }
@@ -59,7 +75,7 @@ void ESP_Init(ESP_InitTypeDef* ESP8266_InitStruct)
 void ESP_Connect(char* ssid, char* password)
 {
 //Send USART AT+ CWJAP =<ssid>,<pwd>
-	char command[9]={'A','T','+','C','W','J','A','P','='};				// Command: AT+CWJAP=<ssid>,<password>
+	char command[9]={'A','T','+','C','W','J','A','P','='};				/* Command: AT+CWJAP=<ssid>,<password> */
 	char comma[1] = {','};
 	USART_TransmitString(command,9);
 	USART_TransmitString(ssid, strlen(ssid));
@@ -191,5 +207,12 @@ void ESP_AccessPoint(ESP_InitTypeDef* ESP8266_InitStruct)		// Czy podzielic na 3
 	char comma[1] = {','};
 }
 
+
+void ESP_Restart()
+{
+	char command[9] = {'A','T','+','R','S','T'};		// Command: AT+RST
+
+	USART_TransmitString(command,6);
+}
 
 

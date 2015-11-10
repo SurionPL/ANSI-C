@@ -1,4 +1,3 @@
-
 /**
  *******************************************************************************
  * @ File    BH1750.c
@@ -10,6 +9,8 @@
  *******************************************************************************
  */
 
+
+/* Includes -------------------------------------------------------------------*/
 #include <avr/io.h>
 #include <util/delay.h>
 #include "BH1750.h"
@@ -17,6 +18,7 @@
 
 uint8_t state_;
 uint8_t mode_;
+
 
 /**
  * @ Brief  	Switches the sensor to power on mode.
@@ -59,12 +61,12 @@ void BH1750_PowerDown()
 void BH1750_Start(uint8_t mode)
 {
 	mode_ = mode;
-	//void TWI_Init();
 	TWI_Start();
 	TWI_Write_SLA(BH1750_SLA);
 	TWI_WriteByte(mode);
 	TWI_Stop();
 }
+
 
 /**
  * @ Brief  	Reads measurement result (illuminance).
@@ -73,16 +75,13 @@ void BH1750_Start(uint8_t mode)
  */
 uint16_t BH1750_Read()
 {
-//#if mode_ == 1
-  //Serial.print("Light level: ");
-  //Serial.println(level);
-//#endif
 	uint16_t result = 0;
 	uint16_t lux = 0;
+
 	TWI_Start();
 	TWI_Write_SLA(BH1750_SLA + 1);
-	result = TWI_ReadByte_ACK();
-	result <<= 8;
+	result = TWI_ReadByte_ACK() << 8;
+	//result <<= 8;
 	result |= TWI_ReadByte_NACK();
 	TWI_Stop();
 

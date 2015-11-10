@@ -1,20 +1,5 @@
-16:10:15 **** Incremental Build of configuration Release for project Barometr ****
+20:27:37 **** Incremental Build of configuration Release for project Barometr ****
 make all 
-Building file: ../MKUART/mkuart.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"MKUART/mkuart.d" -MT"MKUART/mkuart.d" -c -o "MKUART/mkuart.o" "../MKUART/mkuart.c"
-Finished building: ../MKUART/mkuart.c
- 
-Building file: ../BMP180.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"BMP180.d" -MT"BMP180.d" -c -o "BMP180.o" "../BMP180.c"
-Finished building: ../BMP180.c
- 
-Building file: ../I2C.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"I2C.d" -MT"I2C.d" -c -o "I2C.o" "../I2C.c"
-Finished building: ../I2C.c
- 
 Building file: ../main.c
 Invoking: AVR Compiler
 avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
@@ -43,7 +28,7 @@ AVR Memory Usage
 ----------------
 Device: atmega8
 
-Program:    3096 bytes (37.8% Full)
+Program:    3098 bytes (37.8% Full)
 (.text + .data + .bootloader)
 
 Data:        184 bytes (18.0% Full)
@@ -53,5 +38,5 @@ Data:        184 bytes (18.0% Full)
 Finished building: sizedummy
  
 
-16:10:17 Build Finished (took 2s.531ms)
+20:27:39 Build Finished (took 1s.823ms)
 

@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="DS3231" key="selection"/>
+		<item value="" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="cwmode"/>
+			<item value="I2C"/>
 			<item value="DS1307"/>
 			<item value="UT"/>
 			<item value="UP"/>
 			<item value="Send_SLA"/>
 			<item value="bmp180_Struct"/>
 			<item value="Parameters"/>
-			<item value="OSS"/>
-			<item value="short"/>
 		</list>
 		<list key="replacehistory">
 			<item value="DS3231"/>

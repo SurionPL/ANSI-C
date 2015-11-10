@@ -8,6 +8,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include MKUART/subdir.mk
 -include LCD/subdir.mk
 -include DHT/subdir.mk
 -include subdir.mk

@@ -1,10 +1,3 @@
-/*
- * BMP180.c
- *
- *  Created on: 28 lip 2015
- *      Author: Bartek
- */
-
 /**
  *******************************************************************************
  * @ File    BMP180.c
@@ -24,37 +17,11 @@
 
 BMP180_TypeDef BMP180_Struct;
 
-/**
- * @ Brief  	 Starts the BMP180 temperature measurement.
- * @ Parameter  None.
- * @ Retval 	 None.
- */
-void BMP180_StartTemp() {
-	TWI_Start();
-	TWI_Write_SLA(BMP180_SLA);
-	TWI_WriteByte(BMP180_CTRL_MEAS_REG);
-	TWI_WriteByte(BMP180_T_MEASURE);
-	TWI_Stop();
-}
 
 /**
- * @ Brief  	 Starts the BMP180 pressure measurement.
- * 		 	 Needs a single temperature measurement.
- * @ Parameter  None.
- * @ Retval 	 None.
- */
-void BMP180_StartPress() {
-	TWI_Start();
-	TWI_Write_SLA(BMP180_SLA);
-	TWI_WriteByte(BMP180_CTRL_MEAS_REG);
-	TWI_WriteByte(BMP180_Struct.BMP180_Mode);
-	TWI_Stop();
-}
-
-/**
- * @ Brief  	 Initializes the BMP180 sensor.
+ * @ Brief  	Initializes the BMP180 sensor.
  * @ Parameter  BMP180Mode_TypeDef: sensor measurement mode.
- * @ Retval 	 None.
+ * @ Retval 	None.
  */
 void BMP180_Init(BMP180Mode_TypeDef BMP180_Mode) {
 	BMP180_Struct.BMP180_Mode = BMP180_Mode;
@@ -76,6 +43,36 @@ void BMP180_Init(BMP180Mode_TypeDef BMP180_Mode) {
 	BMP180_Struct.MD  = ((short) buffer[20] << 8 		| ((short) buffer[21]));
 }
 
+
+/**
+ * @ Brief  	Starts the BMP180 temperature measurement.
+ * @ Parameter  None.
+ * @ Retval 	None.
+ */
+void BMP180_StartTemp() {
+	TWI_Start();
+	TWI_Write_SLA(BMP180_SLA);
+	TWI_WriteByte(BMP180_CTRL_MEAS_REG);
+	TWI_WriteByte(BMP180_T_MEASURE);
+	TWI_Stop();
+}
+
+
+/**
+ * @ Brief  	 Starts the BMP180 pressure measurement.
+ * 		 	 	 First needs a single temperature measurement.
+ * @ Parameter   None.
+ * @ Retval 	 None.
+ */
+void BMP180_StartPress() {
+	TWI_Start();
+	TWI_Write_SLA(BMP180_SLA);
+	TWI_WriteByte(BMP180_CTRL_MEAS_REG);
+	TWI_WriteByte(BMP180_Struct.BMP180_Mode);
+	TWI_Stop();
+}
+
+
 /**
  * @ Brief  	Gets the uncompensed temperature from sensor and calculate it to Celsius degrees.
  * @ Parameter  None.
@@ -84,7 +81,7 @@ void BMP180_Init(BMP180Mode_TypeDef BMP180_Mode) {
 long BMP180_GetTemp() {
 	BMP180_Struct.UT = BMP180_GetUT();
 
-	//Algorithm
+	/* Algorithm */
 	BMP180_Struct.B5 = 0;
 
 	long X1 = (((long) BMP180_Struct.UT - (long) (BMP180_Struct.AC6))
@@ -98,18 +95,18 @@ long BMP180_GetTemp() {
 
 }
 
+
 /**
  * @ Brief  	Gets the uncompensed pressure from sensor and calculate it to Pa (Pascal) units.
  * @ Parameter  None.
  * @ Retval 	Pressure in Pa.
  */
 long BMP180_GetPress() {
-	uint8_t OSS = ((BMP180_Struct.BMP180_Mode) & 0xC0) >> 6;  // ? czy uint8_t
+	uint8_t OSS = ((BMP180_Struct.BMP180_Mode) & 0xC0) >> 6;
 	BMP180_Struct.UP = BMP180_GetUP();
-	long P = 0;
+	long pressure = 0;
 
 	/* Pressure algorithm */
-
 	long B6 = BMP180_Struct.B5 - 4000L;
 	long X1 = (((long) BMP180_Struct.B2) * ((B6 * B6) >> 12)) >> 11;
 	long X2 = (((long) BMP180_Struct.AC2) * B6) >> 11;
@@ -122,18 +119,48 @@ long BMP180_GetPress() {
 	unsigned long B7 = (((unsigned long) BMP180_Struct.UP) - B3) * (50000UL >> OSS);
 
 	if (B7 < 0x80000000) {
-		P = (B7 << 1) / B4;
+		pressure = (B7 << 1) / B4;
 	} else {
-		P = (B7 / B4) << 1;
+		pressure = (B7 / B4) << 1;
 	}
 
-	X1 = (((P >> 8) * (P >> 8)) * 3038) >> 16;
+	X1 = (((pressure >> 8) * (pressure >> 8)) * 3038) >> 16;
 
-	X2 = (-7357L * P) >> 16;
-	P = P + ((X1 + X2 + 3791L) >> 4);
+	X2 = (-7357L * pressure) >> 16;
+	pressure = pressure + ((X1 + X2 + 3791L) >> 4);
 
-	return P;
+	return pressure;
 }
+
+/**
+ * @ Brief  	Gets the uncompensed temperature value (UT) from sensor.
+ * @ Parameter  None.
+ * @ Retval 	Uncompensated temperature value (UP).
+ */
+long BMP180_GetUT() {
+	long UT = 0;
+	uint8_t buffer[2];
+	TWI_ReadBytes(BMP180_SLA, BMP180_ADC_MSB_REG, 2, buffer);
+	BMP180_Struct.UT = 0;
+	BMP180_Struct.UT = (((long) buffer[0]) << 8) | ((long) buffer[1]);
+	return UT;
+}
+
+
+/**
+ * @ Brief  	Gets the uncompensed pressure value (UP) from sensor.
+ * @ Parameter  None.
+ * @ Retval 	None
+ */
+long BMP180_GetUP() {
+	long UP = 0;
+	uint8_t OSS = ((BMP180_Struct.BMP180_Mode) & 0xC0) >> 6;  // ? czy uint8_t
+	uint8_t buffer[3];
+	TWI_ReadBytes(BMP180_SLA, BMP180_ADC_MSB_REG, 3, buffer);
+	UP = ((((long) buffer[0]) << 16) | (((long) buffer[1]) << 8) | (((long) buffer[2]))) >> (8 - OSS);
+	return UP;
+}
+
 
 void BMP180_SendParam() {
 	/*USART_Transmit_Int(BMP180_Struct->BMP180_Struct.AC1);
@@ -184,46 +211,6 @@ void BMP180_SendParam() {
 	 USART_TransmitString(sp,1);*/
 }
 
-/**
- * @ Brief  	 Gets the uncompensed temperature value (UT) from sensor.
- * @ Parameter  None.
- * @ Retval 	 Uncompensated temperature value (UP).
- */
-long BMP180_GetUT() {
-	long UT = 0;
-	uint8_t buffer[2];
-	TWI_ReadBytes(BMP180_SLA, BMP180_ADC_MSB_REG, 2, buffer);
-	BMP180_Struct.UT = 0;
-	BMP180_Struct.UT = (((long) buffer[0]) << 8) | ((long) buffer[1]);
-	return UT;
-}
-
-/**
- * @ Brief  	 Gets the uncompensed pressure value (UP) from sensor.
- * @ Parameter  None.
- * @ Retval 	 None
- */
-long BMP180_GetUP() {
-	long UP = 0;
-	//uint8_t UP_MSB  = 0;
-	//uint8_t UP_LSB  = 0;
-	//uint8_t UP_XLSB = 0;
-	uint8_t OSS = ((BMP180_Struct.BMP180_Mode) & 0xC0) >> 6;  // ? czy uint8_t
-	uint8_t buffer[3];
-	TWI_ReadBytes(BMP180_SLA, BMP180_ADC_MSB_REG, 3, buffer);
-	//TWI_Start();
-	//TWI_Write_SLA(BMP180_W);
-	//TWI_WriteByte(BMP180_ADC_MSB_REG);
-	//TWI_RStart();
-	//TWI_Write_SLA(BMP180_R);
-	//UP_MSB = TWI_ReadByte_ACK();
-	//UP_LSB = TWI_ReadByte_ACK();
-	//UP_XLSB = TWI_ReadByte_NACK();
-	//TWI_Stop();				/// +++++++++
-	//UP = ((((long)UP_MSB) << 16) | (((long)UP_LSB) << 8) | (((long)UP_XLSB))) >> (8U - OSS);
-	UP = ((((long) buffer[0]) << 16) | (((long) buffer[1]) << 8) | (((long) buffer[2]))) >> (8 - OSS);
-	return UP;
-}
 
 void BMP180_SendUPUT() {
 	//char buffer[10] = {0,0,0,0,0,0,0,0,0,0};

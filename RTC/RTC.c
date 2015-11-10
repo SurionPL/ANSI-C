@@ -1,21 +1,32 @@
-/*
- * RTC.c
-
- *
- *  Created on: 2 wrz 2015
- *      Author: Bartlomiej Kusmierczyk
- *      Library for DS1307
+/**
+ *******************************************************************************
+ * @ File    RTC.c
+ * @ Author  Bartlomiej Kusmierczyk
+ * @ Version V1.0
+ * @ Date    02-September-2015
+ * @ Brief   This file contains all the DS3231 real-time clock firmware
+ * 			 functions. RTC works in 24-hours format.
+ *******************************************************************************
  */
 
+
+
+/* Includes -------------------------------------------------------------------*/
 #include <avr/io.h>
 #include <util/delay.h>
 #include "I2C.h"
 #include "RTC.h"
 
 
-//delault 24 hours format
 RTC_RegistersTypeDef RTC_RegistersStruct;
 
+
+/**
+ * @ Brief  	Initializes DS3231.
+ * @ Parameter  RTC_InitStruct: pointer to a RTC_InitTypeDef which contains the
+ * 				configuration informations.
+ * @ Retval 	None.
+ */
 void RTC_Init(RTC_InitTypeDef* RTC_InitStruct) {
 
 	RTC_RegistersStruct.RTC_Alarm1 = RTC_InitStruct->RTC_Alarm1;
@@ -72,6 +83,13 @@ void RTC_Init(RTC_InitTypeDef* RTC_InitStruct) {
 
 }
 
+
+/**
+ * @ Brief  	Sets the alarms.
+ * @ Parameter  RTC_AlarmStruct: pointer to a RTC_AlarmTypedef which contains the
+ * 				alarm configuration informations - time and date.
+ * @ Retval 	None.
+ */
 void RTC_SetAlarm(RTC_AlarmTypedef* RTC_AlarmStruct)
 {
 	if((RTC_RegistersStruct.RTC_Alarm1 != Alarm1_Disable) | (RTC_RegistersStruct.RTC_Alarm2 != Alarm2_Disable))
@@ -137,10 +155,11 @@ void RTC_SetAlarm(RTC_AlarmTypedef* RTC_AlarmStruct)
 			}
 			TWI_WriteBytes(DS3231_SLA, DS3231_ALARM1_SEC, 4, alarm);
 		}
+
 		if(RTC_RegistersStruct.RTC_Alarm2 != Alarm2_Disable)
 		{
 
-			uint8_t alarm[3];// = {0,0,0,0};
+			uint8_t alarm[3];
 			if(RTC_RegistersStruct.RTC_Alarm2 == Alarm2_OncePerMin)
 			{
 				alarm[0] = A2M2;
@@ -190,9 +209,19 @@ void RTC_SetAlarm(RTC_AlarmTypedef* RTC_AlarmStruct)
 	}
 }
 
+
+/**
+ * @ Brief  	Reads the temperature.
+ * @ Parameter  integer: pointer to variable which contains the integer part
+ * 				of temperature value.
+ * 				fract: pointer to variable which contains the fractional part
+ * 				of the temperature.
+ * @ Retval 	None.
+ */
 void RTC_GetTemp(int8_t* integer, uint8_t* fract) {
 
 	uint8_t temporary = 0;
+
 	TWI_Start();
 	TWI_Write_SLA(DS3231_SLA);
 	TWI_WriteByte(DS3231_TEMP_MSB);
@@ -201,12 +230,24 @@ void RTC_GetTemp(int8_t* integer, uint8_t* fract) {
 	*integer = TWI_ReadByte_ACK();
 	temporary = TWI_ReadByte_NACK();
 	TWI_Stop();
+
 	if (temporary != 0)
+	{
 		*fract = (temporary >> 6) * 25;
+	}
 	else
+	{
 		*fract = 0;
+	}
 }
 
+
+/**
+ * @ Brief  	Sets the time.
+ * @ Parameter  DateTimeStruct: pointer to a RTC_DateTimeTypedef which contains the
+ * 				configuration informations - time and date.
+ * @ Retval 	None.
+ */
 void RTC_SetTime(RTC_DateTimeTypedef* DateTimeStruct)
 {
 	uint8_t time[3];
@@ -216,6 +257,13 @@ void RTC_SetTime(RTC_DateTimeTypedef* DateTimeStruct)
 	TWI_WriteBytes(DS3231_SLA, DS3231_SEC, 3, time);
 }
 
+
+/**
+ * @ Brief  	Sets the date.
+ * @ Parameter  DateTimeStruct: pointer to a RTC_DateTimeTypedef which contains the
+ * 				configuration informations - time and date.
+ * @ Retval 	None.
+ */
 void RTC_SetDate(RTC_DateTimeTypedef* DateTimeStruct)
 {
 	uint8_t date[4];
@@ -227,21 +275,40 @@ void RTC_SetDate(RTC_DateTimeTypedef* DateTimeStruct)
 	TWI_WriteBytes(DS3231_SLA, DS3231_DAY, 4, date);
 }
 
+
+/**
+ * @ Brief  	Sets time and date.
+ * @ Parameter  DateTimeStruct: pointer to a RTC_DateTimeTypedef which contains the
+ * 				configuration informations - time and date.
+ * @ Retval 	None.
+ */
 void RTC_SetTimeDate(RTC_DateTimeTypedef* DateTimeStruct)
 {
 	RTC_SetTime(DateTimeStruct);
 	RTC_SetDate(DateTimeStruct);
 }
 
+
+/**
+ * @ Brief  	Gets the time from DS3231.
+ * @ Parameter  DateTimeStruct: pointer to a RTC_DateTimeTypedef.
+ * @ Retval 	None.
+ */
 void RTC_GetTime(RTC_DateTimeTypedef* DateTimeStruct)
 {
 	uint8_t time[3];
 	TWI_ReadBytes(DS3231_SLA, DS3231_SEC, 3, time);
 	DateTimeStruct->seconds = RTC_BCDToDec(time[0]);
 	DateTimeStruct->minutes = RTC_BCDToDec(time[1]);
-	DateTimeStruct->hours =   RTC_BCDToDec(time[2]);
+	DateTimeStruct->hours   = RTC_BCDToDec(time[2]);
 }
 
+
+/**
+ * @ Brief  	Gets the date from DS3231.
+ * @ Parameter  DateTimeStruct: pointer to a RTC_DateTimeTypedef.
+ * @ Retval 	None.
+ */
 void RTC_GetDate(RTC_DateTimeTypedef* DateTimeStruct)
 {
 	uint8_t date[4];
@@ -252,16 +319,34 @@ void RTC_GetDate(RTC_DateTimeTypedef* DateTimeStruct)
 	DateTimeStruct->year  		= RTC_BCDToDec(date[3]);
 }
 
+
+/**
+ * @ Brief  	Gets time and date from DS3231.
+ * @ Parameter  DateTimeStruct: pointer to a RTC_DateTimeTypedef.
+ * @ Retval 	None.
+ */
 void RTC_GetTimeDate(RTC_DateTimeTypedef* DateTimeStruct)
 {
 	RTC_GetTime(DateTimeStruct);
 	RTC_GetDate(DateTimeStruct);
 }
 
+
+/**
+ * @ Brief  	Converts decimal value to BCD code.
+ * @ Parameter  decimal: decimal value.
+ * @ Retval 	Value in BCD code.
+ */
 uint8_t RTC_DecToBCD(uint8_t decimal) {
 	return ((decimal / 10) << 4) | (decimal % 10);
 }
 
+
+/**
+ * @ Brief  	Converts BCD code to decimal value.
+ * @ Parameter  bcd: value in BCD code.
+ * @ Retval 	Decimal value.
+ */
 uint8_t RTC_BCDToDec(uint8_t bcd) {
 	return ((((bcd >> 4) & 0x0F) * 10) | (bcd & 0x0F));
 }

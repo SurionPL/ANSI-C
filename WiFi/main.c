@@ -7,6 +7,9 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
+
+char thingspeak[] = "K7D0ZR1M32BLIV5B";
+
 int main()
 {
 

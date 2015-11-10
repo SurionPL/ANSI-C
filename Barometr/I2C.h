@@ -8,10 +8,10 @@
 #ifndef I2C_H_
 #define I2C_H_
 
-#define I2C_START_ERROR 	(0x01)
-#define I2C_REP_START_ERROR (0x02)
-#define I2C_NACK_ERROR 		(0x05)
-#define I2C_ACK_ERROR 		(0x04)
+#define TWI_START_ERROR 	(0x01)
+#define TWI_REP_START_ERROR (0x02)
+#define TWI_NACK_ERROR 		(0x05)
+#define TWI_ACK_ERROR 		(0x04)
 
 //extern uint8_t TWI_ErrorFlag = 0;
 

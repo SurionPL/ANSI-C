@@ -1,19 +1,30 @@
-/*
- * RTC.h
- *
- *  Created on: 2 wrz 2015
- *      Author: Bartek
- */
+/**
+  *******************************************************************************
+  * @ File    RTC.h
+  * @ Author  Bartlomiej Kusmierczyk
+  * @ Version V1.0
+  * @ Date    02-September-2015
+  * @ Brief   This file contains all the functions prototypes for the DS3231
+  * 		  real-time clock firmware library. RTC works in 24-hours format.
+  *******************************************************************************
+  */
+
 
 #ifndef RTC_H_
 #define RTC_H_
 
-#define DS3231_SLA ((uint8_t)0xD0)				//Data write
+
+/** @ Defgroup: DS3231 slave address
+  */
+#define DS3231_SLA ((uint8_t)0xD0)
 
 //#define SQW_PIN  PB1
 //#define SQW_PORT PORTB
 
-/* Timekeeping Registers *//*  		Function			*/
+
+
+/** @ Defgroup: DS3231 timekeeping registers adresses
+  */
 #define DS3231_SEC			((uint8_t)0x00)		/*	Seconds						*/
 #define DS3231_MIN			((uint8_t)0x01)		/*	Minutes						*/
 #define DS3231_HRS			((uint8_t)0x02)		/*	Hours						*/
@@ -35,8 +46,8 @@
 #define DS3231_TEMP_LSB		((uint8_t)0x12)		/*	LSB of Temp					*/
 
 
-//Alarm bits conf
-
+/** @ Defgroup: DS3231 alarm configuration bits
+  */
 #define A1M1  ((uint8_t)0x80)
 #define A1M2  ((uint8_t)0x80)
 #define A1M3  ((uint8_t)0x80)
@@ -47,17 +58,20 @@
 #define DY_DT ((uint8_t)0x40)
 
 
-#define EOSC	((uint8_t)0x80)
-#define BBSQW	((uint8_t)0x40)
-#define CONV	((uint8_t)0x20)
-#define RS2		((uint8_t)0x10)
-#define RS1		((uint8_t)0x08)
-#define INTCN	((uint8_t)0x04)
-#define A2IE	((uint8_t)0x02)
-#define A1IE	((uint8_t)0x01)
+/** @ Defgroup: DS3231 configuration bits
+  */
+#define EOSC	((uint8_t)0x80)		/* Enable Oscillator */
+#define BBSQW	((uint8_t)0x40)		/* Battery-Backed Square-Wave Enable*/
+#define CONV	((uint8_t)0x20)		/* Convert Temperature */
+#define RS2		((uint8_t)0x10)		/* Rate Select 2 (Freq of SQW) */
+#define RS1		((uint8_t)0x08)		/* Rate Select 1 (Freq of SQW) */
+#define INTCN	((uint8_t)0x04)     /* Interrupt Control */
+#define A2IE	((uint8_t)0x02)		/* Alarm 2 Interrupt Enable */
+#define A1IE	((uint8_t)0x01)		/* Alarm 1 Interrupt Enable */
 
 
-//Days of week
+/** @ Defgroup: Days of week
+  */
 #define MONDAY	  ((uint8_t)0x01)
 #define TUESDAY   ((uint8_t)0x02)
 #define WEDNESDAY ((uint8_t)0x03)
@@ -66,7 +80,9 @@
 #define SATURDAY  ((uint8_t)0x06)
 #define SUNDAY    ((uint8_t)0x07)
 
-//Months
+
+/** @ Defgroup: Months
+  */
 #define JANUARY	  ((uint8_t)0x01)
 #define FEBRUARY  ((uint8_t)0x02)
 #define MARCH 	  ((uint8_t)0x03)
@@ -81,16 +97,17 @@
 #define DECEMBER  ((uint8_t)0x0C)
 
 
+/** @ Defgroup: New state enumeration
+  */
 typedef enum {
 	DISABLE = 0, ENABLE = !DISABLE
 
 } NewState;
 
-typedef struct {
-	uint8_t RTCCR;
 
-} RTC_TypeDef;
-
+/** @ Defgroup: DS3231 DateTime_Struct which contains
+ *  			time and date values.
+  */
 typedef struct {
 	uint8_t  seconds;
 	uint8_t  minutes;
@@ -101,7 +118,9 @@ typedef struct {
 	uint8_t year;
 } RTC_DateTimeTypedef;
 
-//frequency of the square-wave output
+
+/** @ Defgroup: DS3231 frequencies of the square-wave output enumeration
+  */
 typedef enum {
 	SQW_Disable = 0,
 	SQW_Freq_1Hz,
@@ -110,6 +129,9 @@ typedef enum {
 	SQW_Freq_8192Hz
 } RTC_SQWFreqTypeDef;
 
+
+/** @ Defgroup: DS3231 Alarm1 modes configuration enumeration
+  */
 typedef enum {
 	Alarm1_Disable = 0,
 	Alarm1_OncePerSec,
@@ -121,6 +143,8 @@ typedef enum {
 } RTC_Alarm1TypeDef;
 
 
+/** @ Defgroup: DS3231 Alarm2 modes configuration enumeration
+  */
 typedef enum {
 	Alarm2_Disable = 0,
 	Alarm2_OncePerMin,
@@ -131,6 +155,9 @@ typedef enum {
 } RTC_Alarm2TypeDef;
 
 
+/** @ Defgroup: DS3231 registers structure which contains alarm
+ * 				modes and control register value.
+  */
 typedef struct
 {
 	uint8_t CR;
@@ -138,6 +165,9 @@ typedef struct
 	RTC_Alarm2TypeDef RTC_Alarm2;
 }RTC_RegistersTypeDef;
 
+
+/** @ Defgroup: DS3231 Init structure definition.
+  */
 typedef struct {
 	NewState RTC_Oscillator;
 	RTC_SQWFreqTypeDef RTC_SQW;
@@ -147,6 +177,9 @@ typedef struct {
 
 } RTC_InitTypeDef;
 
+
+/** @ Defgroup: DS3231 Alarm structure definition.
+  */
 typedef struct
 {
 	uint8_t  seconds;
@@ -156,6 +189,9 @@ typedef struct
 	uint8_t  day_of_week;
 }RTC_AlarmTypedef;
 
+
+/** @ Defgroup: DS3231 functions
+  */
 void RTC_Init(RTC_InitTypeDef* RTC_InitStruct);
 void RTC_SetAlarm(RTC_AlarmTypedef* RTC_AlarmStruct);
 void RTC_SetTime(RTC_DateTimeTypedef* DateTimeStruct);

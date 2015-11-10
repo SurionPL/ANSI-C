@@ -1,11 +1,18 @@
-17:09:36 **** Incremental Build of configuration Release for project WiFi ****
+11:28:17 **** Incremental Build of configuration Release for project WiFi ****
 make all 
 Building file: ../ESP8266.c
 Invoking: AVR Compiler
 avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"ESP8266.d" -MT"ESP8266.d" -c -o "ESP8266.o" "../ESP8266.c"
+../ESP8266.c: In function 'ESP_Init':
+../ESP8266.c:49: warning: unused variable 'command'
+../ESP8266.c:54: warning: unused variable 'command'
+../ESP8266.c:59: warning: unused variable 'command'
 ../ESP8266.c: In function 'ESP_AccessPoint':
-../ESP8266.c:191: warning: unused variable 'comma'
-../ESP8266.c:190: warning: unused variable 'command'
+../ESP8266.c:207: warning: unused variable 'comma'
+../ESP8266.c:206: warning: unused variable 'command'
+../ESP8266.c: At top level:
+../ESP8266.h:17: warning: 'ESP8266_MAC' defined but not used
+../ESP8266.h:18: warning: 'ESP8266_IP' defined but not used
 Finished building: ../ESP8266.c
  
 Building target: WiFi.elf
@@ -31,15 +38,15 @@ AVR Memory Usage
 ----------------
 Device: atmega8
 
-Program:     852 bytes (10.4% Full)
+Program:     944 bytes (11.5% Full)
 (.text + .data + .bootloader)
 
-Data:         78 bytes (7.6% Full)
+Data:         94 bytes (9.2% Full)
 (.data + .bss + .noinit)
 
 
 Finished building: sizedummy
  
 
-17:09:38 Build Finished (took 2s.46ms)
+11:28:24 Build Finished (took 7s.584ms)
 

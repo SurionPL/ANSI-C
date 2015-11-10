@@ -54,7 +54,7 @@ void TWI_Start()  //Dodac zwracanie statusu wszedzie!
 	//has been transmitted
 	while (!(TWCR & (1<<TWINT)));
 	if ((TWSR & 0xF8) != TW_START) {
-		TWI_ERROR(I2C_START_ERROR);
+		TWI_ERROR(TWI_START_ERROR);
 		//return I2C_START_ERROR;
 	}
 	//return 0;
@@ -67,7 +67,7 @@ void TWI_RStart() {
 	//has been transmitted
 	while (!(TWCR & (1<<TWINT)));
 	if ((TWSR & 0xF8) != TW_REP_START) {
-		TWI_ERROR(I2C_REP_START_ERROR);
+		TWI_ERROR(TWI_REP_START_ERROR);
 		//return I2C_START_ERROR;
 	}
 	//return 0;
@@ -89,7 +89,7 @@ void TWI_Write_SLA(uint8_t address)
 	while (!(TWCR & (1<<TWINT))); //Czekaj na zakonczenie
 	if (TW_STATUS != status)
 	{
-		TWI_ERROR(I2C_ACK_ERROR); //NACK error
+		TWI_ERROR(TWI_ACK_ERROR); //NACK error
 		//return I2C_ACK_ERROR;
 		//Send_String(table2,2);
 	}
@@ -103,7 +103,7 @@ void TWI_WriteByte(uint8_t byte)
 	TWCR = (1<<TWINT) | (1<<TWEN);
 	while (!(TWCR & (1<<TWINT)));
 	if(TW_STATUS != TW_MT_DATA_ACK)
-		TWI_ERROR(I2C_NACK_ERROR);
+		TWI_ERROR(TWI_NACK_ERROR);
 }
 
 uint8_t TWI_ReadByte_NACK()
@@ -111,7 +111,7 @@ uint8_t TWI_ReadByte_NACK()
 	TWCR = (1<<TWINT) | (1<<TWEN);
 	while (!(TWCR & (1<<TWINT)));
 	if(TW_STATUS != TW_MR_DATA_ACK) {
-		TWI_ERROR(I2C_NACK_ERROR);
+		TWI_ERROR(TWI_NACK_ERROR);
 	}
 	return TWDR;
 }
@@ -120,7 +120,7 @@ uint8_t TWI_ReadByte_ACK()
 {
 	TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWEA);
 	while (!(TWCR & (1<<TWINT)));
-	if (TW_STATUS != TW_MR_DATA_ACK) TWI_ERROR(I2C_NACK_ERROR);
+	if (TW_STATUS != TW_MR_DATA_ACK) TWI_ERROR(TWI_NACK_ERROR);
 	return TWDR;
 }
 

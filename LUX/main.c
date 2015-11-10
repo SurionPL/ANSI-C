@@ -11,6 +11,6 @@
 #include "BH1750.h"
 
 int main() {
-	BH1750_Read(1);
+	BH1750_Read();
 while(1){} 
 }

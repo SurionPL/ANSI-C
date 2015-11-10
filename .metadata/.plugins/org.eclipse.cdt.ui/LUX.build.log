@@ -1,4 +1,4 @@
-01:39:22 **** Incremental Build of configuration Release for project LUX ****
+00:16:30 **** Build of configuration Release for project LUX ****
 make all 
 Building file: ../BH1750.c
 Invoking: AVR Compiler
@@ -33,7 +33,7 @@ AVR Memory Usage
 ----------------
 Device: atmega8
 
-Program:    1004 bytes (12.3% Full)
+Program:    1000 bytes (12.2% Full)
 (.text + .data + .bootloader)
 
 Data:          7 bytes (0.7% Full)
@@ -43,5 +43,5 @@ Data:          7 bytes (0.7% Full)
 Finished building: sizedummy
  
 
-01:39:25 Build Finished (took 3s.228ms)
+00:16:32 Build Finished (took 2s.652ms)
 

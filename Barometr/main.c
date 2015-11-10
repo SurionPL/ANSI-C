@@ -35,6 +35,7 @@ int main() {
 	//BMP180_InitTypeDef bmp180_init;
 	DDRB  = 1<<PB1;
 	PORTB = 1<<PB1;
+	PORTB = 0;
 	InterfaceInit();
 	temp = 0;
 	press = 0;

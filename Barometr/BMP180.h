@@ -1,11 +1,3 @@
-/*
- * BMP180.h
- *
- *  Created on: 28 lip 2015
- *      Author: Bartek
- */
-
-
 /**
   *******************************************************************************
   * @ File    BMP180.h
@@ -27,32 +19,6 @@
 #define BMP180_SLA ((uint8_t)0xEE)
 
 
-/*
- *	@ Brief: this function used for read the calibration
- *	parameter from the register
- *
- *	Parameter  |  MSB    |  LSB    |  bit
- * ------------|---------|---------|-----------
- *		AC1    |  0xAA   | 0xAB    | 0 to 7
- *		AC2    |  0xAC   | 0xAD    | 0 to 7
- *		AC3    |  0xAE   | 0xAF    | 0 to 7
- *		AC4    |  0xB0   | 0xB1    | 0 to 7
- *		AC5    |  0xB2   | 0xB3    | 0 to 7
- *		AC6    |  0xB4   | 0xB5    | 0 to 7
- *		B1     |  0xB6   | 0xB7    | 0 to 7
- *		B2     |  0xB8   | 0xB9    | 0 to 7
- *		MB     |  0xBA   | 0xBB    | 0 to 7
- *		MC     |  0xBC   | 0xBD    | 0 to 7
- *		MD     |  0xBE   | 0xBF    | 0 to 7
- *
- *
- *	@return results of bus communication function
- *	@retval 0  -> Success
- *	@retval -1 -> Error
- *
- *
-*/
-
 /** @ Defgroup: BMP180 registers addresses
   */
 #define BMP180_ADC_XLSB_REG ((uint8_t)0xF8)
@@ -63,14 +29,15 @@
 //#define BMP180_SCO_PARAM
 #define BMP180_SOFT_RST_REG ((uint8_t)0xE0)
 #define BMP180_SOFT_RST_VAL ((uint8_t)0xB6)
-/*BMP180 Calibration Parameters Addresses*/  //Poprawic nazwe
-
 
 
 /** @ Defgroup: BMP180 slave address
   */
 #define BMP180_MEM_START 0xAA
 
+
+/** @ Defgroup: BMP180 calibration parameters adresses
+  */
 #define BMP180_AC1_MSB	((uint8_t)0xAA)			/* AC1 parameter MSB address */
 #define BMP180_AC1_LSB	((uint8_t)0xAB)			/* AC1 parameter LSB address */
 #define BMP180_AC2_MSB	((uint8_t)0xAC)			/* AC2 parameter MSB address */
@@ -94,13 +61,18 @@
 #define BMP180_MD_MSB	((uint8_t)0xBE)			/*  MD parameter MSB address */
 #define BMP180_MD_LSB	((uint8_t)0xBF)			/*  MD parameter LSB address */
 
+
+/** @ Defgroup: BMP180 chip ID adresses
+  */
 #define BMP180_CHIP_ID_REG	((uint8_t)0xD0)		/*  Chip ID register address */
 #define BMP180_CHIP_ID		((uint8_t)0x55)
 
 
-/* Temperature measurement */
+/** @ Defgroup: BMP180 measurement functions
+  */
 #define BMP180_T_MEASURE	((uint8_t)0x2E)
 #define BMP180_P_MEASURE	((uint8_t)0x34)
+
 
 /** @ Defgroup: BMP180 pressure measurement modes
   * @{
@@ -136,16 +108,6 @@ typedef struct
 	long UT;
 	long UP;
 }BMP180_TypeDef;
-
-
-/**
-  * @ Brief:  BMP180 Init structure definition
-  */
-/*typedef struct
-{
-	BMP180Mode_TypeDef BMP180_Mode;
-}BMP180_InitTypeDef;*/
-
 
 
 /** @ Defgroup: BMP180 functions

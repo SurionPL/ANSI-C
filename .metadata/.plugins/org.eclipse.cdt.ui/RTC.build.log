@@ -1,4 +1,4 @@
-00:16:41 **** Incremental Build of configuration Release for project RTC ****
+00:16:19 **** Build of configuration Release for project RTC ****
 make all 
 Building file: ../RTC.c
 Invoking: AVR Compiler
@@ -43,5 +43,5 @@ Data:        114 bytes (11.1% Full)
 Finished building: sizedummy
  
 
-00:16:43 Build Finished (took 2s.785ms)
+00:16:22 Build Finished (took 2s.798ms)
 
