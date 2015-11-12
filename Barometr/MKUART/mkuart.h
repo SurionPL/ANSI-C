@@ -17,7 +17,7 @@
 #define UART_DE_DIR DDRD
 #define UART_DE_BIT (1<<PD2)
 
-#define UART_DE_ODBIERANIE  UART_DE_PORT |= UART_DE_BIT
+#define UART_DE_ODBIERANIE UART_DE_PORT |= UART_DE_BIT
 #define UART_DE_NADAWANIE  UART_DE_PORT &= ~UART_DE_BIT
 
 
@@ -37,7 +37,7 @@
 void USART_Init( uint16_t baud );
 
 char uart_getc(void);
-void uart_putc( char data );
+void uart_putc(char data);
 void uart_puts(char *s);
 void uart_putint(int value, int radix);
 

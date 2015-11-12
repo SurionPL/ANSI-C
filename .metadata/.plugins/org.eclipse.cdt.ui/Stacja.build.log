@@ -1,0 +1,42 @@
+01:56:10 **** Incremental Build of configuration Release for project Stacja ****
+make all 
+Building file: ../main.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=4000000UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
+Finished building: ../main.c
+ 
+Building target: Stacja.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,Stacja.map -mmcu=atmega328p -o "Stacja.elf"  ./BMP180.o ./I2C.o ./RTC.o ./main.o   
+Finished building target: Stacja.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S Stacja.elf  >"Stacja.lss"
+Finished building: Stacja.lss
+ 
+Create Flash image (ihex format)
+avr-objcopy -R .eeprom -O ihex Stacja.elf  "Stacja.hex"
+Finished building: Stacja.hex
+ 
+Create eeprom image (ihex format)
+avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex Stacja.elf  "Stacja.eep"
+Finished building: Stacja.eep
+ 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega328p Stacja.elf
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:    3630 bytes (11.1% Full)
+(.text + .data + .bootloader)
+
+Data:         43 bytes (2.1% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+01:56:13 Build Finished (took 2s.416ms)
+

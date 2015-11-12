@@ -8,6 +8,21 @@
 #include "USART.h"
 
 
+void USART_Init(uint16_t ubrr)
+{
+	/* Set baud rate */
+	UBRRH = (unsigned char)(ubrr>>8);
+	UBRRL = (unsigned char)ubrr;
+	/* Enable receiver and transmitter */
+	UCSRB = (1<<RXEN)|(1<<TXEN);
+	/* Set frame format: 8data, 1stop bit */
+	UCSRC = (1<<URSEL)|(3<<UCSZ0);
+	/* Set frame format: 8data, 2stop bit */
+		//UCSRC = (1<<URSEL)|(1<<USBS)|(3<<UCSZ0);
+}
+
+
+
 void USART_Transmit(uint8_t data)
 {
 	/* Wait for empty transmit buffer */
@@ -22,16 +37,7 @@ void USART_Flush(void)
 		while ( UCSRA & (1<<RXC)) dummy = UDR;
 }
 
-void USART_Init(uint16_t ubrr)
-{
-	/* Set baud rate */
-	UBRRH = (unsigned char)(ubrr>>8);
-	UBRRL = (unsigned char)ubrr;
-	/* Enable receiver and transmitter */
-	UCSRB = (1<<RXEN)|(1<<TXEN);
-	/* Set frame format: 8data, 2stop bit */
-	UCSRC = (1<<URSEL)|(1<<USBS)|(3<<UCSZ0);
-}
+
 
 void USART_TransmitInt(uint16_t data)
 {
@@ -67,5 +73,11 @@ void USART_TransmitData(uint8_t data[], uint16_t size) {
 	for(i=0;i<size;i++) {
 		USART_Transmit(data[i]);
 	}
+}
+
+void uart_puts(char *s)		// wysy³a ³añcuch z pamiêci RAM na UART
+{
+  register char c;
+  while ((c = *s++)) uart_putc(c);			// dopóki nie napotkasz 0 wysy³aj znak
 }
 

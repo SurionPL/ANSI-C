@@ -55,7 +55,7 @@ typedef enum
   */
 typedef struct
 {
-  ESP_DHCP_TypeDef DHCP_Protocol;
+
 }ESP_InitTypeDef;
 
 /**
@@ -70,11 +70,11 @@ typedef enum
 
 
 /*  ESP8266 Functions  */
-void ESP_InitStruct(ESP_InitTypeDef* ESP8266_InitStruct);
+void ESP_InitStruct();
 void ESP_PowerOn();
 void ESP_Init(ESP_InitTypeDef* ESP8266_InitStruct);
 void ESP_DeInit();
-
+void ESP_ConnectServer(char* ip_address, char* port);
 
 //For client:
 void ESP_Disconnect();

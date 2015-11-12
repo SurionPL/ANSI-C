@@ -72,7 +72,7 @@ void uart_putc( char data ) {
 
     tmp_head  = (UART_TxHead + 1) & UART_TX_BUF_MASK;
 
-          // pêtla oczekuje je¿eli brak miejsca w buforze cyklicznym na kolejne znaki
+    // pêtla oczekuje je¿eli brak miejsca w buforze cyklicznym na kolejne znaki
     while ( tmp_head == UART_TxTail ){}
 
     UART_TxBuf[tmp_head] = data;

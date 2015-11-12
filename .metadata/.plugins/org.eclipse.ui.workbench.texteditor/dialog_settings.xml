@@ -8,14 +8,14 @@
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="ISR"/>
+			<item value="UCSR"/>
+			<item value="328"/>
+			<item value="UBRR"/>
 			<item value="cwmode"/>
 			<item value="I2C"/>
 			<item value="DS1307"/>
 			<item value="UT"/>
-			<item value="UP"/>
-			<item value="Send_SLA"/>
-			<item value="bmp180_Struct"/>
-			<item value="Parameters"/>
 		</list>
 		<list key="replacehistory">
 			<item value="DS3231"/>

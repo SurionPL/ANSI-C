@@ -1,0 +1,20 @@
+23:40:12 **** Incremental Build of configuration Release for project UART_328 ****
+make all 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega328p UART_328.elf
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:     400 bytes (1.2% Full)
+(.text + .data + .bootloader)
+
+Data:         63 bytes (3.1% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+23:40:12 Build Finished (took 317ms)
+

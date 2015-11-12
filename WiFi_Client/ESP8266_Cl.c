@@ -8,13 +8,21 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <string.h>
+#include <stdio.h>
 #include "MKUART/mkuart.h"
 #include "ESP8266_Cl.h"
+#include "avr/pgmspace.h"
+#include "string.h"
 
 // UZYC STRCAT(DEST,SRC)
 
-const uint8_t IP_address[4]	= {192,168,1,5};
-const uint8_t MAC_address[6] = {0x00,0xbe,0x13,0x0d,0x1c,0xe6};
+//const uint8_t IP_address[4]	= {192,168,1,5};
+//const uint8_t MAC_address[6] = {0x00,0xbe,0x13,0x0d,0x1c,0xe6};
+
+const char IP_address[] = "192.168.1.5";
+const char MAC_address[] = "00:BE:13:0D:1C:E6";
+//prog_char TAB[] = "00:BE:13:0D:1C:E6";
+//char *LINE1 = PSTR("Pierwsza linia na LCD");
 
 //ESP_ErrorFlag ErrorFlag;
 
@@ -25,9 +33,9 @@ const uint8_t MAC_address[6] = {0x00,0xbe,0x13,0x0d,0x1c,0xe6};
   * @Parameters:	ESP8266_InitStruct: Pointer to an ESP init structure.
   * @Retval:		None
   */
-void ESP_InitStruct(ESP_InitTypeDef* ESP8266_InitStruct)
+void ESP_InitStruct()
 {
-	ESP8266_InitStruct->DHCP_Protocol = 0;				// No DHCP
+	//ESP8266_InitStruct->DHCP_Protocol = 0;				// No DHCP
 
 
 }
@@ -42,9 +50,7 @@ void ESP_Init(ESP_InitTypeDef* ESP8266_InitStruct)
   //Send
 	//ESP_PowerOn();
 		//char command[11] = {'A','T','+','C','W','M','O','D','E','=','1'};
-
-
-
+	uart_puts(PSTR("AT+CWMODE=1\r\n"));
 	//USART_Init(MYUBRR);
 
 
@@ -59,16 +65,13 @@ void ESP_Init(ESP_InitTypeDef* ESP8266_InitStruct)
   */
 void ESP_Connect(char* ssid, char* password)
 {
+	char command[50] = "AT+CWJAP=\"";
+	strcat(command, ssid);
+	strcat(command, "\",\"");
+	strncat(command, password, strlen(password));
+	strcat(command,"\r\n");
 //Send USART AT+ CWJAP =<ssid>,<pwd>
-	//char command[9]={'A','T','+','C','W','J','A','P','='};				/* Command: AT+CWJAP=<ssid>,<password> */
-	//char command[10] = "AT+CWJAP=";
-	//char comma[1] = {','};
-	//USART_TransmitString(command,9);
-	uart_puts("AT+CWJAP=");
-	uart_puts("AT+CWJAP=");
-	USART_TransmitString(ssid, strlen(ssid)-1);
-	uart_puts(",");
-	USART_TransmitString(password, strlen(password)-1);
+	uart_puts(command);
 
 }
 
@@ -86,8 +89,9 @@ void ESP_Connect(char* ssid, char* password)
 void ESP_DeInit()
 {
 //Send USART AT+RST
-	char command[6] = {'A','T','+','R','S','T'};
-	USART_TransmitString(command, 6);
+	//char command[6] = {'A','T','+','R','S','T'};
+	//USART_TransmitString(command, 6);
+	uart_puts(PSTR("AT+RST\r\n"));
 }
 
 /**
@@ -129,8 +133,8 @@ void ESP_PowerOff()
   */
 void ESP_Disconnect()
 {
-	char command[8]={'A','T','+','C','W','Q','A','P'};
-	USART_TransmitString(command,8);
+	uart_puts(PSTR("AT+CWQAP\r\n"));
+
 }
 
 
@@ -142,12 +146,14 @@ void ESP_Disconnect()
   */
 ESP_ErrorFlag ESP_SetIP(ESP_InitTypeDef* ESP8266_InitStruct, uint8_t* ip_address)
 {
-	if(ESP8266_InitStruct->Mode == ESP8266_STA)
+	if(1)
 	{
 		//char command[10] = {'A','T','+','C','I','P','S','T','A','='};				// Command: AT+CIPSTA=<ip>
-		char command[11] = "AT+CIPSTA=";
-		USART_TransmitString(command,11);
-		USART_TransmitData(ip_address,4);
+		//char command[11] = "AT+CIPSTA=";
+		uart_puts("AT+CIPSTA=");
+		//USART_TransmitString(command,11);
+
+		//USART_TransmitData(ip_address,4);
 		return ESP_OK;
 	}
 	else
@@ -160,12 +166,13 @@ ESP_ErrorFlag ESP_SetIP(ESP_InitTypeDef* ESP8266_InitStruct, uint8_t* ip_address
 ESP_ErrorFlag ESP_SetMAC(ESP_InitTypeDef* ESP8266_InitStruct, uint8_t* mac_address)
 {
 
-	if(ESP8266_InitStruct->Mode == ESP8266_STA)
+	if(1)
 	{
 		//char command[13] = {'A','T','+','C','I','P','S','T','A','M','A','C','='};
-		char command[]="AT+CIPSTAMAC="// Command: AT+CIPSTAMAC=<mac>
-		USART_TransmitString(command,13);
-		USART_TransmitData(mac_address,6);
+		//char command[]="AT+CIPSTAMAC="// Command: AT+CIPSTAMAC=<mac>
+		//USART_TransmitString(command,13);
+		uart_puts("AT+CIPSTAMAC=");
+		//USART_TransmitData(mac_address,6);
 		return ESP_OK;
 	}
 	else
@@ -180,9 +187,20 @@ ESP_ErrorFlag ESP_SetMAC(ESP_InitTypeDef* ESP8266_InitStruct, uint8_t* mac_addre
 
 void ESP_Restart()
 {
-	char command[9] = {'A','T','+','R','S','T'};		// Command: AT+RST
+	//char command[9] = {'A','T','+','R','S','T'};		// Command: AT+RST
 
-	USART_TransmitString(command,6);
+	//USART_TransmitString(command,6);
+	uart_puts("AT+RST\r\n");
 }
 
+void ESP_ConnectServer(char* ip_address, char* port)
+{
+	char command[50]= "AT+CIPSTART=\"TCP\",";
+	strcat(command, ip_address);
+	strcat(command ,"\",");
+	strcat(command, port);
+	strcat(command, "\r\n");
 
+	uart_puts(command);
+
+}
