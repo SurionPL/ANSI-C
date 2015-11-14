@@ -1,37 +1,15 @@
-16:40:49 **** Incremental Build of configuration Release for project Wilgotnosc ****
+18:35:12 **** Incremental Build of configuration Release for project WiFi_Client ****
 make all 
-Building file: ../HTU21D.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=7372800UL -MMD -MP -MF"HTU21D.d" -MT"HTU21D.d" -c -o "HTU21D.o" "../HTU21D.c"
-Finished building: ../HTU21D.c
- 
-Building target: Wilgotnosc.elf
-Invoking: AVR C Linker
-avr-gcc -Wl,-Map,Wilgotnosc.map -mmcu=atmega8 -o "Wilgotnosc.elf"  ./MKUART/mkuart.o  ./HTU21D.o ./I2C.o ./main.o   
-Finished building target: Wilgotnosc.elf
- 
-Invoking: AVR Create Extended Listing
-avr-objdump -h -S Wilgotnosc.elf  >"Wilgotnosc.lss"
-Finished building: Wilgotnosc.lss
- 
-Create Flash image (ihex format)
-avr-objcopy -R .eeprom -O ihex Wilgotnosc.elf  "Wilgotnosc.hex"
-Finished building: Wilgotnosc.hex
- 
-Create eeprom image (ihex format)
-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex Wilgotnosc.elf  "Wilgotnosc.eep"
-Finished building: Wilgotnosc.eep
- 
 Invoking: Print Size
-avr-size --format=avr --mcu=atmega8 Wilgotnosc.elf
+avr-size --format=avr --mcu=atmega8 WiFi_Client.elf
 AVR Memory Usage
 ----------------
 Device: atmega8
 
-Program:    3132 bytes (38.2% Full)
+Program:    3388 bytes (41.4% Full)
 (.text + .data + .bootloader)
 
-Data:        109 bytes (10.6% Full)
+Data:        380 bytes (37.1% Full)
 (.data + .bss + .noinit)
 
 

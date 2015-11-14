@@ -1,25 +1,20 @@
-15:57:29 **** Incremental Build of configuration Release for project WiFi_Client ****
+18:35:12 **** Incremental Build of configuration Release for project WiFi_Client ****
 make all 
-Building file: ../ESP8266_Cl.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=7372800UL -MMD -MP -MF"ESP8266_Cl.d" -MT"ESP8266_Cl.d" -c -o "ESP8266_Cl.o" "../ESP8266_Cl.c"
-Finished building: ../ESP8266_Cl.c
- 
-Building file: ../ThingSpeak.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=7372800UL -MMD -MP -MF"ThingSpeak.d" -MT"ThingSpeak.d" -c -o "ThingSpeak.o" "../ThingSpeak.c"
-Finished building: ../ThingSpeak.c
- 
-Building file: ../main.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=7372800UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
-../main.c: In function 'main':
-../main.c:46: error: 'ip_add' undeclared (first use in this function)
-../main.c:46: error: (Each undeclared identifier is reported only once
-../main.c:46: error: for each function it appears in.)
-../main.c:46: error: 'port' undeclared (first use in this function)
-../main.c:48: error: 'dane' undeclared (first use in this function)
-make: *** [main.o] Error 1
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega8 WiFi_Client.elf
+AVR Memory Usage
+----------------
+Device: atmega8
 
-15:57:33 Build Finished (took 3s.691ms)
+Program:    3388 bytes (41.4% Full)
+(.text + .data + .bootloader)
+
+Data:        380 bytes (37.1% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+18:35:12 Build Finished (took 636ms)
 

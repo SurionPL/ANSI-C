@@ -1,5 +1,27 @@
-01:17:57 **** Incremental Build of configuration Release for project RTC ****
+17:28:18 **** Incremental Build of configuration Release for project RTC ****
 make all 
+Building file: ../RTC.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=7372800UL -MMD -MP -MF"RTC.d" -MT"RTC.d" -c -o "RTC.o" "../RTC.c"
+Finished building: ../RTC.c
+ 
+Building target: RTC.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,RTC.map -mmcu=atmega8 -o "RTC.elf"  ./MKUART/mkuart.o  ./I2C.o ./RTC.o ./main.o   
+Finished building target: RTC.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S RTC.elf  >"RTC.lss"
+Finished building: RTC.lss
+ 
+Create Flash image (ihex format)
+avr-objcopy -R .eeprom -O ihex RTC.elf  "RTC.hex"
+Finished building: RTC.hex
+ 
+Create eeprom image (ihex format)
+avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex RTC.elf  "RTC.eep"
+Finished building: RTC.eep
+ 
 Invoking: Print Size
 avr-size --format=avr --mcu=atmega8 RTC.elf
 AVR Memory Usage
@@ -16,5 +38,5 @@ Data:        118 bytes (11.5% Full)
 Finished building: sizedummy
  
 
-01:17:57 Build Finished (took 389ms)
+17:28:21 Build Finished (took 2s.879ms)
 

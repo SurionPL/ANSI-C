@@ -7,14 +7,17 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
-#include "ESP8266_Cl.h"
+
 #include <avr/interrupt.h>
 #include "MKUART/mkuart.h"
 #include <string.h>
+#include "ESP8266_Cl.h"
+#include "ThingSpeak.h"
 
 int main()
 {
-
+	USART_Init(__UBRR);
+	sei();
 	char ssid[]= "PENTAGON";
 	char pwd[] = "BarT2014DST";
 	//char ip_add[] = "144.212.80.11";
@@ -42,16 +45,13 @@ int main()
 
 	while(1) {
 		ESP_Connect(ssid, pwd);
-		//uart_puts("AT+CWMODE=1\r\n");		/* Client mode */
-		ESP_ConnectServer(ip_add, port);
-//		_delay_ms(3000);
-		ESP_SendData(dane, 44);
 		_delay_ms(3000);
-		ESP_DisconnectServer();
+		TS_UpdateField("16", 1);
+		//ESP_DisconnectServer();
 		_delay_ms(3000);
 		ESP_Disconnect();
-		_delay_ms(2000);
-		uart_puts("\nkoniec\n");
+		_delay_ms(3000);
+		//uart_puts("\nkoniec\n");
 
 
 

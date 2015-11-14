@@ -34,12 +34,12 @@ void RTC_Init(RTC_InitTypeDef* RTC_InitStruct) {
 
 	RTC_RegistersStruct.CR = 0;
 
+	/* Disable oscillator 32 kHz */
 	if(RTC_InitStruct->RTC_Oscillator == DISABLE) {
-		//RTC_RegistersStruct.CR |= EOSC;
 		RTC_RegistersStruct.CR = EOSC;
-
 	}
 
+	/* Set Square Wave Output or alarms*/
 	if(RTC_InitStruct->RTC_SQW != SQW_Disable)
 	{
 		if(RTC_InitStruct->RTC_SQW == SQW_Freq_1024Hz)
@@ -74,7 +74,7 @@ void RTC_Init(RTC_InitTypeDef* RTC_InitStruct) {
 		RTC_RegistersStruct.CR |= INTCN;		//Default: Alarms and SQW disabled
 	}
 
-
+	/* Send configuration */
 	TWI_Start();
 	TWI_Write_SLA(DS3231_SLA);
 	TWI_WriteByte(DS3231_CR);
@@ -223,6 +223,7 @@ void RTC_GetTemp(int8_t* integer, uint8_t* fract) {
 
 	uint8_t temporary = 0;
 
+	/* Read register value */
 	TWI_Start();
 	TWI_Write_SLA(DS3231_SLA);
 	TWI_WriteByte(DS3231_TEMP_MSB);
@@ -252,9 +253,13 @@ void RTC_GetTemp(int8_t* integer, uint8_t* fract) {
 void RTC_SetTime(RTC_DateTimeTypedef* DateTimeStruct)
 {
 	uint8_t time[3];
+
+	/* Convert values to BCD and save in structure */
 	time[0] = RTC_DecToBCD(DateTimeStruct->seconds);
 	time[1] = RTC_DecToBCD(DateTimeStruct->minutes);
 	time[2] = RTC_DecToBCD(DateTimeStruct->hours);
+
+	/* Send time */
 	TWI_WriteBytes(DS3231_SLA, DS3231_SEC, 3, time);
 }
 
@@ -268,11 +273,14 @@ void RTC_SetTime(RTC_DateTimeTypedef* DateTimeStruct)
 void RTC_SetDate(RTC_DateTimeTypedef* DateTimeStruct)
 {
 	uint8_t date[4];
-	//date[0] = RTC_DecToBCD(DateTimeStruct->day_of_week);
+
+	/* Convert value do BCD and save in array */
 	date[0] = DateTimeStruct->day_of_week;
 	date[1] = RTC_DecToBCD(DateTimeStruct->day);
 	date[2] = RTC_DecToBCD(DateTimeStruct->month);
 	date[2] = RTC_DecToBCD(DateTimeStruct->year);
+
+	/* Send date */
 	TWI_WriteBytes(DS3231_SLA, DS3231_DAY, 4, date);
 }
 
@@ -298,7 +306,11 @@ void RTC_SetTimeDate(RTC_DateTimeTypedef* DateTimeStruct)
 void RTC_GetTime(RTC_DateTimeTypedef* DateTimeStruct)
 {
 	uint8_t time[3];
+
+	/* Read time */
 	TWI_ReadBytes(DS3231_SLA, DS3231_SEC, 3, time);
+
+	/* Convert values to decimal and save in structure */
 	DateTimeStruct->seconds = RTC_BCDToDec(time[0]);
 	DateTimeStruct->minutes = RTC_BCDToDec(time[1]);
 	DateTimeStruct->hours   = RTC_BCDToDec(time[2]);
@@ -313,7 +325,11 @@ void RTC_GetTime(RTC_DateTimeTypedef* DateTimeStruct)
 void RTC_GetDate(RTC_DateTimeTypedef* DateTimeStruct)
 {
 	uint8_t date[4];
+
+	/* Read date */
 	TWI_ReadBytes(DS3231_SLA, DS3231_SEC, 4, date);
+
+	/* Convert values do decimal and save in structure */
 	DateTimeStruct->day_of_week = date[0];
 	DateTimeStruct->day   		= RTC_BCDToDec(date[1]);
 	DateTimeStruct->month 		= RTC_BCDToDec(date[2]);

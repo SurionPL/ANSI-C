@@ -1,4 +1,4 @@
-14:45:36 **** Incremental Build of configuration Release for project Stacja ****
+18:17:55 **** Incremental Build of configuration Release for project Stacja ****
 make all 
 Invoking: Print Size
 avr-size --format=avr --mcu=atmega328p Stacja.elf
@@ -6,15 +6,15 @@ AVR Memory Usage
 ----------------
 Device: atmega328p
 
-Program:    6854 bytes (20.9% Full)
+Program:    7338 bytes (22.4% Full)
 (.text + .data + .bootloader)
 
-Data:        411 bytes (20.1% Full)
+Data:        412 bytes (20.1% Full)
 (.data + .bss + .noinit)
 
 
 Finished building: sizedummy
  
 
-14:45:36 Build Finished (took 707ms)
+18:17:56 Build Finished (took 897ms)
 
