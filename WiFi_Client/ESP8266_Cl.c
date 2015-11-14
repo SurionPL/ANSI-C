@@ -25,7 +25,7 @@
 
 
 /**
-  * @Brief:			Initializes the ESP8266 module - Client mode and single connection.
+  * @Brief:			Initializes the ESP8266 module - Client mode and single channel connection.
   * @Parameters:	None.
   * @Retval: 		None.
   */
@@ -91,8 +91,6 @@ void ESP_PowerOff()
 }
 
 
-
-
 /**
   * @Brief:  		Disconnect module from the network.
   * @Parameters:	None.
@@ -105,52 +103,14 @@ void ESP_Disconnect()
 
 
 /**
-  * @Brief:			Sets the IPv4 address in Client or Access Point mode.
-  * @Parameters:	-ESP8266_InitStruct: Pointer to an ESP init structure which contains configurations parameters.
-  *           		-ip_address - pointer to array which contains IPv4 address.
-  * @retval
+  * @brief  Enables or disables the specified USART peripheral.				????????
+  * @param  USARTx: Select the USART or the UART peripheral.
+  *         This parameter can be one of the following values:
+  *           USART1, USART2, USART3, UART4 or UART5.
+  * @param  NewState: new state of the USARTx peripheral.
+  *         This parameter can be: ENABLE or DISABLE.
+  * @retval None
   */
-ESP_ErrorFlag ESP_SetIP(char* ip_address)
-{
-	if(1)
-	{
-		//char command[10] = {'A','T','+','C','I','P','S','T','A','='};				// Command: AT+CIPSTA=<ip>
-		//char command[11] = "AT+CIPSTA=";
-		uart_puts("AT+CIPSTA=");
-		//USART_TransmitString(command,11);
-
-		//USART_TransmitData(ip_address,4);
-		return ESP_OK;
-	}
-	else
-	{
-		return ESP_Error;
-	}
-}
-
-
-ESP_ErrorFlag ESP_SetMAC(char* mac_address)
-{
-
-	if(1)
-	{
-		//char command[13] = {'A','T','+','C','I','P','S','T','A','M','A','C','='};
-		//char command[]="AT+CIPSTAMAC="// Command: AT+CIPSTAMAC=<mac>
-		//USART_TransmitString(command,13);
-		uart_puts("AT+CIPSTAMAC=");
-		//USART_TransmitData(mac_address,6);
-		return ESP_OK;
-	}
-	else
-	{
-		return ESP_Error;
-	}
-}
-
-
-
-
-
 void ESP_Restart()
 {
 	//USART_TransmitString(command,6);
@@ -158,6 +118,16 @@ void ESP_Restart()
 	_delay_ms(1000);
 }
 
+
+/**
+  * @brief  Enables or disables the specified USART peripheral.				????????
+  * @param  USARTx: Select the USART or the UART peripheral.
+  *         This parameter can be one of the following values:
+  *           USART1, USART2, USART3, UART4 or UART5.
+  * @param  NewState: new state of the USARTx peripheral.
+  *         This parameter can be: ENABLE or DISABLE.
+  * @retval None
+  */
 ESP_ErrorFlag ESP_ConnectServer(char* ip_address, char* port)
 {
 	//Jeden kanal i jeden protokol
@@ -186,6 +156,17 @@ void ESP_SendData(char* data, uint8_t length)
 	uart_puts(data);
 
 }
+
+
+/**
+  * @brief  Enables or disables the specified USART peripheral.				????????
+  * @param  USARTx: Select the USART or the UART peripheral.
+  *         This parameter can be one of the following values:
+  *           USART1, USART2, USART3, UART4 or UART5.
+  * @param  NewState: new state of the USARTx peripheral.
+  *         This parameter can be: ENABLE or DISABLE.
+  * @retval None
+  */
 void ESP_DisconnectServer()
 {
 	uart_puts(PSTR("AT+CIPCLOSE\r\n"));

@@ -35,9 +35,10 @@ void HTU21D_Init(HTU21D_ResolutionTypeDef Resolution)
 	TWI_Write_SLA(HTU21D_SLA + 1);
 	RegistersStruct.UR = TWI_ReadByte_NACK();
 	TWI_Stop();
+
 	RegistersStruct.UR &= 0x38;	// Save reserved bits
 
-
+	/* Select measurement resolutions */
 	if(Resolution == Humidity12b_Temperature14b)
 	{
 		RegistersStruct.UR |= 0x02;
@@ -103,7 +104,6 @@ void HTU21D_StartHumidity()
  */
 void HTU21D_GetTemperature(int8_t* integer, uint8_t* fractional)
 {
-	//dodac checksum  ???????
 	uint16_t result;
 	int32_t temperature;
 
@@ -112,11 +112,11 @@ void HTU21D_GetTemperature(int8_t* integer, uint8_t* fractional)
 	TWI_Write_SLA(HTU21D_SLA + 1);
 	result  = TWI_ReadByte_ACK() << 8;
 	result |= TWI_ReadByte_NACK();
-	//checksum = TWI_ReadByte_NACK();
 	TWI_Stop();
 
 	if((result & 0x02) == HTU21D_TYPE_TEMPERATURE)
 	{
+		/* Convert register value to physical units */
 		temperature = ((int32_t)-4685 + ((((uint32_t)17572) * ((uint32_t)result & 0xFFFC)) / 65536));
 		*integer = temperature / 100;
 		*fractional = temperature % 100;
@@ -141,49 +141,32 @@ void HTU21D_GetTemperature(int8_t* integer, uint8_t* fractional)
 /**
  * @ Brief  	Gets humidity value.
  * @ Parameter  None.
- * @ Retval 	Humidity value.
+ * @ Retval 	Humidity procentage value.
  */
-int8_t HTU21D_GetHumidity()
+uint8_t HTU21D_GetHumidity()
 {
 
-	//dodac checksum  ???
 	uint32_t result;
-	int32_t humidity;
+	uint8_t msb, lsb;
+	uint32_t humidity;
 
-	/* Read data */
+	/* Read data from register */
 	TWI_Start();
 	TWI_Write_SLA(HTU21D_SLA + 1);
-	result = (TWI_ReadByte_ACK() << 8);
-	result |=  TWI_ReadByte_NACK();
-	//checksum = TWI_ReadByte_NACK();
+	msb = TWI_ReadByte_ACK();
+	lsb = TWI_ReadByte_NACK();
 	TWI_Stop();
 
-	//uart_puts("\n-------\n");
-	//uart_putc(msb);
-	//uart_putc(lsb);
-	//uart_puts("\n-------\n");
-	//msb = 0x4E;
-	//lsb = 0x85;
-	//result = 0x4E85;
+	result = (msb << 8) | lsb;
 
-	if((result & 0x02) == HTU21D_TYPE_HUMIDITY)
+	if(((result & 0x00000002) == HTU21D_TYPE_HUMIDITY) && (result >= 600))
 	{
-		//humidity = (((uint32_t)12500 * (((uint32_t)msb << 8) | (lsb & 0xFC))) / 65536 ) - 600;
-		//humidity = (((uint32_t)12500 * (((((uint32_t)msb) << 8) | (lsb & 0xFC))) * 100) / 65536) - 600;
-		//humidity = (((uint32_t)12500 * (uint32_t)(result & 0xFFFC)) / (uint32_t)65536) - (uint32_t)600;
-		humidity = (((uint32_t)12500 * (uint32_t)(result & 0xFFFC)) >> 16) - (uint32_t)600;
-		//humidity = (((uint32_t)12500 *  wynik) / 65536 ) - 600;
-		//if(humidity < 0)
-		//{
-			//*integer = 0;
-			//*fractional = 0;
-		//}
-		//else
-		//{
-		//}
-		return  (uint8_t)(humidity / 100);
+		/* Convert register value to % */
+		humidity = ((((uint32_t)12500 * (result & 0xFFFFFFFC)) >> 16) - (uint32_t)600);
+
+		return  ((uint8_t)(humidity / 100));
 	}
-	return (-1);
+	return (0);
 }
 
 

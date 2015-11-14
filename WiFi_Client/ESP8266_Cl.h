@@ -20,17 +20,9 @@
 //static uint8_t ESP8266_IP[4] = {192, 168, 1, 100};
 
 
-/**
-  * @Brief  DHCP Protocol enabling enumeration
-  */
-typedef enum
-{ DHCP_DISABLE = 0,
-  DHCP_ENABLE
-}ESP_DHCP_TypeDef;				//?????????????????
-
 
 /**
-  * @Brief  DHCP Protocol enabling enumeration		?????????
+  * @Brief  ES82266 error flags enumeration
   */
 typedef enum
 {
@@ -38,7 +30,6 @@ typedef enum
 	ESP_Error = 1,
 	ESP_Chan_Error,
 	ESP_Protocol_Error
-
 }ESP_ErrorFlag;
 
 
@@ -51,7 +42,5 @@ void ESP_Disconnect();
 ESP_ErrorFlag ESP_ConnectServer(char* ip_address, char* port);
 void ESP_DisconnectServer();
 void ESP_SendData(char* data, uint8_t length);
-ESP_ErrorFlag ESP_SetIP(char* ip_address);
-ESP_ErrorFlag ESP_SetMAC(char* mac_address);
 
 #endif /* ESP8266_H_ */

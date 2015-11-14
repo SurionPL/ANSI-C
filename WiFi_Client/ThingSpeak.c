@@ -23,6 +23,7 @@
 #include "ESP8266_Cl.h"
 
 
+
 void TS_UpdateField(char* value, uint8_t field)	//?????  zwracac cos i delay
 {
 	if(field < 10)
@@ -37,7 +38,9 @@ void TS_UpdateField(char* value, uint8_t field)	//?????  zwracac cos i delay
 		strcat(get, "\r\n");
 
 		ESP_ConnectServer(ts_ip, "80");
+		_delay_ms(5000);
 		ESP_SendData(get, strlen(get));
+		_delay_ms(3000);
 		ESP_Disconnect();
 	}
 }

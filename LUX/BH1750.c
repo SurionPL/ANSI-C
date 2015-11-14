@@ -63,7 +63,7 @@ void BH1750_Start(uint8_t mode)
 	mode_ = mode;
 	TWI_Start();
 	TWI_Write_SLA(BH1750_SLA);
-	TWI_WriteByte(mode);
+	TWI_WriteByte(mode_);
 	TWI_Stop();
 }
 
@@ -75,27 +75,23 @@ void BH1750_Start(uint8_t mode)
  */
 uint16_t BH1750_Read()
 {
-	uint16_t result = 0;
+	uint32_t result;
+	uint8_t msb, lsb;
 	uint16_t lux = 0;
 
 	TWI_Start();
 	TWI_Write_SLA(BH1750_SLA + 1);
-	result = TWI_ReadByte_ACK() << 8;
-	//result <<= 8;
-	result |= TWI_ReadByte_NACK();
+	msb = TWI_ReadByte_ACK();
+	lsb = TWI_ReadByte_NACK();
 	TWI_Stop();
 
-	if(mode_ == BH1750_CHR_MODE2 || mode_ == BH1750_OTHR_MODE2)
+	result = ((msb << 8) | lsb) * 10;		//Lux = Register / 1,2 == reg*10 / 12
+
+	lux = (uint16_t)(result / 12);
+
+	if(((mode_ == BH1750_CHR_MODE2) || (mode_ == BH1750_OTHR_MODE2)) && ((result % 12 ) >= 6))
 	{
-		lux = (result >> 1) * 10 / 12;
-		if((result & 0x01) == 1)
-		{
-			lux++;
-		}
-	}
-	else
-	{
-		lux = result * 10 / 12;
+		lux++;
 	}
 
 	return lux;

@@ -17,11 +17,10 @@ int main()
 
 	char ssid[]= "PENTAGON";
 	char pwd[] = "BarT2014DST";
-	char ip_add[] = "144.212.80.11";
-	char dane[] = "GET /update?key=K7D0ZR1M32BLIV5B&field2=25\r\n";
-	char port[] = "80";
-	USART_Init(__UBRR);
-	sei();
+	//char ip_add[] = "144.212.80.11";
+	//char dane[] = "GET /update?key=K7D0ZR1M32BLIV5B&field2=25\r\n";
+	//char port[] = "80";
+
 
 	ESP_Init();
 	//uart_puts("AT+CWMODE=1\r\n");		/* Client mode */
@@ -33,7 +32,7 @@ int main()
 	//uart_puts("AT+CIPMUX=0\r\n");		/* Multi channel connection */
 	//_delay_ms(4000);
 
-
+	//TS_UpdateField(char* value, uint8_t field);
 
 
 

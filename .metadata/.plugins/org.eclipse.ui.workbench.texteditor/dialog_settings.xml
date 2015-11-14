@@ -6,20 +6,20 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="putc" key="selection"/>
+		<item value="ISR" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="ISR"/>
+			<item value="UDR"/>
 			<item value="putc"/>
 			<item value="if(channel == ESP_CH0) {"/>
-			<item value="ISR"/>
 			<item value="UCSR"/>
 			<item value="328"/>
 			<item value="UBRR"/>
 			<item value="cwmode"/>
-			<item value="I2C"/>
 		</list>
 		<list key="replacehistory">
 			<item value="DS3231"/>

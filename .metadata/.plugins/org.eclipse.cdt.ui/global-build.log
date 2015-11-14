@@ -1,37 +1,37 @@
-01:43:59 **** Incremental Build of configuration Release for project WiFi_Client ****
+16:40:49 **** Incremental Build of configuration Release for project Wilgotnosc ****
 make all 
-Building file: ../ThingSpeak.c
+Building file: ../HTU21D.c
 Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=7372800UL -MMD -MP -MF"ThingSpeak.d" -MT"ThingSpeak.d" -c -o "ThingSpeak.o" "../ThingSpeak.c"
-Finished building: ../ThingSpeak.c
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=7372800UL -MMD -MP -MF"HTU21D.d" -MT"HTU21D.d" -c -o "HTU21D.o" "../HTU21D.c"
+Finished building: ../HTU21D.c
  
-Building target: WiFi_Client.elf
+Building target: Wilgotnosc.elf
 Invoking: AVR C Linker
-avr-gcc -Wl,-Map,WiFi_Client.map -mmcu=atmega8 -o "WiFi_Client.elf"  ./MKUART/mkuart.o  ./ESP8266_Cl.o ./ThingSpeak.o ./main.o   
-Finished building target: WiFi_Client.elf
+avr-gcc -Wl,-Map,Wilgotnosc.map -mmcu=atmega8 -o "Wilgotnosc.elf"  ./MKUART/mkuart.o  ./HTU21D.o ./I2C.o ./main.o   
+Finished building target: Wilgotnosc.elf
  
 Invoking: AVR Create Extended Listing
-avr-objdump -h -S WiFi_Client.elf  >"WiFi_Client.lss"
-Finished building: WiFi_Client.lss
+avr-objdump -h -S Wilgotnosc.elf  >"Wilgotnosc.lss"
+Finished building: Wilgotnosc.lss
  
 Create Flash image (ihex format)
-avr-objcopy -R .eeprom -O ihex WiFi_Client.elf  "WiFi_Client.hex"
-Finished building: WiFi_Client.hex
+avr-objcopy -R .eeprom -O ihex Wilgotnosc.elf  "Wilgotnosc.hex"
+Finished building: Wilgotnosc.hex
  
 Create eeprom image (ihex format)
-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex WiFi_Client.elf  "WiFi_Client.eep"
-Finished building: WiFi_Client.eep
+avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex Wilgotnosc.elf  "Wilgotnosc.eep"
+Finished building: Wilgotnosc.eep
  
 Invoking: Print Size
-avr-size --format=avr --mcu=atmega8 WiFi_Client.elf
+avr-size --format=avr --mcu=atmega8 Wilgotnosc.elf
 AVR Memory Usage
 ----------------
 Device: atmega8
 
-Program:    3554 bytes (43.4% Full)
+Program:    3132 bytes (38.2% Full)
 (.text + .data + .bootloader)
 
-Data:        460 bytes (44.9% Full)
+Data:        109 bytes (10.6% Full)
 (.data + .bss + .noinit)
 
 

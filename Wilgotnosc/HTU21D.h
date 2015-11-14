@@ -18,7 +18,7 @@
 #define HTU21D_SLA ((uint8_t)0x80)
 
 
-/** @ Defgroup:
+/** @ Defgroup: ????????????????????
   */
 #define HTU21D_TEMP_MEAS_HM		((uint8_t)0xE3)	/* Trigger Temperature Measurement (Hold Master)  */
 #define HTU21D_HUM_MEAS_HM		((uint8_t)0xE5)	/* Trigger Humidity Measurement (Hold Master) */
@@ -47,7 +47,7 @@ typedef struct {
 }HTU21D_RegistersTypeDef;
 
 
-/** @ Defgroup: HTU21D measurements resolutions enumeration
+/** @ Defgroup: HTU21D measurement resolutions enumeration
   */
 typedef enum {
 	Humidity12b_Temperature14b = 0,
@@ -63,6 +63,6 @@ void HTU21D_Init(HTU21D_ResolutionTypeDef Resolution);
 void HTU21D_StartTemperature();
 void HTU21D_StartHumidity();
 void HTU21D_GetTemperature(int8_t* integer, uint8_t* fractional);
-int8_t HTU21D_GetHumidity();
+uint8_t HTU21D_GetHumidity();
 
 #endif /* HTU21D_H_ */

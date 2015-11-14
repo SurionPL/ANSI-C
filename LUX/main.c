@@ -7,10 +7,28 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
-//#include "I2C.h"
+#include <avr/interrupt.h>
+#include "I2C.h"
+#include "MKUART/mkuart.h"
 #include "BH1750.h"
 
-int main() {
-	BH1750_Read();
-while(1){} 
+int main()
+{
+	uint16_t lux = 0;
+	USART_Init(__UBRR);
+	sei();
+	TWI_Init(100000/100);
+	BH1750_PowerOn();
+
+	//BH1750_Read();
+	while(1)
+	{
+		BH1750_Start(BH1750_OTLR_MODE);
+		_delay_ms(300);
+		lux = BH1750_Read();
+		uart_puts("Natezenie: ");
+		uart_putint(lux, 6);
+		uart_puts("\r\n");
+		_delay_ms(5000);
+	}
 }

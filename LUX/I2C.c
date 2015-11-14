@@ -131,6 +131,9 @@ uint8_t TWI_ReadByte_ACK()
 void TWI_ERROR(uint8_t error)
 {
 	TWI_ErrorFlag = error;
+	if(error == I2C_START_ERROR)
+	{DDRB = 2;
+	PORTB = 2;}
 	//Wypelnic czyms do interfejsu z uzytkownikiem
 }
 
