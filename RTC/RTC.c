@@ -35,9 +35,11 @@ void RTC_Init(RTC_InitTypeDef* RTC_InitStruct) {
 	RTC_RegistersStruct.CR = 0;
 
 	if(RTC_InitStruct->RTC_Oscillator == DISABLE) {
-		RTC_RegistersStruct.CR |= EOSC;
+		//RTC_RegistersStruct.CR |= EOSC;
+		RTC_RegistersStruct.CR = EOSC;
 
 	}
+
 	if(RTC_InitStruct->RTC_SQW != SQW_Disable)
 	{
 		if(RTC_InitStruct->RTC_SQW == SQW_Freq_1024Hz)
@@ -53,7 +55,6 @@ void RTC_Init(RTC_InitTypeDef* RTC_InitStruct) {
 			RTC_RegistersStruct.CR |= RS2 | RS1;
 		}
 		//Default: 1Hz
-
 	}
 	else if(RTC_InitStruct->RTC_SQW == SQW_Disable)
 	{
@@ -348,5 +349,5 @@ uint8_t RTC_DecToBCD(uint8_t decimal) {
  * @ Retval 	Decimal value.
  */
 uint8_t RTC_BCDToDec(uint8_t bcd) {
-	return ((((bcd >> 4) & 0x0F) * 10) | (bcd & 0x0F));
+	return ((((bcd >> 4) & 0x0F) * 10) + (bcd & 0x0F));
 }

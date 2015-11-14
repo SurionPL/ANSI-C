@@ -1,0 +1,51 @@
+/*
+ * main.c
+ *
+ *  Created on: 28 sie 2015
+ *      Author: Bartek
+ */
+
+#include <avr/io.h>
+#include <util/delay.h>
+#include "ESP8266_Cl.h"
+#include <avr/interrupt.h>
+#include "MKUART/mkuart.h"
+#include <string.h>
+
+int main()
+{
+	USART_Init(__UBRR);
+	_delay_ms(2000);
+	sei();
+	_delay_ms(2000);
+
+	void ESP_Init();
+	_delay_ms(2000);
+
+	char ssid[]= "PENTAGON";
+	char pwd[] = "BarT2014DST";
+	char ip_add[] = "144.212.80.11";
+	char dane[] = "GET /update?key=K7D0ZR1M32BLIV5B&field4=25\r\n";
+	DDRB = 2;
+	PORTB = 2;
+
+	ESP_Connect(ssid, pwd);
+	_delay_ms(10000);
+
+
+
+
+
+
+
+	while(1) {
+		//ESP_ConnectServer(ip_add, "80");
+		//_delay_ms(3000);
+		//ESP_SendData(dane, 44);
+		//_delay_ms(3000);
+		//ESP_DisconnectServer();
+		//_delay_ms(30000);
+
+
+	}
+}

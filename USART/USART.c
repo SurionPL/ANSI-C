@@ -61,11 +61,9 @@ uint8_t USART_Receive()
 }
 
 
-void USART_TransmitString(char data[], uint16_t size) {
-	int i;
-	for(i=0;i<size;i++) {
-		USART_Transmit(data[i]);
-	}
+void USART_TransmitString(char* string) {
+	register char s;
+	while((s = *string++)) USART_Transmit(s);
 }
 
 void USART_TransmitData(uint8_t data[], uint16_t size) {
@@ -74,10 +72,3 @@ void USART_TransmitData(uint8_t data[], uint16_t size) {
 		USART_Transmit(data[i]);
 	}
 }
-
-void uart_puts(char *s)		// wysy³a ³añcuch z pamiêci RAM na UART
-{
-  register char c;
-  while ((c = *s++)) uart_putc(c);			// dopóki nie napotkasz 0 wysy³aj znak
-}
-

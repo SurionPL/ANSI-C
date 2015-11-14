@@ -1,47 +1,20 @@
-00:16:19 **** Build of configuration Release for project RTC ****
+01:17:57 **** Incremental Build of configuration Release for project RTC ****
 make all 
-Building file: ../RTC.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"RTC.d" -MT"RTC.d" -c -o "RTC.o" "../RTC.c"
-Finished building: ../RTC.c
- 
-Building file: ../main.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
-Finished building: ../main.c
- 
-Building target: RTC.elf
-Invoking: AVR C Linker
-avr-gcc -Wl,-Map,RTC.map -mmcu=atmega8 -o "RTC.elf"  ./MKUART/mkuart.o  ./I2C.o ./RTC.o ./main.o   
-Finished building target: RTC.elf
- 
-Invoking: AVR Create Extended Listing
-avr-objdump -h -S RTC.elf  >"RTC.lss"
-Finished building: RTC.lss
- 
-Create Flash image (ihex format)
-avr-objcopy -R .eeprom -O ihex RTC.elf  "RTC.hex"
-Finished building: RTC.hex
- 
-Create eeprom image (ihex format)
-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex RTC.elf  "RTC.eep"
-Finished building: RTC.eep
- 
 Invoking: Print Size
 avr-size --format=avr --mcu=atmega8 RTC.elf
 AVR Memory Usage
 ----------------
 Device: atmega8
 
-Program:    2608 bytes (31.8% Full)
+Program:    2654 bytes (32.4% Full)
 (.text + .data + .bootloader)
 
-Data:        114 bytes (11.1% Full)
+Data:        118 bytes (11.5% Full)
 (.data + .bss + .noinit)
 
 
 Finished building: sizedummy
  
 
-00:16:22 Build Finished (took 2s.798ms)
+01:17:57 Build Finished (took 389ms)
 

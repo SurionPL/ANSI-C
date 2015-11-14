@@ -17,7 +17,7 @@ void USART_Transmit(uint8_t data);  //
 void USART_Flush(void);
 void USART_TransmitInt(uint16_t data);
 uint8_t USART_Receive();
-void USART_TransmitString(char data[], uint16_t size);
+void USART_TransmitString(char* string);
 
 void USART_TransmitData(unsigned char data[], uint16_t size);
 #endif /* USART_H_ */

@@ -1,0 +1,10 @@
+16:48:29 **** Build of configuration Debug for project TestC ****
+make all 
+Building file: ../src/TestC.c
+Invoking: Cross GCC Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/TestC.d" -MT"src/TestC.d" -o "src/TestC.o" "../src/TestC.c"
+/usr/bin/sh: gcc: command not found
+make: *** [src/TestC.o] Error 127
+
+16:48:29 Build Finished (took 420ms)
+

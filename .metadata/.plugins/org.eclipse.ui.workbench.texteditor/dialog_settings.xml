@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
+		<item value="409" key="DIALOG_X_ORIGIN"/>
+		<item value="376" key="DIALOG_Y_ORIGIN"/>
+	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="" key="selection"/>
+		<item value="putc" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="putc"/>
+			<item value="if(channel == ESP_CH0) {"/>
 			<item value="ISR"/>
 			<item value="UCSR"/>
 			<item value="328"/>
 			<item value="UBRR"/>
 			<item value="cwmode"/>
 			<item value="I2C"/>
-			<item value="DS1307"/>
-			<item value="UT"/>
 		</list>
 		<list key="replacehistory">
 			<item value="DS3231"/>

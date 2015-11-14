@@ -1,4 +1,4 @@
-12:19:40 **** Build of configuration Release for project Barometr_int ****
+01:17:12 **** Build of configuration Release for project Barometr_int ****
 make all 
 Invoking: Print Size
 avr-size --format=avr --mcu=atmega8 Barometr_int.elf
@@ -13,8 +13,7 @@ Data:        186 bytes (18.2% Full)
 (.data + .bss + .noinit)
 
 
-Finished building: sizedummy
- 
+Command canceled
 
-12:19:44 Build Finished (took 3s.351ms)
+01:17:13 Build Cancelled (took 396ms)
 

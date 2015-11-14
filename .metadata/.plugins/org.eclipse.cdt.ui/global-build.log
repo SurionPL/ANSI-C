@@ -1,22 +1,13 @@
-02:19:51 **** Incremental Build of configuration Release for project WiFi_Client ****
+01:43:59 **** Incremental Build of configuration Release for project WiFi_Client ****
 make all 
-Building file: ../ESP8266_Cl.c
+Building file: ../ThingSpeak.c
 Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"ESP8266_Cl.d" -MT"ESP8266_Cl.d" -c -o "ESP8266_Cl.o" "../ESP8266_Cl.c"
-../ESP8266_Cl.h:26: warning: 'ESP8266_MAC' defined but not used
-../ESP8266_Cl.h:27: warning: 'ESP8266_IP' defined but not used
-Finished building: ../ESP8266_Cl.c
- 
-Building file: ../main.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
-../ESP8266_Cl.h:26: warning: 'ESP8266_MAC' defined but not used
-../ESP8266_Cl.h:27: warning: 'ESP8266_IP' defined but not used
-Finished building: ../main.c
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=7372800UL -MMD -MP -MF"ThingSpeak.d" -MT"ThingSpeak.d" -c -o "ThingSpeak.o" "../ThingSpeak.c"
+Finished building: ../ThingSpeak.c
  
 Building target: WiFi_Client.elf
 Invoking: AVR C Linker
-avr-gcc -Wl,-Map,WiFi_Client.map -mmcu=atmega8 -o "WiFi_Client.elf"  ./MKUART/mkuart.o  ./ESP8266_Cl.o ./main.o   
+avr-gcc -Wl,-Map,WiFi_Client.map -mmcu=atmega8 -o "WiFi_Client.elf"  ./MKUART/mkuart.o  ./ESP8266_Cl.o ./ThingSpeak.o ./main.o   
 Finished building target: WiFi_Client.elf
  
 Invoking: AVR Create Extended Listing
@@ -37,10 +28,10 @@ AVR Memory Usage
 ----------------
 Device: atmega8
 
-Program:    1198 bytes (14.6% Full)
+Program:    3554 bytes (43.4% Full)
 (.text + .data + .bootloader)
 
-Data:        226 bytes (22.1% Full)
+Data:        460 bytes (44.9% Full)
 (.data + .bss + .noinit)
 
 

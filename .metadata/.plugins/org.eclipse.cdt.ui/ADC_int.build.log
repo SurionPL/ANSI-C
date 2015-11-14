@@ -1,4 +1,4 @@
-17:22:47 **** Build of configuration Release for project ADC_int ****
+01:17:09 **** Incremental Build of configuration Release for project ADC_int ****
 make all 
 Invoking: Print Size
 avr-size --format=avr --mcu=atmega328p ADC_int.elf
@@ -16,5 +16,5 @@ Data:          6 bytes (0.3% Full)
 Finished building: sizedummy
  
 
-17:22:48 Build Finished (took 564ms)
+01:17:10 Build Finished (took 453ms)
 
