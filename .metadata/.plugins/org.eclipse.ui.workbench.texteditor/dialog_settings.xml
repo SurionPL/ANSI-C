@@ -6,12 +6,13 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="ISR" key="selection"/>
+		<item value="" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="api"/>
 			<item value="ISR"/>
 			<item value="UDR"/>
 			<item value="putc"/>
@@ -19,7 +20,6 @@
 			<item value="UCSR"/>
 			<item value="328"/>
 			<item value="UBRR"/>
-			<item value="cwmode"/>
 		</list>
 		<list key="replacehistory">
 			<item value="DS3231"/>
@@ -36,7 +36,7 @@
 		<item value="257" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="380" key="DIALOG_HEIGHT"/>
-		<item value="59" key="DIALOG_Y_ORIGIN"/>
-		<item value="767" key="DIALOG_X_ORIGIN"/>
+		<item value="166" key="DIALOG_Y_ORIGIN"/>
+		<item value="992" key="DIALOG_X_ORIGIN"/>
 	</section>
 </section>

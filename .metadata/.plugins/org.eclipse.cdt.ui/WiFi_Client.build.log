@@ -1,4 +1,4 @@
-18:35:12 **** Incremental Build of configuration Release for project WiFi_Client ****
+00:25:40 **** Incremental Build of configuration Release for project WiFi_Client ****
 make all 
 Invoking: Print Size
 avr-size --format=avr --mcu=atmega8 WiFi_Client.elf
@@ -6,15 +6,15 @@ AVR Memory Usage
 ----------------
 Device: atmega8
 
-Program:    3388 bytes (41.4% Full)
+Program:    3382 bytes (41.3% Full)
 (.text + .data + .bootloader)
 
-Data:        380 bytes (37.1% Full)
+Data:        374 bytes (36.5% Full)
 (.data + .bss + .noinit)
 
 
 Finished building: sizedummy
  
 
-18:35:12 Build Finished (took 636ms)
+00:25:41 Build Finished (took 583ms)
 

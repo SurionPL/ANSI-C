@@ -9,7 +9,9 @@
 #define THINGSPEAK_H_
 
 
+char ts_ip[] = "144.212.80.11";
 
+char ts_APIKey[] = "K7D0ZR1M32BLIV5B";	/* ThingSpeak API Key */
 
 
 //        GET += "&field1=";

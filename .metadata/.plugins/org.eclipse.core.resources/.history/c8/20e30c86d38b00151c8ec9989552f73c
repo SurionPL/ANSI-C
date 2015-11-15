@@ -23,9 +23,9 @@
 #include "ThingSpeak.h"
 
 
-char ts_ip[] 	 = "144.212.80.11";			/* ThingSpeak IP */
-char APIKey[] = "K7D0ZR1M32BLIV5B";	/* ThingSpeak API Key */
+char ts_ip[] = "144.212.80.11";
 
+char ts_APIKey[] = "K7D0ZR1M32BLIV5B";	/* ThingSpeak API Key */
 
 void TS_UpdateField(char* value, uint8_t field)	//?????  zwracac cos i delay
 {
@@ -36,7 +36,7 @@ void TS_UpdateField(char* value, uint8_t field)	//?????  zwracac cos i delay
 		char s_field[9];
 		sprintf(s_field, "&field%d=", field);
 
-		strcat(get, APIKey);  //dodac ten &fieldX
+		strcat(get, ts_APIKey);  //dodac ten &fieldX
 		strcat(get, s_field);
 		strcat(get, value);
 		strcat(get, "\r\n");

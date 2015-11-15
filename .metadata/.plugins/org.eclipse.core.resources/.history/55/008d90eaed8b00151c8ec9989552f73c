@@ -14,7 +14,7 @@
 #define ESP_CHIP_PIN	PB0
 #define ESP_CHIP_PORT	PORTB
 
-//
+//http://www.tutorialspoint.com/c_standard_library/string_h.htm
 
 
 /**

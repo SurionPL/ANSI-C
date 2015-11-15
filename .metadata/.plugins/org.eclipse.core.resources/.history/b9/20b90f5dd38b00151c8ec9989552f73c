@@ -7,9 +7,10 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
+
 #include <avr/interrupt.h>
-#include <string.h>
 #include "MKUART/mkuart.h"
+#include <string.h>
 #include "ThingSpeak.h"
 #include "ESP8266_Cl.h"
 
@@ -20,6 +21,9 @@ int main()
 	sei();
 	char ssid[]= "PENTAGON";
 	char pwd[] = "BarT2014DST";
+	//char ip_add[] = "144.212.80.11";
+	//char dane[] = "GET /update?key=K7D0ZR1M32BLIV5B&field2=25\r\n";
+	//char port[] = "80";
 
 
 	ESP_Init();
@@ -37,8 +41,8 @@ int main()
 
 
 	//_delay_ms(10000);
-	//DDRB = 2;
-	//PORTB ^= 2;
+	DDRB = 2;
+	PORTB = 2;
 
 	while(1) {
 		ESP_Connect(ssid, pwd);

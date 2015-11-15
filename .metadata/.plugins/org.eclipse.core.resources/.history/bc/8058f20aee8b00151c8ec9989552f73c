@@ -32,7 +32,6 @@
   */
 void ESP_Init()
 {
-
   //Send
 	//ESP_PowerOn();
 	uart_puts(PSTR("AT+CWMODE=1\r\n"));		/* Client mode */
@@ -40,8 +39,6 @@ void ESP_Init()
 	uart_puts(PSTR("AT+CIPMUX=0\r\n"));		/* Multi channel connection */
 	_delay_ms(4000);
 	//USART_Init(MYUBRR);
-	DDRB = 2;
-	PORTB = 2;
 }
 
 

@@ -37,8 +37,8 @@ int main()
 
 
 	//_delay_ms(10000);
-	//DDRB = 2;
-	//PORTB ^= 2;
+	DDRB = 2;
+	PORTB = 2;
 
 	while(1) {
 		ESP_Connect(ssid, pwd);
