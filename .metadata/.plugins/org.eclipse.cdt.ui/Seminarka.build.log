@@ -1,42 +1,16 @@
-21:10:23 **** Incremental Build of configuration Release for project Seminarka ****
+00:22:47 **** Incremental Build of configuration Release for project Seminarka ****
 make all 
-Building file: ../main.c
+Building file: ../ESP8266_CL.c
 Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=1000000UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
-Finished building: ../main.c
- 
-Building target: Seminarka.elf
-Invoking: AVR C Linker
-avr-gcc -Wl,-Map,Seminarka.map -mmcu=atmega328p -o "Seminarka.elf"  ./main.o   
-Finished building target: Seminarka.elf
- 
-Invoking: AVR Create Extended Listing
-avr-objdump -h -S Seminarka.elf  >"Seminarka.lss"
-Finished building: Seminarka.lss
- 
-Create Flash image (ihex format)
-avr-objcopy -R .eeprom -O ihex Seminarka.elf  "Seminarka.hex"
-Finished building: Seminarka.hex
- 
-Create eeprom image (ihex format)
-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex Seminarka.elf  "Seminarka.eep"
-Finished building: Seminarka.eep
- 
-Invoking: Print Size
-avr-size --format=avr --mcu=atmega328p Seminarka.elf
-AVR Memory Usage
-----------------
-Device: atmega328p
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=1000000UL -MMD -MP -MF"ESP8266_CL.d" -MT"ESP8266_CL.d" -c -o "ESP8266_CL.o" "../ESP8266_CL.c"
+In file included from ../ESP8266_CL.c:12:
+../ESP8266_CL.h:40: error: expected declaration specifiers or '...' before 'uint8_t'
+../ESP8266_CL.c: In function 'ESP_Init':
+../ESP8266_CL.c:37: warning: implicit declaration of function 'uart_puts'
+../ESP8266_CL.c: At top level:
+../ESP8266_CL.c:148: error: conflicting types for 'ESP_SendData'
+../ESP8266_CL.h:40: error: previous declaration of 'ESP_SendData' was here
+make: *** [ESP8266_CL.o] Error 1
 
-Program:     350 bytes (1.1% Full)
-(.text + .data + .bootloader)
-
-Data:          1 bytes (0.0% Full)
-(.data + .bss + .noinit)
-
-
-Finished building: sizedummy
- 
-
-21:10:24 Build Finished (took 1s.563ms)
+00:22:48 Build Finished (took 675ms)
 

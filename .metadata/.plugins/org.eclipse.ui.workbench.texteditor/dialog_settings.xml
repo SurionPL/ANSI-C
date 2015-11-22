@@ -12,16 +12,17 @@
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="PORTB"/>
+			<item value="BMP180_T_MEASURE"/>
+			<item value="TWI"/>
 			<item value="api"/>
 			<item value="ISR"/>
 			<item value="UDR"/>
 			<item value="putc"/>
 			<item value="if(channel == ESP_CH0) {"/>
-			<item value="UCSR"/>
-			<item value="328"/>
-			<item value="UBRR"/>
 		</list>
 		<list key="replacehistory">
+			<item value="I2C"/>
 			<item value="DS3231"/>
 			<item value="Write_SLA"/>
 			<item value="Struct"/>
@@ -29,7 +30,6 @@
 			<item value="Brief"/>
 			<item value="TransmitString"/>
 			<item value="Transmit"/>
-			<item value="Parameters"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

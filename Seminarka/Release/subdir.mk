@@ -4,12 +4,15 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../ESP8266_CL.c \
 ../main.c 
 
 OBJS += \
+./ESP8266_CL.o \
 ./main.o 
 
 C_DEPS += \
+./ESP8266_CL.d \
 ./main.d 
 
 

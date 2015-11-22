@@ -13,42 +13,34 @@
 #define HTU21D_H_
 
 
-/** @ Defgroup: HTU21D slave address
-  */
+/* Adres slave urzadzenia */
 #define HTU21D_SLA ((uint8_t)0x80)
 
 
-/** @ Defgroup: ????????????????????
-  */
-#define HTU21D_TEMP_MEAS_HM		((uint8_t)0xE3)	/* Trigger Temperature Measurement (Hold Master)  */
-#define HTU21D_HUM_MEAS_HM		((uint8_t)0xE5)	/* Trigger Humidity Measurement (Hold Master) */
-#define HTU21D_TEMP_MEAS_NHM	((uint8_t)0xF3) /* Trigger Temperature Measurement (No Hold Master) */
-#define HTU21D_HUM_MEAS_NHM		((uint8_t)0xF5) /* Trigger Humidity Measurement (No Hold Master) */
-#define HTU21D_WRITE_UR			((uint8_t)0xE6) /* Write User Register */
-#define HTU21D_READ_UR			((uint8_t)0xE7) /* Read User Register */
+/* Komendy */
+#define HTU21D_TEMP_MEAS_NHM	((uint8_t)0xF3) /* Wyzwalanie pomiaru temperatury (No Hold Master) */
+#define HTU21D_HUM_MEAS_NHM		((uint8_t)0xF5) /* Wyzwalanie pomiaru wilgotnosci (No Hold Master) */
+#define HTU21D_WRITE_UR			((uint8_t)0xE6) /* Zapis do rejestru uzytkownika (UR) */
+#define HTU21D_READ_UR			((uint8_t)0xE7) /* Odczyt rejestru uzytkownika (UR) */
 #define HTU21D_SOFT_RESET		((uint8_t)0xFE) /* Soft Reset */
 
 
-/** @ Defgroup: HTU21D User Register default value
-  */
+/* Wartosc domyslna rejestru uzytkownika (UR)*/
 #define HTU21D_UR_DEFAULT ((uint8_t)0x83)
 
 
-/** @ Defgroup: HTU21D measurements types
-  */
+/* Wartosci bitow statusowych pomiaru */
 #define HTU21D_TYPE_TEMPERATURE ((uint8_t)0x00)
 #define HTU21D_TYPE_HUMIDITY	((uint8_t)0x02)
 
 
-/** @ Defgroup: HTU21D registers structure
-  */
+/* Struktura rejestrow HTU21D */
 typedef struct {
 	uint8_t UR;
 }HTU21D_RegistersTypeDef;
 
 
-/** @ Defgroup: HTU21D measurement resolutions enumeration
-  */
+/* Rozdzielczosci pomiarow */
 typedef enum {
 	Humidity12b_Temperature14b = 0,
 	Humidity8b_Temperature12b,
@@ -57,8 +49,7 @@ typedef enum {
 }HTU21D_ResolutionTypeDef;
 
 
-/** @ Defgroup: HTU21D functions
-  */
+/* Funkcje HTU21D */
 void HTU21D_Init(HTU21D_ResolutionTypeDef Resolution);
 void HTU21D_StartTemperature();
 void HTU21D_StartHumidity();

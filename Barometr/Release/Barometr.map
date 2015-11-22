@@ -144,7 +144,7 @@ LOAD d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xbc2
+.text           0x00000000      0xbca
  *(.vectors)
  .vectors       0x00000000       0x26 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4/crtm8.o
                 0x00000000                __vectors
@@ -247,43 +247,43 @@ LOAD d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
                 0x0000082e                TWI_WriteByte
                 0x000008ca                TWI_WriteBytes
                 0x000007e0                TWI_RStart
- .text          0x00000902      0x17e ./main.o
+ .text          0x00000902      0x186 ./main.o
                 0x000009e2                InterfaceInit
                 0x000009ea                main
                 0x00000902                SendToUart
- .text          0x00000a80        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_mulsi3.o)
- .text          0x00000a80        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodsi4.o)
- .text          0x00000a80        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_divmodsi4.o)
- .text          0x00000a80        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
- .text          0x00000a80        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_copy_data.o)
- .text          0x00000a80        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clear_bss.o)
- .text          0x00000a80        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(itoa.o)
- .text          0x00000a80        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(strrev.o)
- .text          0x00000a80        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
-                0x00000a80                . = ALIGN (0x2)
+ .text          0x00000a88        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_mulsi3.o)
+ .text          0x00000a88        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodsi4.o)
+ .text          0x00000a88        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_divmodsi4.o)
+ .text          0x00000a88        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
+ .text          0x00000a88        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_copy_data.o)
+ .text          0x00000a88        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clear_bss.o)
+ .text          0x00000a88        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(itoa.o)
+ .text          0x00000a88        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(strrev.o)
+ .text          0x00000a88        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
+                0x00000a88                . = ALIGN (0x2)
  *(.text.*)
- .text.libgcc   0x00000a80       0x3e d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_mulsi3.o)
-                0x00000a80                __mulsi3
- .text.libgcc   0x00000abe       0x44 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodsi4.o)
-                0x00000abe                __udivmodsi4
- .text.libgcc   0x00000b02       0x36 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_divmodsi4.o)
-                0x00000b02                __divmodsi4
- .text.libgcc   0x00000b38        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
- .text.libgcc   0x00000b38        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_copy_data.o)
- .text.libgcc   0x00000b38        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000a88       0x3e d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_mulsi3.o)
+                0x00000a88                __mulsi3
+ .text.libgcc   0x00000ac6       0x44 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodsi4.o)
+                0x00000ac6                __udivmodsi4
+ .text.libgcc   0x00000b0a       0x36 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_divmodsi4.o)
+                0x00000b0a                __divmodsi4
+ .text.libgcc   0x00000b40        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
+ .text.libgcc   0x00000b40        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000b40        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_clear_bss.o)
  .text.avr-libc
-                0x00000b38       0x3e d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(itoa.o)
-                0x00000b38                itoa
+                0x00000b40       0x3e d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(itoa.o)
+                0x00000b40                itoa
  .text.avr-libc
-                0x00000b76       0x20 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(strrev.o)
-                0x00000b76                strrev
- .text.libgcc   0x00000b96       0x28 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
-                0x00000b96                __udivmodhi4
-                0x00000bbe                . = ALIGN (0x2)
+                0x00000b7e       0x20 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4\libc.a(strrev.o)
+                0x00000b7e                strrev
+ .text.libgcc   0x00000b9e       0x28 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_udivmodhi4.o)
+                0x00000b9e                __udivmodhi4
+                0x00000bc6                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000bbe        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
-                0x00000bbe                exit
-                0x00000bbe                _exit
+ .fini9         0x00000bc6        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
+                0x00000bc6                exit
+                0x00000bc6                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -302,11 +302,11 @@ LOAD d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000bbe        0x4 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
+ .fini0         0x00000bc6        0x4 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000bc2                _etext = .
+                0x00000bca                _etext = .
 
-.data           0x00800060       0x58 load address 0x00000bc2
+.data           0x00800060       0x58 load address 0x00000bca
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr4/crtm8.o
@@ -367,8 +367,8 @@ LOAD d:/programy/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr4\libgcc.a
                 0x00800110                temp
                 0x00800114                press
                 0x00800118                PROVIDE (__bss_end, .)
-                0x00000bc2                __data_load_start = LOADADDR (.data)
-                0x00000c1a                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000bca                __data_load_start = LOADADDR (.data)
+                0x00000c22                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800118        0x0
                 0x00800118                PROVIDE (__noinit_start, .)

@@ -1,0 +1,73 @@
+/*
+ * main.c
+ *
+ *  Created on: 12 lis 2015
+ *      Author: Bartek
+ */
+
+#include <avr/io.h>
+#include <util/delay.h>
+#include <avr/interrupt.h>
+#include "BMP180/BMP180.h"
+#include "I2C/I2C.h"
+#include "RTC/RTC.h"
+#include "MKUART/mkuart.h"
+#include "HTU21D/HTU21D.h"
+#include "BH1750/BH1750.h"
+#include <stdio.h>
+
+
+int8_t t_integer;
+uint8_t t_fractional;
+int8_t hum;
+void SendTempUSART()
+{
+    uart_puts("Temperatura:  ");
+    uart_putint( t_integer);
+    uart_puts(".");
+    uart_putint( t_fractional);
+    uart_puts("\r\n");
+}
+
+void SendHumUSART()
+{
+    uart_puts("Wilgotnosc: ");
+    uart_putint(hum);
+    uart_puts("%\r\n");
+}
+
+void InterfaceInit()
+{
+	//TWI_InitTypeDef TWI_InitStruct;
+	//TWI_InitStruct.TWI_Speed = 100000/100;
+	TWI_Init(100000/100);
+	USART_Init(__UBRR);
+}
+
+int main() {
+	DDRB  = 1<<PB1;
+
+	InterfaceInit();
+	sei();
+	HTU21D_Init(Humidity10b_Temperature13b);
+	//TWI_Start(HTU21D_SLA);
+	//TWI_Stop();
+
+
+	while(1)
+	{
+
+		HTU21D_StartTemperature();
+		//HTU21D_StartHumidity();
+		_delay_ms(200);
+		//hum = HTU21D_GetHumidity();
+		//if( hum != -1){
+		//SendHumUSART();}
+		//else
+			//uart_puts(" error ");
+		HTU21D_GetTemperature(&t_integer, &t_fractional);
+		SendTempUSART();
+		_delay_ms(2000);
+
+	}
+}

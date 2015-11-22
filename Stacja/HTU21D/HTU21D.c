@@ -10,24 +10,26 @@
  */
 
 
-/* Includes -------------------------------------------------------------------*/
+/*-------------------------------------------------------------------*/
 #include <avr/io.h>
 #include <util/delay.h>
 #include "HTU21D.h"
-#include "../I2C.h"
+#include "../I2C/I2C.h"
 #include "../MKUART/mkuart.h"
+/*-------------------------------------------------------------------*/
+
 
 HTU21D_RegistersTypeDef RegistersStruct;
 
 
 /**
- * @ Brief  	Initializes the HTU21D sensor.
- * @ Parameter  HTU21D_ResolutionTypeDef: sensor measurement resolution.
- * @ Retval 	None.
+ * @ Opis:				Inicjalizuje modul HTU21D.
+ * @ Parametry:  		HTU21D_ResolutionTypeDef: wartosc powiazana z trybem pomiaru.
+ * @ Zwracana wartosc: 	Brak.
  */
 void HTU21D_Init(HTU21D_ResolutionTypeDef Resolution)
 {
-	/* Read user register (UR) */
+	/* Odczyt zawartosc rejestru uzytkownika */
 	TWI_Start();
 	TWI_Write_SLA(HTU21D_SLA);
 	TWI_WriteByte(HTU21D_READ_UR);
@@ -38,14 +40,14 @@ void HTU21D_Init(HTU21D_ResolutionTypeDef Resolution)
 
 	RegistersStruct.UR &= 0x38;	// Save reserved bits
 
-	/* Select measurement resolutions */
+	/* Wybor rozdzielczosci pomiarow */
 	if(Resolution == Humidity12b_Temperature14b)
 	{
 		RegistersStruct.UR |= 0x02;
 	}
 	else if(Resolution == Humidity8b_Temperature12b)
 	{
-		RegistersStruct.UR |= 0x03;			//?? dodac define
+		RegistersStruct.UR |= 0x03;
 	}
 	else if(Resolution == Humidity10b_Temperature13b)
 	{
@@ -54,10 +56,10 @@ void HTU21D_Init(HTU21D_ResolutionTypeDef Resolution)
 	else
 	{
 		RegistersStruct.UR |= HTU21D_UR_DEFAULT;
-		//default value 11/11 bits
+		//Domyslna wartosc - 11/11 bitow
 	}
 
-	/* Send user register value */
+	/* Wyslanie zmienionej wartosci rejestru uzytkownika */
 	TWI_Start();
 	TWI_Write_SLA(HTU21D_SLA);
 	TWI_WriteByte(HTU21D_WRITE_UR);
@@ -67,13 +69,13 @@ void HTU21D_Init(HTU21D_ResolutionTypeDef Resolution)
 
 
 /**
- * @ Brief  	Starts the temperature measurement.
- * @ Parameter  None.
- * @ Retval 	None.
+ * @ Opis:				Rozpoczyna pomiar wilgotnosci.
+ * @ Parametry:  		Brak.
+ * @ Zwracana wartosc: 	Brak.
  */
 void HTU21D_StartTemperature()
 {
-	/* Send temperature measurement command */
+	/* Wyslanie komendy rozpoczecia pomiaru temperatury */
 	TWI_Start();
 	TWI_Write_SLA(HTU21D_SLA);
 	TWI_WriteByte(HTU21D_TEMP_MEAS_NHM);
@@ -82,13 +84,13 @@ void HTU21D_StartTemperature()
 
 
 /**
- * @ Brief  	Starts the humidity measurement.
- * @ Parameter  None.
- * @ Retval 	None.
+ * @ Opis:				Rozpoczyna pomiar temperatury.
+ * @ Parametry:  		HTU21D_ResolutionTypeDef: wartosc powiazana z trybem pomiaru.
+ * @ Zwracana wartosc: 	Brak.
  */
 void HTU21D_StartHumidity()
 {
-	/* Send humidity measurement command */
+	/* Wyslanie komendy rozpoczecia pomiaru wilgotnosci */
 	TWI_Start();
 	TWI_Write_SLA(HTU21D_SLA);
 	TWI_WriteByte(HTU21D_HUM_MEAS_NHM);
@@ -97,17 +99,19 @@ void HTU21D_StartHumidity()
 
 
 /**
- * @ Brief  	Gets temperature value. Needs to use StartTemperature_NHM() function first.
- * @ Parameter  integer: pointer to value which keeps integer part of temperature.
- * 				fractional: pointer to value which keeps fractional part of temperature.
- * @ Retval 	None.
+ * @ Opis:				Odczytuje wynik pomiaru temperatury.
+ * @ Parametry:  		-integer: wskaznik na komorke w ktorej przechowywana bedzie czesc calkowita
+ * 						 temperatury.
+ * 						-fractional: wskaznik na komorke w ktorej przechowywana bedzie czesc ulamkowa
+ * 						 temperatury.
+ * @ Zwracana wartosc: 	Brak.
  */
 void HTU21D_GetTemperature(int8_t* integer, uint8_t* fractional)
 {
 	uint16_t result;
 	int32_t temperature;
 
-	/* Read result */
+	/* Odczyt wyniku pomiaru z rejestru sensora */
 	TWI_Start();
 	TWI_Write_SLA(HTU21D_SLA + 1);
 	result  = TWI_ReadByte_ACK() << 8;
@@ -116,7 +120,7 @@ void HTU21D_GetTemperature(int8_t* integer, uint8_t* fractional)
 
 	if((result & 0x02) == HTU21D_TYPE_TEMPERATURE)
 	{
-		/* Convert register value to physical units */
+		/* Konwersja wartosci z rejestru na stopnie Celsjusza */
 		temperature = ((int32_t)-4685 + ((((uint32_t)17572) * ((uint32_t)result & 0xFFFC)) / 65536));
 		*integer = temperature / 100;
 		*fractional = temperature % 100;
@@ -139,9 +143,9 @@ void HTU21D_GetTemperature(int8_t* integer, uint8_t* fractional)
 
 
 /**
- * @ Brief  	Gets humidity value.
- * @ Parameter  None.
- * @ Retval 	Humidity procentage value.
+ * @ Opis:				Odczytuje wynik pomiaru wilgotnosci.
+ * @ Parametry:  		Brak.
+ * @ Zwracana wartosc: 	Wynik pomiaru wilgotnosci w %. Gdy nieprawid³owy pomiar - zwraca zero.
  */
 uint8_t HTU21D_GetHumidity()
 {
@@ -150,7 +154,7 @@ uint8_t HTU21D_GetHumidity()
 	uint8_t msb, lsb;
 	uint32_t humidity;
 
-	/* Read data from register */
+	/* Odczyt danych z rejestru */
 	TWI_Start();
 	TWI_Write_SLA(HTU21D_SLA + 1);
 	msb = TWI_ReadByte_ACK();
@@ -161,10 +165,10 @@ uint8_t HTU21D_GetHumidity()
 
 	if(((result & 0x00000002) == HTU21D_TYPE_HUMIDITY) && (result >= 600))
 	{
-		/* Convert register value to % */
+		/* Konwersja wartosci z rejestru na % */
 		humidity = ((((uint32_t)12500 * (result & 0xFFFFFFFC)) >> 16) - (uint32_t)600);
 
-		return  ((uint8_t)(humidity / 100));
+		return ((uint8_t)(humidity / 100));
 	}
 	return (0);
 }

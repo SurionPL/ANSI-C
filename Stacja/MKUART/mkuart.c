@@ -7,7 +7,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdlib.h>
-
+#include <stdio.h>
 
 #include "mkuart.h"
 
@@ -92,10 +92,11 @@ void uart_puts(char *s)		// wysy³a ³añcuch z pamiêci RAM na UART
   while ((c = *s++)) uart_putc(c);			// dopóki nie napotkasz 0 wysy³aj znak
 }
 
-void uart_putint(int value, int radix)	// wysy³a na port szeregowy tekst
+void uart_putint(int value)	// wysy³a na port szeregowy tekst
 {
 	char string[17];			// bufor na wynik funkcji itoa
-	itoa(value, string, radix);		// konwersja value na ASCII
+	//itoa(value, string, radix);		// konwersja value na ASCII
+	sprintf(string, "%d", value);
 	uart_puts(string);			// wyœlij string na port szeregowy
 }
 
