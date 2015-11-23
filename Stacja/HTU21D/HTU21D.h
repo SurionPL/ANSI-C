@@ -1,21 +1,18 @@
 /**
-  *******************************************************************************
-  * @ File    HTU21D.h
-  * @ Author  Bartlomiej Kusmierczyk
-  * @ Version V1.0
-  * @ Date    01-October-2015
-  * @ Brief   This file contains all the functions prototypes for the HTU21D
-  * 		  digital relative humidity sensor library.
-  *******************************************************************************
-  */
+ *******************************************************************************
+ * @ Plik    HTU21D.h
+ * @ Autor   Bartlomiej Kusmierczyk
+ * @ Wersja  V1.0
+ * @ Date    1 pazdziernika 2015
+ * @ Brief   Ten plik zawiera wszystkie prototypy funkcji potrzebne do obslugi
+ * 		     czujnika wilgotnosci i temperatury HTU21D.
+ *******************************************************************************
+ */
 
 #ifndef HTU21D_H_
 #define HTU21D_H_
 
-
-/* Adres slave urzadzenia */
-#define HTU21D_SLA ((uint8_t)0x80)
-
+#define HTU21D_SLA ((uint8_t)0x80)				/* Adres slave urzadzenia */
 
 /* Komendy */
 #define HTU21D_TEMP_MEAS_NHM	((uint8_t)0xF3) /* Wyzwalanie pomiaru temperatury (No Hold Master) */
@@ -24,21 +21,16 @@
 #define HTU21D_READ_UR			((uint8_t)0xE7) /* Odczyt rejestru uzytkownika (UR) */
 #define HTU21D_SOFT_RESET		((uint8_t)0xFE) /* Soft Reset */
 
-
-/* Wartosc domyslna rejestru uzytkownika (UR)*/
-#define HTU21D_UR_DEFAULT ((uint8_t)0x83)
-
+#define HTU21D_UR_DEFAULT ((uint8_t)0x83)	/* Wartosc domyslna rejestru uzytkownika (UR)*/
 
 /* Wartosci bitow statusowych pomiaru */
-#define HTU21D_TYPE_TEMPERATURE ((uint8_t)0x00)
-#define HTU21D_TYPE_HUMIDITY	((uint8_t)0x02)
-
+#define HTU21D_TYPE_TEMPERATURE ((uint8_t)0x00)		/* Temperatura */
+#define HTU21D_TYPE_HUMIDITY	((uint8_t)0x02)		/* Wilgotnosc */
 
 /* Struktura rejestrow HTU21D */
 typedef struct {
 	uint8_t UR;
-}HTU21D_RegistersTypeDef;
-
+} HTU21D_RegistersTypeDef;
 
 /* Rozdzielczosci pomiarow */
 typedef enum {
@@ -46,8 +38,7 @@ typedef enum {
 	Humidity8b_Temperature12b,
 	Humidity10b_Temperature13b,
 	Humidity11b_Temperature11b,
-}HTU21D_ResolutionTypeDef;
-
+} HTU21D_ResolutionTypeDef;
 
 /* Funkcje HTU21D */
 void HTU21D_Init(HTU21D_ResolutionTypeDef Resolution);

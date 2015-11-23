@@ -1,35 +1,37 @@
 /**
  *******************************************************************************
- * @ File    BH1750.c
- * @ Author  Bartlomiej Kusmierczyk
- * @ Version V1.0
- * @ Date    11-September-2015
- * @ Brief   This file contains all the BH1750 digital ambient light sensor
- * 			 firmware functions.
+ * @ Plik    BH1750.c
+ * @ Autor   Bartlomiej Kusmierczyk
+ * @ Wersja  V1.0
+ * @ Data    11 wrzesnia 2015
+ * @ Opis    Ten plik zawiera funkcje do obslugi sensora natezenia oswietlenia
+ * 			 BH1750.
  *******************************************************************************
  */
 
-
-/* Includes -------------------------------------------------------------------*/
+/*-------------------------------------------------------------------*/
 #include <avr/io.h>
 #include <util/delay.h>
 #include "BH1750.h"
 #include "../I2C/I2C.h"
+/*-------------------------------------------------------------------*/
 
-uint8_t state_;
-uint8_t mode_;
+uint8_t state_;			/* Stan aktywnosci modulu */
+uint8_t mode_;			/* Wybrany tryb pomiaru */
 
 
 /**
- * @ Brief  	Switches the sensor to power on mode.
- * @ Parameter  None.
- * @ Retval 	None
+ * @ Opis:				Wyprowadza modul ze stanu uspienia.
+ * @ Parametry:  		Brak.
+ * @ Zwracana wartosc: 	Brak.
  */
 void BH1750_PowerOn()
 {
 	_delay_us(5);
-	//BH1750_DVI_PORT |= BH1750_Power_ON << BH1750_DVI_PIN;
+
 	state_ = BH1750_Power_ON;
+
+	/* Wyslanie komendy wybudzenia */
 	TWI_Start();
 	TWI_Write_SLA(BH1750_SLA);
 	TWI_WriteByte(BH1750_Power_ON);
@@ -38,14 +40,15 @@ void BH1750_PowerOn()
 
 
 /**
- * @ Brief  	Switches the sensor to power down mode.
- * @ Parameter  None.
- * @ Retval 	None
+ * @ Opis:				Wprowadza uklad w stan uspienia.
+ * @ Parametry:  		Brak.
+ * @ Zwracana wartosc: 	Brak.
  */
 void BH1750_PowerDown()
 {
-	//BH1750_DVI_PORT &= ~(BH1750_Power_OFF << BH1750_DVI_PIN);
 	state_ = BH1750_Power_OFF;
+
+	/* Wyslanie komendy wprowadzenia w stan uspienia */
 	TWI_Start();
 	TWI_Write_SLA(BH1750_SLA);
 	TWI_WriteByte(BH1750_Power_OFF);
@@ -54,13 +57,15 @@ void BH1750_PowerDown()
 
 
 /**
- * @ Brief  	Starts illuminance measurement.
- * @ Parameter  mode: measurement mode.
- * @ Retval 	None
+ * @ Opis:				Inicjalizuje modul HTU21D.
+ * @ Parametry:  		mode: tryb pomiaru.
+ * @ Zwracana wartosc: 	Brak.
  */
 void BH1750_Start(uint8_t mode)
 {
 	mode_ = mode;
+
+	/* Wyslanie komendy rozpoczecia pomiaru */
 	TWI_Start();
 	TWI_Write_SLA(BH1750_SLA);
 	TWI_WriteByte(mode_);
@@ -69,9 +74,9 @@ void BH1750_Start(uint8_t mode)
 
 
 /**
- * @ Brief  	Reads measurement result (illuminance).
- * @ Parameter  None.
- * @ Retval 	Illuminance in lux (lx) units. The highest resolution is 1lx.
+ * @ Opis:				Odczytuje wynik pomiaru.
+ * @ Parametry:  		Brak.
+ * @ Zwracana wartosc: 	Natezenie oswietlenia w luksach.
  */
 uint16_t BH1750_Read()
 {
@@ -79,16 +84,18 @@ uint16_t BH1750_Read()
 	uint8_t msb, lsb;
 	uint16_t illuminance = 0;
 
+	/* Odczyt wyniku z rejestru */
 	TWI_Start();
 	TWI_Write_SLA(BH1750_SLA + 1);
 	msb = TWI_ReadByte_ACK();
 	lsb = TWI_ReadByte_NACK();
 	TWI_Stop();
 
-	result = ((msb << 8) | lsb) * 10;		//Lux = Register / 1,2 == reg*10 / 12
-
+	/* Konwersja na fizyczne jednostki */
+	result = ((msb << 8) | lsb) * 10;
 	illuminance = (uint16_t)(result / 12);
 
+	/* Zaokraglenie wyniku */
 	if(((mode_ == BH1750_CHR_MODE2) || (mode_ == BH1750_OTHR_MODE2)) && ((result % 12 ) >= 6))
 	{
 		illuminance++;
@@ -97,21 +104,24 @@ uint16_t BH1750_Read()
 	return illuminance;
 }
 
+
 /**
- * @ Brief  	Resets the BH1750 data register. After that, switches
- * 				sensor to power down mode.
- * @ Parameter  None.
- * @ Retval 	None.
+ * @ Opis:				Resetuje rejest danych. Na koncu wprowadza modul w stan uspienia.
+ * @ Parametry:  		Brak.
+ * @ Zwracana wartosc: 	Brak.
  */
 void BH1750_ResetDR()
 {
+	/* Wybudzenie, gdy uklad uspiony */
 	if(state_ == BH1750_Power_OFF) BH1750_PowerOn();
 
+	/* Wyslanie komendy */
 	TWI_Start();
 	TWI_Write_SLA(BH1750_SLA);
 	TWI_WriteByte(BH1750_RESET);
 	TWI_Stop();
 
+	/* Wprowadzenie w tryb uspienia */
 	BH1750_PowerDown();
 }
 

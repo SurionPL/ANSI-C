@@ -17,6 +17,8 @@
 #include "../MKUART/mkuart.h"
 #include "ESP8266_Cl.h"
 /*-------------------------------------------------------------------*/
+
+
 /**
   * @ Opis:				Inicjalizacja modulu ESP8266 - tryb klienta i obs³uga jednego kanalu.
   * @ Parametry:		Brak.
@@ -24,15 +26,11 @@
   */
 void ESP_Init()
 {
-
-  //Send
-	//ESP_PowerOn();
+	ESP_PowerOn();
 	uart_puts(PSTR("AT+CWMODE=1\r\n"));		/* Client mode */
 	_delay_ms(4000);
 	uart_puts(PSTR("AT+CIPMUX=0\r\n"));		/* Single channel connection */
 	_delay_ms(4000);
-	DDRB = 2;
-	PORTB = 2; //??????????
 }
 
 
@@ -49,10 +47,8 @@ void ESP_Connect(char* ssid, char* password)
 	strcat(command, "\",\"");
 	strcat(command, password);
 	strcat(command,"\"\r\n");
-//Send USART AT+ CWJAP =<ssid>,<pwd>
 	uart_puts(command);
 	_delay_ms(3000);
-
 }
 
 

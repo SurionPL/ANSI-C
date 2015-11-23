@@ -24,10 +24,7 @@ long temp, press;
 
 void InterfaceInit()
 {
-	//TWI_InitTypeDef TWI_InitStruct;
-	//TWI_InitStruct.TWI_Speed = 100000/100;
 	TWI_Init(100000/100);
-
 }
 
 

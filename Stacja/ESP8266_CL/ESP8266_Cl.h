@@ -1,11 +1,11 @@
 /**
   ******************************************************************************
-  * @ File:    ESP8266_CL.h
-  * @ Author:  Bartlomiej Kusmierczyk
-  * @ Version: V1.0
-  * @ Date:    28-August-2015
-  * @ Brief:   This file contains all the functions prototypes for the ESP8266
-  * 		   firmware library in client mode.
+  * @ Opis    ESP8266_CL.h
+  * @ Autor   Bartlomiej Kusmierczyk
+  * @ Wersja  V1.0
+  * @ Data    28 sierpnia 2015
+  * @ Opis    Ten plik zawiera wszystkie prototypu funkcji do obslugi wysylania
+  * 		  danych modulu Wi-Fi ESP8266 w trybie klienckim (STA).
   ******************************************************************************
   */
 #ifndef ESP8266_H_
@@ -15,10 +15,7 @@
 #define ESP_CHIP_PORT	PORTB
 #define ESP_CHIP_DIR	DDRB
 
-
-/**
-  * @Brief  ES82266 error flags enumeration
-  */
+/* Bledy */
 typedef enum
 {
 	ESP_OK = 0,

@@ -6,37 +6,37 @@
  */
 /**
  *******************************************************************************
- * @ File    BMP180.c
- * @ Author  Bartlomiej Kusmierczyk
- * @ Version V1.0
- * @ Date    28-July-2015
- * @ Brief   This file contains all the BMP180 sensor firmware functions.
+ * @ Plik    ThingSpeak.c
+ * @ Autor   Bartlomiej Kusmierczyk
+ * @ Wersja  V1.0
+ * @ Data    10 listopada 2015
+ * @ Opis    Plik zawiera funkcje potrzebne do wyslania wynikow pomiarow na
+ * 			 serwer ThingSpeak.
  *******************************************************************************
  */
 
-/* Includes -------------------------------------------------------------------*/
+/*-------------------------------------------------------------------*/
 #include <avr/io.h>
 #include <util/delay.h>
 #include <stdio.h>
 #include <string.h>
 #include "../ESP8266_CL/ESP8266_Cl.h"
 #include "ThingSpeak.h"
+/*-------------------------------------------------------------------*/
+
+char ts_ip[] = "144.212.80.11"; 	/* ThingSpeak IP */
+char APIKey[] = "K7D0ZR1M32BLIV5B"; /* ThingSpeak API Key */
 
 
-char ts_ip[] 	 = "144.212.80.11";			/* ThingSpeak IP */
-char APIKey[] = "K7D0ZR1M32BLIV5B";	/* ThingSpeak API Key */
 
+void TS_UpdateField(char* value, uint8_t field) {
 
-void TS_UpdateField(char* value, uint8_t field)	//?????  zwracac cos i delay
-{
-
-	if(field < 10)
-	{
+	if (field <= 8 && field >= 1) {
 		char get[60] = "GET /update?key=";
 		char s_field[9];
 		sprintf(s_field, "&field%d=", field);
 
-		strcat(get, APIKey);  //dodac ten &fieldX
+		strcat(get, APIKey);
 		strcat(get, s_field);
 		strcat(get, value);
 		strcat(get, "\r\n");

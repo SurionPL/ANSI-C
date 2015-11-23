@@ -1,9 +1,9 @@
-03:17:53 **** Incremental Build of configuration Release for project Stacja ****
+23:21:07 **** Incremental Build of configuration Release for project Stacja ****
 make all 
-Building file: ../main.c
+Building file: ../BMP180/BMP180.c
 Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=7372800UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
-Finished building: ../main.c
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=7372800UL -MMD -MP -MF"BMP180/BMP180.d" -MT"BMP180/BMP180.d" -c -o "BMP180/BMP180.o" "../BMP180/BMP180.c"
+Finished building: ../BMP180/BMP180.c
  
 Building target: Stacja.elf
 Invoking: AVR C Linker
@@ -28,15 +28,15 @@ AVR Memory Usage
 ----------------
 Device: atmega328p
 
-Program:    8084 bytes (24.7% Full)
+Program:    7990 bytes (24.4% Full)
 (.text + .data + .bootloader)
 
-Data:        490 bytes (23.9% Full)
+Data:        517 bytes (25.2% Full)
 (.data + .bss + .noinit)
 
 
 Finished building: sizedummy
  
 
-03:17:57 Build Finished (took 3s.596ms)
+23:21:10 Build Finished (took 2s.596ms)
 
