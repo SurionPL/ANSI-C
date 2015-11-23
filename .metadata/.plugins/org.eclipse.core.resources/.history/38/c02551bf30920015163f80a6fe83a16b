@@ -15,7 +15,6 @@
 #include "MKUART/mkuart.h"
 #include "HTU21D/HTU21D.h"
 #include "BH1750/BH1750.h"
-#include "ESP8266_CL/ESP8266_Cl.h"
 #include "main.h"
 
 //volatile uint8_t int1_flag;	/* Flaga zezwolenia na przejscie do pomiarow */
@@ -23,7 +22,6 @@ volatile uint8_t int0_flag;	/* Flaga zezwolenia na wyzwolenie pomiarow */
 
 volatile int8_t temperature[5];
 volatile uint8_t illuminance[5];
-volatile uint8_t humidity[5];
 volatile long pressure[5];
 
 
@@ -43,10 +41,11 @@ void ExternalInt_Config()
 	EIMSK = 1<<INT0;
 }
 
-void InitializeModules()
+void SensorInitialize()
 {
 	ESP_Init();
 	HTU21D_Init(Humidity10b_Temperature13b);
+
 }
 
 
@@ -62,8 +61,10 @@ int main() {
 	//PORTB = 1<<PB1;
 	PORTB = 0;
 	InterfaceInit();
+	temp = 0;
+	press = 0;
 
-	//BMP180_Init(BMP180_Mode_ST);
+	BMP180_Init(BMP180_Mode_ST);
                 // inicjalizacja BMP180 - pobranie danych calibracyjnych
 
     sei();  // globalne odblokowanie przerwañ

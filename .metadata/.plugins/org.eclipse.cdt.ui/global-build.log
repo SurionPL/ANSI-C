@@ -1,37 +1,37 @@
-23:34:08 **** Incremental Build of configuration Release for project Barometr ****
+23:25:59 **** Incremental Build of configuration Release for project Stacja ****
 make all 
-Building file: ../BMP180.c
+Building file: ../main.c
 Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=7372800UL -MMD -MP -MF"BMP180.d" -MT"BMP180.d" -c -o "BMP180.o" "../BMP180.c"
-Finished building: ../BMP180.c
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=7372800UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
+Finished building: ../main.c
  
-Building target: Barometr.elf
+Building target: Stacja.elf
 Invoking: AVR C Linker
-avr-gcc -Wl,-Map,Barometr.map -mmcu=atmega8 -o "Barometr.elf"  ./MKUART/mkuart.o  ./BMP180.o ./I2C.o ./main.o   
-Finished building target: Barometr.elf
+avr-gcc -Wl,-Map,Stacja.map -mmcu=atmega328p -o "Stacja.elf"  ./ThingSpeak/ThingSpeak.o  ./RTC/RTC.o  ./MKUART/mkuart.o  ./I2C/I2C.o  ./HTU21D/HTU21D.o  ./ESP8266_CL/ESP8266_Cl.o  ./BMP180/BMP180.o  ./BH1750/BH1750.o  ./main.o   
+Finished building target: Stacja.elf
  
 Invoking: AVR Create Extended Listing
-avr-objdump -h -S Barometr.elf  >"Barometr.lss"
-Finished building: Barometr.lss
+avr-objdump -h -S Stacja.elf  >"Stacja.lss"
+Finished building: Stacja.lss
  
 Create Flash image (ihex format)
-avr-objcopy -R .eeprom -O ihex Barometr.elf  "Barometr.hex"
-Finished building: Barometr.hex
+avr-objcopy -R .eeprom -O ihex Stacja.elf  "Stacja.hex"
+Finished building: Stacja.hex
  
 Create eeprom image (ihex format)
-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex Barometr.elf  "Barometr.eep"
-Finished building: Barometr.eep
+avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex Stacja.elf  "Stacja.eep"
+Finished building: Stacja.eep
  
 Invoking: Print Size
-avr-size --format=avr --mcu=atmega8 Barometr.elf
+avr-size --format=avr --mcu=atmega328p Stacja.elf
 AVR Memory Usage
 ----------------
-Device: atmega8
+Device: atmega328p
 
-Program:    3106 bytes (37.9% Full)
+Program:    7986 bytes (24.4% Full)
 (.text + .data + .bootloader)
 
-Data:        184 bytes (18.0% Full)
+Data:        522 bytes (25.5% Full)
 (.data + .bss + .noinit)
 
 

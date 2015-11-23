@@ -23,7 +23,6 @@ volatile uint8_t int0_flag;	/* Flaga zezwolenia na wyzwolenie pomiarow */
 
 volatile int8_t temperature[5];
 volatile uint8_t illuminance[5];
-volatile uint8_t humidity[5];
 volatile long pressure[5];
 
 

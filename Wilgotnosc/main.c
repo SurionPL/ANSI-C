@@ -44,7 +44,7 @@ int main() {
 
 	InterfaceInit();
 	sei();
-	HTU21D_Init(Humidity10b_Temperature13b);
+	HTU21D_Init(Humidity11b_Temperature11b);
 	//TWI_Start(HTU21D_SLA);
 	//TWI_Stop();
 
