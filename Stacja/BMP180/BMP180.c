@@ -30,28 +30,17 @@ void BMP180_Init(BMP180Mode_TypeDef BMP180_Mode) {
 
 	TWI_ReadBytes(BMP180_SLA, BMP180_MEM_START, 22, buffer);
 
-//	BMP180_Struct.AC1 = ((short) buffer[0] << 8 		| ((short) buffer[1]));
-//	BMP180_Struct.AC2 = ((short) buffer[2] << 8 		| ((short) buffer[3]));
-//	BMP180_Struct.AC3 = ((short) buffer[4] << 8 		| ((short) buffer[5]));
-//	BMP180_Struct.AC4 = ((unsigned int) buffer[6]  << 8	| ((unsigned int) buffer[7]));
-//	BMP180_Struct.AC5 = ((unsigned int) buffer[8]  << 8	| ((unsigned int) buffer[9]));
-//	BMP180_Struct.AC6 = ((unsigned int) buffer[10] << 8	| ((unsigned int) buffer[11]));
-//	BMP180_Struct.B1  = ((short) buffer[12] << 8 		| ((short) buffer[13]));
-//	BMP180_Struct.B2  = ((short) buffer[14] << 8 		| ((short) buffer[15]));
-//	BMP180_Struct.MB  = ((short) buffer[16] << 8 		| ((short) buffer[17]));
-//	BMP180_Struct.MC  = ((short) buffer[18] << 8 		| ((short) buffer[19]));
-//	BMP180_Struct.MD  = ((short) buffer[20] << 8 		| ((short) buffer[21]));
-	BMP180_Struct.AC1 = 408;
-	BMP180_Struct.AC2 = -72;
-	BMP180_Struct.AC3 = -14383;
-	BMP180_Struct.AC4 = 32741;
-	BMP180_Struct.AC5 = 32757;
-	BMP180_Struct.AC6 = 23153;
-	BMP180_Struct.B1 = 6190;
-	BMP180_Struct.B2 = 4;
-	BMP180_Struct.MB = -32768;
-	BMP180_Struct.MC = -8711;
-	BMP180_Struct.MD = 2868;
+	BMP180_Struct.AC1 = ((short) buffer[0] << 8 		| ((short) buffer[1]));
+	BMP180_Struct.AC2 = ((short) buffer[2] << 8 		| ((short) buffer[3]));
+	BMP180_Struct.AC3 = ((short) buffer[4] << 8 		| ((short) buffer[5]));
+	BMP180_Struct.AC4 = ((unsigned int) buffer[6]  << 8	| ((unsigned int) buffer[7]));
+	BMP180_Struct.AC5 = ((unsigned int) buffer[8]  << 8	| ((unsigned int) buffer[9]));
+	BMP180_Struct.AC6 = ((unsigned int) buffer[10] << 8	| ((unsigned int) buffer[11]));
+	BMP180_Struct.B1  = ((short) buffer[12] << 8 		| ((short) buffer[13]));
+	BMP180_Struct.B2  = ((short) buffer[14] << 8 		| ((short) buffer[15]));
+	BMP180_Struct.MB  = ((short) buffer[16] << 8 		| ((short) buffer[17]));
+	BMP180_Struct.MC  = ((short) buffer[18] << 8 		| ((short) buffer[19]));
+	BMP180_Struct.MD  = ((short) buffer[20] << 8 		| ((short) buffer[21]));
 }
 
 
@@ -89,20 +78,21 @@ void BMP180_StartPress() {
  * @ Parameter  None.
  * @ Retval 	Temperature in 0.1*C.
  */
-long BMP180_GetTemp() {
-	//BMP180_Struct.UT = BMP180_GetUT();
-	BMP180_Struct.UT = 27898;
+int32_t BMP180_GetTemp() {
+	BMP180_Struct.UT = BMP180_GetUT();
+
 	/* Algorytm */
 	BMP180_Struct.B5 = 0;
 
-	long X1 = (((long) BMP180_Struct.UT - (long) (BMP180_Struct.AC6))
-			* (long) (BMP180_Struct.AC5)) >> 15;
-	long X2 = ((long) (BMP180_Struct.MC) << 11)
-			/ (X1 + (long) (BMP180_Struct.MD));
+	int32_t X1 = ((BMP180_Struct.UT - (int32_t)(BMP180_Struct.AC6))
+			* (int32_t) (BMP180_Struct.AC5)) >> 15;
+	int32_t X2 = ((int32_t) (BMP180_Struct.MC) << 11)
+			/ (X1 + (int32_t) (BMP180_Struct.MD));
 	BMP180_Struct.B5 = X1 + X2;
-	long T = (BMP180_Struct.B5 + 8L) >> 4;
 
-	return T;
+	int32_t temperature = (BMP180_Struct.B5 + 8L) >> 4;
+
+	return temperature;
 
 }
 
@@ -112,23 +102,22 @@ long BMP180_GetTemp() {
  * @ Parameter  None.
  * @ Retval 	Pressure in Pa.
  */
-long BMP180_GetPress() {
+int32_t BMP180_GetPress() {
 	uint8_t OSS = ((BMP180_Struct.BMP180_Mode) & 0xC0) >> 6;
-	//BMP180_Struct.UP = BMP180_GetUP();
-	BMP180_Struct.UP = 23843;
-	long pressure = 0;
+	BMP180_Struct.UP = BMP180_GetUP();
+	int32_t pressure = 0;
 
 	/* Pressure algorithm */
-	long B6 = BMP180_Struct.B5 - 4000L;
-	long X1 = (((long) BMP180_Struct.B2) * ((B6 * B6) >> 12)) >> 11;
-	long X2 = (((long) BMP180_Struct.AC2) * B6) >> 11;
-	long X3 = X1 + X2;
-	long B3 = ((((((long) BMP180_Struct.AC1) << 2) + X3) << OSS) + 2L) >> 2;
-	X1 = ((long) (BMP180_Struct.AC3) * B6) >> 13;
-	X2 = (((long) BMP180_Struct.B1) * ((B6 * B6) >> 12)) >> 16;
+	int32_t B6 = BMP180_Struct.B5 - 4000L;
+	int32_t X1 = (BMP180_Struct.B2 * ((B6 * B6) >> 12)) >> 11;
+	int32_t X2 = (BMP180_Struct.AC2 * B6) >> 11;
+	int32_t X3 = X1 + X2;
+	int32_t B3 = ((((((int32_t) BMP180_Struct.AC1) << 2) + X3) << OSS) + 2L) >> 2;
+	X1 = (BMP180_Struct.AC3 * B6) >> 13;
+	X2 = (BMP180_Struct.B1 * ((B6 * B6) >> 12)) >> 16;
 	X3 = ((X1 + X2) + 2L) >> 2;
-	unsigned long B4 = (((long) BMP180_Struct.AC4) * ((unsigned long) (X3 + 32768UL))) >> 15;
-	unsigned long B7 = (((unsigned long) BMP180_Struct.UP) - B3) * (50000UL >> OSS);
+	uint32_t B4 = (((int32_t) BMP180_Struct.AC4) * ((uint32_t) (X3 + 32768UL))) >> 15;
+	uint32_t B7 = (((uint32_t) BMP180_Struct.UP) - B3) * (50000UL >> OSS);
 
 	if (B7 < 0x80000000) {
 		pressure = (B7 << 1) / B4;
@@ -137,6 +126,7 @@ long BMP180_GetPress() {
 	}
 
 	X1 = (((pressure >> 8) * (pressure >> 8)) * 3038) >> 16;
+
 
 	X2 = (-7357L * pressure) >> 16;
 	pressure = pressure + ((X1 + X2 + 3791L) >> 4);
@@ -149,12 +139,12 @@ long BMP180_GetPress() {
  * @ Parameter  None.
  * @ Retval 	Uncompensated temperature value (UP).
  */
-long BMP180_GetUT() {
-	long UT = 0;
+int32_t BMP180_GetUT() {
+	int32_t UT = 0;
 	uint8_t buffer[2];
 	TWI_ReadBytes(BMP180_SLA, BMP180_ADC_MSB_REG, 2, buffer);
 	BMP180_Struct.UT = 0;
-	BMP180_Struct.UT = (((long) buffer[0]) << 8) | ((long) buffer[1]);
+	BMP180_Struct.UT = (((int32_t) buffer[0]) << 8) | ((int32_t) buffer[1]);
 	return UT;
 }
 
@@ -164,11 +154,11 @@ long BMP180_GetUT() {
  * @ Parameter  None.
  * @ Retval 	None
  */
-long BMP180_GetUP() {
-	long UP = 0;
+int32_t BMP180_GetUP() {
+	int32_t UP = 0;
 	uint8_t OSS = ((BMP180_Struct.BMP180_Mode) & 0xC0) >> 6;  // ? czy uint8_t
 	uint8_t buffer[3];
 	TWI_ReadBytes(BMP180_SLA, BMP180_ADC_MSB_REG, 3, buffer);
-	UP = ((((long) buffer[0]) << 16) | (((long) buffer[1]) << 8) | (((long) buffer[2]))) >> (8 - OSS);
+	UP = ((((int32_t) buffer[0]) << 16) | (((int32_t) buffer[1]) << 8) | (((int32_t) buffer[2]))) >> (8 - OSS);
 	return UP;
 }

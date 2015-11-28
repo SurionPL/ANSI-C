@@ -1,0 +1,13 @@
+/*
+ * main.c
+ *
+ *  Created on: 27 lis 2015
+ *      Author: Bartek
+ */
+
+#include <avr/io.h>
+#include <util/delay.h>
+int main() {
+
+while(1){} 
+}

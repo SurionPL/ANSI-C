@@ -8,15 +8,13 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
-/* Wartosci dla flagi od przerwania INT0 */
-//#define MEASUREMENTS_DISABLE ((uint8_t)0x00)			/* Brak zgody na wejscie w tryb pomiarow */
-//#define MEASUREMENTS_ENABLE  ((uint8_t)0x01)			/* Zgoda na wejscie w tryb pomiarow */
 
-/* Wartosci dla flagi od przerwania INT1 */
+
+/* Wartoœci flag */
 #define MEASUREMENTS_TRIGGER_DISABLE ((uint8_t)0x00)	/* Brak zgody na wyzwolenie pomiarow */
 #define MEASUREMENTS_TRIGGER_ENABLE  ((uint8_t)0x01)	/* Zgodna na wyzwolenie pomiarow */
 
-
-
+#define RESET_CONNECTION_DISABLE ((uint8_t)0x00)	/* Brak zgody na reset po³¹czenia z routerem */
+#define RESET_CONNECTION_ENABLE  ((uint8_t)0x01)	/* Zgodna na reset po³¹czenia z routerem */
 
 #endif /* MAIN_H_ */

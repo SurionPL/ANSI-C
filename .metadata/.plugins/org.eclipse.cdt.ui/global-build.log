@@ -1,13 +1,13 @@
-23:25:59 **** Incremental Build of configuration Release for project Stacja ****
+01:24:44 **** Incremental Build of configuration Release for project Stacja ****
 make all 
-Building file: ../main.c
+Building file: ../AuxiliaryLib/AuxiliaryLib.c
 Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=7372800UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
-Finished building: ../main.c
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=7372800UL -MMD -MP -MF"AuxiliaryLib/AuxiliaryLib.d" -MT"AuxiliaryLib/AuxiliaryLib.d" -c -o "AuxiliaryLib/AuxiliaryLib.o" "../AuxiliaryLib/AuxiliaryLib.c"
+Finished building: ../AuxiliaryLib/AuxiliaryLib.c
  
 Building target: Stacja.elf
 Invoking: AVR C Linker
-avr-gcc -Wl,-Map,Stacja.map -mmcu=atmega328p -o "Stacja.elf"  ./ThingSpeak/ThingSpeak.o  ./RTC/RTC.o  ./MKUART/mkuart.o  ./I2C/I2C.o  ./HTU21D/HTU21D.o  ./ESP8266_CL/ESP8266_Cl.o  ./BMP180/BMP180.o  ./BH1750/BH1750.o  ./main.o   
+avr-gcc -Wl,-Map,Stacja.map -mmcu=atmega8 -o "Stacja.elf"  ./ThingSpeak/ThingSpeak.o  ./MKUART/mkuart.o  ./I2C/I2C.o  ./HTU21D/HTU21D.o  ./ESP8266_CL/ESP8266_Cl.o  ./BMP180/BMP180.o  ./BH1750/BH1750.o  ./AuxiliaryLib/AuxiliaryLib.o  ./AVG/AVG.o  ./main.o   
 Finished building target: Stacja.elf
  
 Invoking: AVR Create Extended Listing
@@ -23,15 +23,15 @@ avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ih
 Finished building: Stacja.eep
  
 Invoking: Print Size
-avr-size --format=avr --mcu=atmega328p Stacja.elf
+avr-size --format=avr --mcu=atmega8 Stacja.elf
 AVR Memory Usage
 ----------------
-Device: atmega328p
+Device: atmega8
 
-Program:    7986 bytes (24.4% Full)
+Program:    7170 bytes (87.5% Full)
 (.text + .data + .bootloader)
 
-Data:        522 bytes (25.5% Full)
+Data:        444 bytes (43.4% Full)
 (.data + .bss + .noinit)
 
 

@@ -13,8 +13,6 @@
 #ifndef BMP180_H_
 #define BMP180_H_
 
-
-
 #define BMP180_SLA ((uint8_t)0xEE) 				/* Adres slave ukladu */
 
 
@@ -93,10 +91,10 @@ typedef struct
 void BMP180_Init(BMP180Mode_TypeDef BMP180_Mode);
 void BMP180_StartTemp();
 void BMP180_StartPress();
-long BMP180_GetTemp();
-long BMP180_GetPress();
-long BMP180_GetUT();
-long BMP180_GetUP();
+int32_t BMP180_GetTemp();
+int32_t BMP180_GetPress();
+int32_t BMP180_GetUT();
+int32_t BMP180_GetUP();
 
 
 

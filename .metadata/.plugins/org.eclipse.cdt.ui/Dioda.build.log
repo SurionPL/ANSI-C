@@ -1,0 +1,37 @@
+22:04:19 **** Incremental Build of configuration Release for project Dioda ****
+make all 
+Building target: Dioda.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,Dioda.map -mmcu=atmega8 -o "Dioda.elf"  ./main.o   
+Finished building target: Dioda.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S Dioda.elf  >"Dioda.lss"
+Finished building: Dioda.lss
+ 
+Create Flash image (ihex format)
+avr-objcopy -R .eeprom -O ihex Dioda.elf  "Dioda.hex"
+Finished building: Dioda.hex
+ 
+Create eeprom image (ihex format)
+avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex Dioda.elf  "Dioda.eep"
+Finished building: Dioda.eep
+ 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega8 Dioda.elf
+AVR Memory Usage
+----------------
+Device: atmega8
+
+Program:      94 bytes (1.1% Full)
+(.text + .data + .bootloader)
+
+Data:          0 bytes (0.0% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+22:04:21 Build Finished (took 1s.602ms)
+

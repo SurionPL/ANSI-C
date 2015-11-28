@@ -1,0 +1,14 @@
+/*
+ * AuxiliaryLib.h
+ *
+ *  Created on: 28 lis 2015
+ *      Author: Bartek
+ */
+
+#ifndef AUXILIARYLIB_AUXILIARYLIB_H_
+#define AUXILIARYLIB_AUXILIARYLIB_H_
+
+void initializeModules();
+void sendTemperature(int8_t temperature);
+
+#endif /* AUXILIARYLIB_AUXILIARYLIB_H_ */

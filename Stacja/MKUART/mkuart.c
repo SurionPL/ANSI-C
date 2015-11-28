@@ -33,13 +33,12 @@ volatile uint8_t UART_TxTail; // indeks oznaczaj¹cy „ogon wê¿a”
 
 void USART_Init( uint16_t baud ) {
 	/* Ustawienie prêdkoœci */
-	UBRR0H = (uint8_t)(baud>>8);
-	UBRR0L = (uint8_t)baud;
+	UBRRH = (uint8_t)(baud>>8);
+	UBRRL = (uint8_t)baud;
 	/* Za³¹czenie nadajnika I odbiornika */
-	UCSR0B = (1<<RXEN0)|(1<<TXEN0);
+	UCSRB = (1<<RXEN)|(1<<TXEN);
 	/* Ustawienie format ramki: 8bitów danych, 1 bit stopu */
-	//UCSR0C = (1<<URSEL)|(3<<UCSZ00);
-	UCSR0C = (3<<UCSZ00);
+	UCSRC = (1<<URSEL)|(3<<UCSZ0);
 
 	// jeœli korzystamy z interefejsu RS485
 	#ifdef UART_DE_PORT
@@ -51,17 +50,17 @@ void USART_Init( uint16_t baud ) {
 	// jeœli korzystamy z interefejsu RS485
 	#ifdef UART_DE_PORT
 		// jeœli korzystamy z interefejsu RS485 za³¹czamy dodatkowe przerwanie TXCIE
-		UCSR0B |= (1<<RXEN0)|(1<<TXEN0)|(1<<RXCIE0)|(1<<TXCIE0);
+		UCSRB |= (1<<RXEN)|(1<<TXEN)|(1<<RXCIE)|(1<<TXCIE);
 	#else
 		// jeœli nie  korzystamy z interefejsu RS485
-		UCSR0B |= (1<<RXEN0)|(1<<TXEN0)|(1<<RXCIE0);
+		UCSRB |= (1<<RXEN)|(1<<TXEN)|(1<<RXCIE);
 	#endif
 }
 
 // procedura obs³ugi przerwania Tx Complete, gdy zostanie opó¿niony UDR
 // kompilacja gdy u¿ywamy RS485
 #ifdef UART_DE_PORT
-ISR( USART_TX_vect ) {
+ISR( USART_TXC_vect ) {
   UART_DE_PORT &= ~UART_DE_BIT;	// zablokuj nadajnik RS485
 }
 #endif
@@ -73,7 +72,7 @@ void uart_putc( char data ) {
 
     tmp_head  = (UART_TxHead + 1) & UART_TX_BUF_MASK;
 
-          // pêtla oczekuje je¿eli brak miejsca w buforze cyklicznym na kolejne znaki
+    // pêtla oczekuje je¿eli brak miejsca w buforze cyklicznym na kolejne znaki
     while ( tmp_head == UART_TxTail ){}
 
     UART_TxBuf[tmp_head] = data;
@@ -82,7 +81,7 @@ void uart_putc( char data ) {
     // inicjalizujemy przerwanie wystêpuj¹ce, gdy bufor jest pusty, dziêki
     // czemu w dalszej czêœci wysy³aniem danych zajmie siê ju¿ procedura
     // obs³ugi przerwania
-    UCSR0B |= (1<<UDRIE0);
+    UCSRB |= (1<<UDRIE);
 }
 
 
@@ -95,7 +94,6 @@ void uart_puts(char *s)		// wysy³a ³añcuch z pamiêci RAM na UART
 void uart_putint(int value)	// wysy³a na port szeregowy tekst
 {
 	char string[17];			// bufor na wynik funkcji itoa
-	//itoa(value, string, radix);		// konwersja value na ASCII
 	sprintf(string, "%d", value);
 	uart_puts(string);			// wyœlij string na port szeregowy
 }
@@ -108,10 +106,10 @@ ISR( USART_UDRE_vect)  {
     	// obliczamy i zapamiêtujemy nowy indeks ogona wê¿a (mo¿e siê zrównaæ z g³ow¹)
     	UART_TxTail = (UART_TxTail + 1) & UART_TX_BUF_MASK;
     	// zwracamy bajt pobrany z bufora  jako rezultat funkcji
-    	UDR0 = UART_TxBuf[UART_TxTail];
+    	UDR = UART_TxBuf[UART_TxTail];
     } else {
 	// zerujemy flagê przerwania wystêpuj¹cego gdy bufor pusty
-	UCSR0B &= ~(1<<UDRIE0);
+	UCSRB &= ~(1<<UDRIE);
     }
 }
 
@@ -128,11 +126,11 @@ char uart_getc(void) {
 }
 
 // definiujemy procedurê obs³ugi przerwania odbiorczego, zapisuj¹c¹ dane do bufora cyklicznego
-ISR( USART_RX_vect) {
+ISR( USART_RXC_vect ) {
     uint8_t tmp_head;
     char data;
 
-    data = UDR0; //pobieramy natychmiast bajt danych z bufora sprzêtowego
+    data = UDR; //pobieramy natychmiast bajt danych z bufora sprzêtowego
 
     // obliczamy nowy indeks „g³owy wê¿a”
     tmp_head = ( UART_RxHead + 1) & UART_RX_BUF_MASK;

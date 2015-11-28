@@ -1,0 +1,17 @@
+/*
+ * AuxiliaryLib.c
+ *
+ *  Created on: 28 lis 2015
+ *      Author: Bartek
+ */
+
+#include <avr/io.h>
+#include <util/delay.h>
+
+#include "AVG/AVG.h"
+#include "ThingSpeak/ThingSpeak.h"
+#include "MKUART/mkuart.h"
+#include "HTU21D/HTU21D.h"
+#include "BH1750/BH1750.h"
+
+

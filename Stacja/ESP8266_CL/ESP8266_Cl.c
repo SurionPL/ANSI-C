@@ -19,6 +19,12 @@
 /*-------------------------------------------------------------------*/
 
 
+char ssid[] = "PENTAGON";
+char password[] = "BarT2014DST";
+
+
+
+
 /**
   * @ Opis:				Inicjalizacja modulu ESP8266 - tryb klienta i obs³uga jednego kanalu.
   * @ Parametry:		Brak.
@@ -36,11 +42,10 @@ void ESP_Init()
 
 /**
   * @ Opis:				£¹czy modu³ z istniej¹c¹ sieci¹.
-  * @ Parametry:		-ssid: wskaŸnik na tablicê zawieraj¹c¹ nazwê sieci.
-  * 					-password: wskaŸnik na tablicê zawieraj¹c¹ has³o.
+  * @ Parametry:		Brak.
   * @ Wartosc zwracana: Brak.
   */
-void ESP_Connect(char* ssid, char* password)
+void ESP_Connect()
 {
 	char command[50] = "AT+CWJAP=\"";
 	strcat(command, ssid);

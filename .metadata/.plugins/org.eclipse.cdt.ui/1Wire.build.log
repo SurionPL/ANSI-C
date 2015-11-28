@@ -1,4 +1,4 @@
-01:17:08 **** Incremental Build of configuration Release for project 1Wire ****
+11:27:25 **** Build of configuration Release for project 1Wire ****
 make all 
 Invoking: Print Size
 avr-size --format=avr --mcu=atmega8 1Wire.elf
@@ -16,5 +16,5 @@ Data:         40 bytes (3.9% Full)
 Finished building: sizedummy
  
 
-01:17:09 Build Finished (took 893ms)
+11:27:27 Build Finished (took 1s.596ms)
 
