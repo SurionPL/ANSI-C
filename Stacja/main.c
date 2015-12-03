@@ -14,6 +14,8 @@
 #include "AVG/AVG.h"
 #include "ESP8266_CL/ESP8266_Cl.h"
 #include "AuxiliaryLib/AuxiliaryLib.h"
+#include "BH1750/BH1750.h"
+#include "MKUART/mkuart.h"
 
 #define SIZE 8
 #define MASK (SIZE-1)
@@ -36,63 +38,74 @@ int32_t pressure_avg;
 uint16_t illuminance_avg;
 uint8_t humidity_avg;
 
-uint8_t index;
-
+uint8_t idx;
+//---------------------------------------------------------------------
 int main() {
 	DDRB  = 1 << PB1;
-	PORTB = 1 << PB1;
-	index = 0;
+	//PORTB = 1 << PB1;
+	idx = 0;
 	seconds = 0;
+	minutes = 0;
 
 	initializeInterfaces();
 	initializeModules();
-	configInterrupt();
+
+
+
+	sei();
 	initializeTimers();
+	//uart_puts("Siema to uklad! \r\n");
 
 	/* Poczatkowa seria pomiarow */
 	for (uint8_t i = 0; i < SIZE; i++)
 	{
-		illuminance[i] = getIlluminance();
-		temperature[i] = getTemperature();
-		humidity[i]    = getHumidity();
+		//illuminance[i] = getIlluminance();
+////	temperature[i] = getTemperature();
+////	humidity[i]    = getHumidity();
+		pressure[i]    = getPressure();
 	}
 
 	/* Obliczanie sredniej */
-	humidity_avg = calcAVG_UINT8(humidity, SIZE);
-	temperature_avg = calcAVG_INT8(temperature, SIZE);
-	illuminance_avg = calcAVG_UINT16(illuminance, SIZE);
+	//humidity_avg = calcAVG_UINT8(humidity, SIZE);
+	//temperature_avg = calcAVG_INT8(temperature, SIZE);
+	//illuminance_avg = calcAVG_UINT16(illuminance, SIZE);
+	pressure_avg = calcAVG_INT32(pressure, SIZE);
 
-    sei();  // globalne odblokowanie przerwañ
 
     /* Nawiazanie lacznosci z siecia */
 	ESP_Connect();
 	_delay_ms(3000);
 
 	/* Wyslanie wynikow na ThingSpeak */
-	sendTemperature(temperature_avg);
-	sendHumidity(humidity_avg);
-	sendIlluminance(illuminance_avg);
+	//sendTemperature(temperature_avg);
+	//sendHumidity(humidity_avg);
+	//sendIlluminance(illuminance_avg);
+	sendPressure(pressure_avg);
 
 	/* Nieskonczona petla */
 	while (1) {
-		PORTB ^= 1<<PB1;
-		//_delay_ms(2000);
-
 		if (trigger_flag == MEASUREMENTS_TRIGGER_ENABLE)
 		{
 			/* Wykonywanie pomiarow i odczyt wynikow*/
-			illuminance[index & MASK] = getIlluminance();
-			temperature[index & MASK] = getTemperature();
-			humidity[index & MASK]    = getHumidity();
+			//illuminance[idx & MASK] = getIlluminance();
+			//temperature[idx & MASK] = getTemperature();
+			//humidity[idx & MASK]    = getHumidity();
+			pressure[idx & MASK]    = getPressure();
 
 			/* Obliczanie sredniej */
-			humidity_avg = calcAVG_UINT8(humidity, SIZE);
-			temperature_avg = calcAVG_INT8(temperature, SIZE);
-			illuminance_avg = calcAVG_UINT16(illuminance, SIZE);
+			//humidity_avg = calcAVG_UINT8(humidity, SIZE);
+			//temperature_avg = calcAVG_INT8(temperature, SIZE);
+			//illuminance_avg = calcAVG_UINT16(illuminance, SIZE);
+			pressure_avg = calcAVG_INT32(pressure, SIZE);
 
+			/* Wyslanie wynikow na ThingSpeak */
+			//sendTemperature(temperature_avg);
+			//sendHumidity(humidity_avg);
+			//sendIlluminance(illuminance_avg);
+			sendPressure(pressure_avg);
 
 			trigger_flag = MEASUREMENTS_TRIGGER_DISABLE;
-			index++;
+			idx++;
 		}
 
 		if (minutes % 5 == 0)

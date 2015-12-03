@@ -1,9 +1,14 @@
-/*
- * AVG.h
- *
- *  Created on: 27 lis 2015
- *      Author: Bartek
+/**
+ *******************************************************************************
+ * @ Plik    AVG.c
+ * @ Autor   Bartlomiej Kusmierczyk
+ * @ Wersja  V1.0
+ * @ Data    20 listopada 2015
+ * @ Opis    Ten plik zawiera wszystkie prototypu funkcji potrzebne do
+ * 			 obliczania sredniej.
+ *******************************************************************************
  */
+
 
 #ifndef AVG_AVG_H_
 #define AVG_AVG_H_

@@ -23,13 +23,6 @@ char ssid[] = "PENTAGON";
 char password[] = "BarT2014DST";
 
 
-
-
-/**
-  * @ Opis:				Inicjalizacja modulu ESP8266 - tryb klienta i obs³uga jednego kanalu.
-  * @ Parametry:		Brak.
-  * @ Wartosc zwracana: Brak.
-  */
 void ESP_Init()
 {
 	ESP_PowerOn();
@@ -40,13 +33,9 @@ void ESP_Init()
 }
 
 
-/**
-  * @ Opis:				£¹czy modu³ z istniej¹c¹ sieci¹.
-  * @ Parametry:		Brak.
-  * @ Wartosc zwracana: Brak.
-  */
 void ESP_Connect()
 {
+	PORTB = 1 << PB1;
 	char command[50] = "AT+CWJAP=\"";
 	strcat(command, ssid);
 	strcat(command, "\",\"");
@@ -57,44 +46,24 @@ void ESP_Connect()
 }
 
 
-/**
-  * @ Opis:				Wybudza uk³ad ze stanu uœpienia.
-  * @ Parametry:		Brak.
-  * @ Wartosc zwracana: Brak.
-  */
 void ESP_PowerOn()
 {
 	ESP_CHIP_PORT |= (1<<ESP_CHIP_PIN);
 }
 
 
-/**
-  * @ Opis:				Wprowadza uk³ad w stan uœpienia.
-  * @ Parametry:		Brak.
-  * @ Wartosc zwracana: Brak.
-  */
 void ESP_PowerOff()
 {
 	ESP_CHIP_PORT &= ~(1<<ESP_CHIP_PIN);
 }
 
 
-/**
-  * @ Opis:				Roz³¹cza modu³ z sieci¹.
-  * @ Parametry:		Brak.
-  * @ Wartosc zwracana: Brak.
-  */
 void ESP_Disconnect()
 {
 	uart_puts(PSTR("AT+CWQAP\r\n"));
 }
 
 
-/**
-  * @ Opis:				Restartuje programowo modu³.
-  * @ Parametry:		Brak.
-  * @ Wartosc zwracana: Brak.
-  */
 void ESP_Restart()
 {
 	uart_puts(PSTR("AT+RST\r\n"));
@@ -102,13 +71,6 @@ void ESP_Restart()
 }
 
 
-/**
-  * @ Opis:				£¹czy modu³ z serwerem.
-  * @ Parametry:		-ip_address: wskaŸnik na tablicê zawieraj¹c¹ adres
-  * 					 IP w postaci ci¹gu tekstowego.
-  * 					-port: wskaŸnik na tablicê zawieraj¹c¹ numer portu.
-  * @ Wartosc zwracana: ??????????.
-  */
 ESP_ErrorFlag ESP_ConnectServer(char* ip_address, char* port)
 {
 	//Jeden kanal i jeden protokol
@@ -124,12 +86,6 @@ ESP_ErrorFlag ESP_ConnectServer(char* ip_address, char* port)
 }
 
 
-/**
-  * @ Opis:				Wysy³a dane na serwer.
-  * @ Parametry:		-data: wskaŸnik na tablicê zawieraj¹c¹ dane w postaci ci¹gu tekstowego.
-  * 					-length  ????????????
-  * @ Wartosc zwracana: Brak.
-  */
 void ESP_SendData(char* data, uint8_t length)
 {
 	char s_length[4];
@@ -146,11 +102,6 @@ void ESP_SendData(char* data, uint8_t length)
 }
 
 
-/**
-  * @ Opis:				Roz³¹cza modu³ z serwerem.
-  * @ Parametry:		Brak.
-  * @ Wartosc zwracana: Brak.
-  */
 void ESP_DisconnectServer()
 {
 	uart_puts(PSTR("AT+CIPCLOSE\r\n"));

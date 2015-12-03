@@ -1,5 +1,22 @@
-12:30:45 **** Incremental Build of configuration Release for project Barometr ****
+16:23:13 **** Build of configuration Release for project Barometr ****
 make all 
+Building target: Barometr.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,Barometr.map -mmcu=atmega8 -o "Barometr.elf"  ./MKUART/mkuart.o  ./BMP180.o ./I2C.o ./main.o   
+Finished building target: Barometr.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S Barometr.elf  >"Barometr.lss"
+Finished building: Barometr.lss
+ 
+Create Flash image (ihex format)
+avr-objcopy -R .eeprom -O ihex Barometr.elf  "Barometr.hex"
+Finished building: Barometr.hex
+ 
+Create eeprom image (ihex format)
+avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex Barometr.elf  "Barometr.eep"
+Finished building: Barometr.eep
+ 
 Invoking: Print Size
 avr-size --format=avr --mcu=atmega8 Barometr.elf
 AVR Memory Usage
@@ -16,5 +33,5 @@ Data:        184 bytes (18.0% Full)
 Finished building: sizedummy
  
 
-12:30:46 Build Finished (took 717ms)
+16:23:17 Build Finished (took 3s.992ms)
 

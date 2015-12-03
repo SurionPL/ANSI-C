@@ -1,9 +1,14 @@
 /*
- * TWI.h
- *
- *  Created on: 26 lip 2015
- *      Author: Bartek
+ *******************************************************************************
+ * @ Plik    I2C.c
+ * @ Autor   Bartlomiej Kusmierczyk
+ * @ Wersja  V1.0
+ * @ Data    26 lipca 2015
+ * @ Opis    Ten plik zawiera wszystkie funkcje do obslugi interfejsu TWI
+ * 			 w mikrokontrolerach AVR.
+ *******************************************************************************
  */
+
 
 #ifndef I2C_H_
 #define I2C_H_
@@ -14,13 +19,6 @@
 #define I2C_ACK_ERROR 		(0x04)
 
 //extern uint8_t TWI_ErrorFlag = 0;
-
-/*typedef struct
-{
-	uint16_t TWI_Speed;
-}TWI_InitTypeDef;*/
-
-
 
 void TWI_Init(uint16_t speed);
 //void TWI_Init(TWI_InitTypeDef* TWI_InitStruct);

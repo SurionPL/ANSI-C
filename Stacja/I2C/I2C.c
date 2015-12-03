@@ -1,10 +1,3 @@
-/*
- * TWI.c
- *
- *  Created on: 26 lip 2015
- *      Author: Bartek
- */
-
 /**
  *******************************************************************************
  * @ Plik    I2C.h
@@ -155,7 +148,6 @@ void TWI_ERROR(uint8_t error) {
 	TWI_ErrorFlag = error;
 	if (error == I2C_START_ERROR)
 		PORTB = 1 << PB1;  //??????????????????????????????
-	//Wypelnic czyms do interfejsu z uzytkownikiem
 }
 
 /**

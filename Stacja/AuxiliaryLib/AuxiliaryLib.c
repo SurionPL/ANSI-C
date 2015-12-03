@@ -1,13 +1,19 @@
-/*
- * AuxiliaryLib.c
- *
- *  Created on: 28 lis 2015
- *      Author: Bartek
+/**
+ *******************************************************************************
+ * @ Plik    AuxiliaryLib.c
+ * @ Autor   Bartlomiej Kusmierczyk
+ * @ Wersja  V1.0
+ * @ Data    20 listopada 2015
+ * @ Opis    Ten plik zawiera funkcje do inicjalziacji modulow, wyzwalania
+ * 			 pomiarow, pobierania wynikow, inicjalizacji timerow i interfejsow
+ * 			 komunikacyjnych oraz wysylania danych na serwer ThingSpeak.
+ *******************************************************************************
  */
 
+/*-------------------------------------------------------------------*/
 #include <avr/io.h>
 #include <util/delay.h>
-
+#include <stdio.h>
 #include "../AVG/AVG.h"
 #include "../ThingSpeak/ThingSpeak.h"
 #include "../MKUART/mkuart.h"
@@ -15,14 +21,16 @@
 #include "../BH1750/BH1750.h"
 #include "../ESP8266_CL/ESP8266_Cl.h"
 #include "../BMP180/BMP180.h"
-#include <stdio.h>
+#include "../I2C/I2C.h"
+/*-------------------------------------------------------------------*/
 
 
 void initializeModules()
 {
 	//ESP_Init();
 	//HTU21D_Init(Humidity10b_Temperature13b);
-	//BMP180_Init(BMP180_Mode_ULP);
+	BMP180_Init(BMP180_Mode_ST);
+
 }
 
 
@@ -40,24 +48,27 @@ void sendHumidity(uint8_t humidity)
 	TS_UpdateField(value, 2);
 }
 
-void sendPressure(int32_t pressure)
-{
-	char value[7];
-	sprintf(value, "%d", (int)(pressure/100));
-	TS_UpdateField(value, 4);
-}
-
 void sendIlluminance(uint16_t illuminance)
 {
 	char value[7];
 	sprintf(value, "%d", illuminance);
-	TS_UpdateField(value, 4);
+	TS_UpdateField(value, 3);
 }
+
+void sendPressure(int32_t pressure)
+{
+	char value[7];
+	sprintf(value, "%d", (int)(pressure/100));
+	TS_UpdateField(value, 3);
+}
+
+
 
 void initializeInterfaces()
 {
-	//TWI_Init(100000/100);
+	TWI_Init(100000/100);
 	USART_Init(__UBRR);
+	PORTB = 1 << PB1;
 }
 
 
@@ -98,37 +109,25 @@ uint16_t getIlluminance()
 	return illuminance;
 }
 
-
-
-
-
-
-void configInterrupt()
+int32_t getPressure()
 {
+	int32_t pressure;
 
-	//Dla 328P
-	//EICRA = (1 << ISC01) | (1 << ISC00);	//Zbocze rosnace
-	//EIMSK = 1 << INT0;
+	BMP180_StartPress();
+	_delay_ms(60);
+	pressure = BMP180_GetPress();
+
+	return pressure;
 }
+
 
 
 void initializeTimers()
 {
-	//Dla 8A
-	TCCR1B = 1<< WGM12 |			// Tryb CTC
-			 1<<CS12   | 1<<CS10;	// Preskaler: 1024
-
-
+	TCCR1B = (1<<WGM12) |
+			 (1<<CS12)  | (1<<CS10);  //Preskaler 1024    7372800/1024=7200
 	OCR1A = 7200;
-	TIMSK = 1<<OCIE1A;  //Timer/Counter1, Output Compare A Match Interrupt Enable
-
-
-
-	//Dla 328P
-//	TCCR1B = (1<<WGM12) |
-//			 (1<<CS12);  //Preskaler 1024    7372800/1024=7200
-//	OCR1A = 7200;
-//	TIMSK1 = 1 << OCIE1A;   //Aktywowanie przerwan CTC OCR1A
+	TIMSK1 = 1 << OCIE1A;   //Aktywowanie przerwan CTC OCR1A
 }
 
 

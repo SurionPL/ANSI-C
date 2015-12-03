@@ -25,7 +25,7 @@
 // definiujemy maskê dla naszego bufora
 #define UART_RX_BUF_MASK ( UART_RX_BUF_SIZE - 1)
 
-#define UART_TX_BUF_SIZE 16 // definiujemy bufor o rozmiarze 16 bajtów
+#define UART_TX_BUF_SIZE 64 // definiujemy bufor o rozmiarze 16 bajtów
 // definiujemy maskê dla naszego bufora
 #define UART_TX_BUF_MASK ( UART_TX_BUF_SIZE - 1)
 
@@ -39,6 +39,6 @@ void USART_Init( uint16_t baud );
 char uart_getc(void);
 void uart_putc( char data );
 void uart_puts(char *s);
-void uart_putint(int value, int radix);
+void uart_putint(int value);
 
 #endif /* MKUART_H_ */

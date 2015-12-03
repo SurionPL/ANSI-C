@@ -14,6 +14,8 @@
 
 int main()
 {
+	DDRB = 2;
+	PORTB=2;
 	uint16_t lux = 0;
 	USART_Init(__UBRR);
 	sei();
@@ -27,7 +29,7 @@ int main()
 		_delay_ms(300);
 		lux = BH1750_Read();
 		uart_puts("Natezenie: ");
-		uart_putint(lux, 6);
+		uart_putint(lux);
 		uart_puts("\r\n");
 		_delay_ms(5000);
 	}

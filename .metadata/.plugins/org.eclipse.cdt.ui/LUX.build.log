@@ -1,42 +1,20 @@
-13:40:26 **** Incremental Build of configuration Release for project LUX ****
+02:24:48 **** Incremental Build of configuration Release for project LUX ****
 make all 
-Building file: ../BH1750.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=7372800UL -MMD -MP -MF"BH1750.d" -MT"BH1750.d" -c -o "BH1750.o" "../BH1750.c"
-Finished building: ../BH1750.c
- 
-Building target: LUX.elf
-Invoking: AVR C Linker
-avr-gcc -Wl,-Map,LUX.map -mmcu=atmega8 -o "LUX.elf"  ./MKUART/mkuart.o  ./BH1750.o ./I2C.o ./main.o   
-Finished building target: LUX.elf
- 
-Invoking: AVR Create Extended Listing
-avr-objdump -h -S LUX.elf  >"LUX.lss"
-Finished building: LUX.lss
- 
-Create Flash image (ihex format)
-avr-objcopy -R .eeprom -O ihex LUX.elf  "LUX.hex"
-Finished building: LUX.hex
- 
-Create eeprom image (ihex format)
-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex LUX.elf  "LUX.eep"
-Finished building: LUX.eep
- 
 Invoking: Print Size
-avr-size --format=avr --mcu=atmega8 LUX.elf
+avr-size --format=avr --mcu=atmega328p LUX.elf
 AVR Memory Usage
 ----------------
-Device: atmega8
+Device: atmega328p
 
-Program:    1448 bytes (17.7% Full)
+Program:    3078 bytes (9.4% Full)
 (.text + .data + .bootloader)
 
-Data:        123 bytes (12.0% Full)
+Data:        125 bytes (6.1% Full)
 (.data + .bss + .noinit)
 
 
 Finished building: sizedummy
  
 
-13:40:28 Build Finished (took 2s.274ms)
+02:24:48 Build Finished (took 430ms)
 

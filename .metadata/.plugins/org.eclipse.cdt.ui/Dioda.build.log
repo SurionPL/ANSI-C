@@ -1,8 +1,13 @@
-22:04:19 **** Incremental Build of configuration Release for project Dioda ****
+23:12:59 **** Incremental Build of configuration Release for project Dioda ****
 make all 
+Building file: ../main.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=7372800UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
+Finished building: ../main.c
+ 
 Building target: Dioda.elf
 Invoking: AVR C Linker
-avr-gcc -Wl,-Map,Dioda.map -mmcu=atmega8 -o "Dioda.elf"  ./main.o   
+avr-gcc -Wl,-Map,Dioda.map -mmcu=atmega328p -o "Dioda.elf"  ./main.o   
 Finished building target: Dioda.elf
  
 Invoking: AVR Create Extended Listing
@@ -18,12 +23,12 @@ avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ih
 Finished building: Dioda.eep
  
 Invoking: Print Size
-avr-size --format=avr --mcu=atmega8 Dioda.elf
+avr-size --format=avr --mcu=atmega328p Dioda.elf
 AVR Memory Usage
 ----------------
-Device: atmega8
+Device: atmega328p
 
-Program:      94 bytes (1.1% Full)
+Program:     226 bytes (0.7% Full)
 (.text + .data + .bootloader)
 
 Data:          0 bytes (0.0% Full)
@@ -33,5 +38,5 @@ Data:          0 bytes (0.0% Full)
 Finished building: sizedummy
  
 
-22:04:21 Build Finished (took 1s.602ms)
+23:13:00 Build Finished (took 1s.223ms)
 

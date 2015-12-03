@@ -39,6 +39,6 @@ void USART_Init( uint16_t baud );
 char uart_getc(void);
 void uart_putc( char data );
 void uart_puts(char *s);
-void uart_putint(int value, int radix);
+void uart_putint(int value);
 
 #endif /* MKUART_H_ */

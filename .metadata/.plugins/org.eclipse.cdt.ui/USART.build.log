@@ -1,10 +1,5 @@
-22:10:32 **** Incremental Build of configuration Release for project USART ****
+18:12:25 **** Incremental Build of configuration Release for project USART ****
 make all 
-Building file: ../USART.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega8 -DF_CPU=4000000UL -MMD -MP -MF"USART.d" -MT"USART.d" -c -o "USART.o" "../USART.c"
-Finished building: ../USART.c
- 
 Building target: USART.elf
 Invoking: AVR C Linker
 avr-gcc -Wl,-Map,USART.map -mmcu=atmega8 -o "USART.elf"  ./USART.o ./main.o   
@@ -38,5 +33,5 @@ Data:         11 bytes (1.1% Full)
 Finished building: sizedummy
  
 
-22:10:34 Build Finished (took 1s.947ms)
+18:12:27 Build Finished (took 1s.851ms)
 

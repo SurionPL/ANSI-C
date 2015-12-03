@@ -17,6 +17,7 @@ void initializeInterfaces();
 uint8_t getHumidity();
 int8_t getTemperature();
 uint16_t getIlluminance();
+int32_t getPressure();
 void configInterrupt();
 void initializeTimers();
 

@@ -29,6 +29,7 @@ void HTU21D_Init(HTU21D_ResolutionTypeDef Resolution)
 {
 	/* Read user register (UR) */
 	TWI_Start();
+
 	TWI_Write_SLA(HTU21D_SLA);
 	TWI_WriteByte(HTU21D_READ_UR);
 	TWI_RStart();
