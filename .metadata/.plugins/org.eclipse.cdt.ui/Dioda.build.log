@@ -1,10 +1,5 @@
-23:12:59 **** Incremental Build of configuration Release for project Dioda ****
+12:04:50 **** Incremental Build of configuration Release for project Dioda ****
 make all 
-Building file: ../main.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=7372800UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
-Finished building: ../main.c
- 
 Building target: Dioda.elf
 Invoking: AVR C Linker
 avr-gcc -Wl,-Map,Dioda.map -mmcu=atmega328p -o "Dioda.elf"  ./main.o   
@@ -38,5 +33,5 @@ Data:          0 bytes (0.0% Full)
 Finished building: sizedummy
  
 
-23:13:00 Build Finished (took 1s.223ms)
+12:04:51 Build Finished (took 985ms)
 

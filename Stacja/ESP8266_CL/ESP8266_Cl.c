@@ -26,16 +26,16 @@ char password[] = "BarT2014DST";
 void ESP_Init()
 {
 	ESP_PowerOn();
-	uart_puts(PSTR("AT+CWMODE=1\r\n"));		/* Client mode */
+	uart_puts("AT+CWMODE=1\r\n");		/* Client mode */
 	_delay_ms(4000);
-	uart_puts(PSTR("AT+CIPMUX=0\r\n"));		/* Single channel connection */
+	uart_puts("AT+CIPMUX=0\r\n");		/* Single channel connection */
 	_delay_ms(4000);
 }
 
 
 void ESP_Connect()
 {
-	PORTB = 1 << PB1;
+	//PORTB = 1 << PB1;
 	char command[50] = "AT+CWJAP=\"";
 	strcat(command, ssid);
 	strcat(command, "\",\"");
@@ -60,13 +60,13 @@ void ESP_PowerOff()
 
 void ESP_Disconnect()
 {
-	uart_puts(PSTR("AT+CWQAP\r\n"));
+	uart_puts("AT+CWQAP\r\n");
 }
 
 
 void ESP_Restart()
 {
-	uart_puts(PSTR("AT+RST\r\n"));
+	uart_puts("AT+RST\r\n");
 	_delay_ms(1000);
 }
 
@@ -104,5 +104,5 @@ void ESP_SendData(char* data, uint8_t length)
 
 void ESP_DisconnectServer()
 {
-	uart_puts(PSTR("AT+CIPCLOSE\r\n"));
+	uart_puts("AT+CIPCLOSE\r\n");
 }

@@ -28,8 +28,8 @@
 void initializeModules()
 {
 	//ESP_Init();
-	//HTU21D_Init(Humidity10b_Temperature13b);
-	BMP180_Init(BMP180_Mode_ST);
+	HTU21D_Init(Humidity10b_Temperature13b);
+	//BMP180_Init(BMP180_Mode_ST);
 
 }
 
@@ -68,7 +68,7 @@ void initializeInterfaces()
 {
 	TWI_Init(100000/100);
 	USART_Init(__UBRR);
-	PORTB = 1 << PB1;
+	//PORTB = 1 << PB1;
 }
 
 
@@ -78,7 +78,7 @@ uint8_t getHumidity()
 	uint8_t humidity;
 
 	HTU21D_StartHumidity();
-	_delay_ms(15);
+	_delay_ms(100);
 	humidity = HTU21D_GetHumidity();
 
 	return humidity;
@@ -91,7 +91,7 @@ int8_t getTemperature()
 	uint8_t temperature_fract;
 
 	HTU21D_StartTemperature();
-	_delay_ms(15);
+	_delay_ms(50);
 	HTU21D_GetTemperature(&temperature_int, &temperature_fract);
 
 	return temperature_int;

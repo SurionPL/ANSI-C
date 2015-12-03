@@ -1,20 +1,42 @@
-03:34:46 **** Incremental Build of configuration Release for project Stacja ****
+18:00:55 **** Incremental Build of configuration Release for project Stacja ****
 make all 
+Building file: ../I2C/I2C.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=7372800UL -MMD -MP -MF"I2C/I2C.d" -MT"I2C/I2C.d" -c -o "I2C/I2C.o" "../I2C/I2C.c"
+Finished building: ../I2C/I2C.c
+ 
+Building target: Stacja.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,Stacja.map -mmcu=atmega328p -o "Stacja.elf"  ./ThingSpeak/ThingSpeak.o  ./MKUART/mkuart.o  ./I2C/I2C.o  ./HTU21D/HTU21D.o  ./ESP8266_CL/ESP8266_Cl.o  ./BMP180/BMP180.o  ./BH1750/BH1750.o  ./AuxiliaryLib/AuxiliaryLib.o  ./AVG/AVG.o  ./main.o   
+Finished building target: Stacja.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S Stacja.elf  >"Stacja.lss"
+Finished building: Stacja.lss
+ 
+Create Flash image (ihex format)
+avr-objcopy -R .eeprom -O ihex Stacja.elf  "Stacja.hex"
+Finished building: Stacja.hex
+ 
+Create eeprom image (ihex format)
+avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex Stacja.elf  "Stacja.eep"
+Finished building: Stacja.eep
+ 
 Invoking: Print Size
 avr-size --format=avr --mcu=atmega328p Stacja.elf
 AVR Memory Usage
 ----------------
 Device: atmega328p
 
-Program:    7652 bytes (23.4% Full)
+Program:    7748 bytes (23.6% Full)
 (.text + .data + .bootloader)
 
-Data:        492 bytes (24.0% Full)
+Data:        554 bytes (27.1% Full)
 (.data + .bss + .noinit)
 
 
 Finished building: sizedummy
  
 
-03:34:47 Build Finished (took 632ms)
+18:00:57 Build Finished (took 2s.285ms)
 

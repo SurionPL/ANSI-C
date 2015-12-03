@@ -33,29 +33,27 @@ void SendHumUSART()
 
 void InterfaceInit()
 {
-	//TWI_InitTypeDef TWI_InitStruct;
-	//TWI_InitStruct.TWI_Speed = 100000/100;
 	//TWI_Init(100000/100);
-	USART_Init(__UBRR);
+	//USART_Init(__UBRR);
 }
 
 int main() {
 	DDRB  = 1<<PB1;
-	//PORTB = 2;
-	InterfaceInit();
+
+	USART_Init(__UBRR);
+	TWI_Init(100000/100);
+	//InterfaceInit();
 	sei();
 	HTU21D_Init(Humidity11b_Temperature11b);
-	//TWI_Start(HTU21D_SLA);
-	//TWI_Stop();
 
 	PORTB=2;
 	while(1)
 	{
+		//PORTB^=2;
 		uart_puts("Pomiar:\r\n");
 
 		HTU21D_StartTemperature();
-		//HTU21D_StartHumidity();
-		_delay_ms(200);
+		_delay_ms(400);
 		//hum = HTU21D_GetHumidity();
 		//if( hum != -1){
 		//SendHumUSART();}
@@ -66,4 +64,23 @@ int main() {
 		_delay_ms(2000);
 
 	}
+}
+
+ISR(TIMER1_COMPA_vect)
+{
+
+//	if (seconds % 60 == 0)
+//	{
+//		seconds = 0;
+//		minutes++;
+//		trigger_flag = MEASUREMENTS_TRIGGER_ENABLE;
+//	}
+//	if (minutes % 5 == 0)
+//	{
+//		minutes = 0;
+//		reset_connection_flag = RESET_CONNECTION_ENABLE;
+//
+//	}
+	PORTB ^= 1<<PB1;
+	//seconds++;
 }

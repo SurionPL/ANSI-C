@@ -22,6 +22,8 @@
 #include <string.h>
 #include "../ESP8266_CL/ESP8266_Cl.h"
 #include "ThingSpeak.h"
+#include "avr/pgmspace.h"
+#include "../MKUART/mkuart.h"
 /*-------------------------------------------------------------------*/
 
 char ts_ip[] = "144.212.80.11"; 	/* ThingSpeak IP */
@@ -44,7 +46,8 @@ void TS_UpdateField(char* value, uint8_t field) {
 		ESP_ConnectServer(ts_ip, "80");
 		_delay_ms(5000);
 		ESP_SendData(get, strlen(get));
-		_delay_ms(3000);
-		ESP_Disconnect();
+		_delay_ms(10000);
+		//ESP_DisconnectServer();
+		//_delay_ms(1000);
 	}
 }

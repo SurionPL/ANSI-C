@@ -17,6 +17,22 @@
 
 volatile uint8_t TWI_ErrorFlag; /* Flaga bledu */
 
+
+inline void TWI_WaitForFlag()
+{
+	uint16_t cnt = 0;
+	/* Czekaj az ustawiona zostanie flaga TWINT */
+	while (!(TWCR & (1 << TWINT)))
+	{
+		if(cnt >= 4000) {
+			TWI_ERROR(5);
+			break;
+		}
+		cnt++;
+	}
+}
+
+
 /**
  * @ Opis:				Inicjalizuje interfejs TWI.
  * @ Parametry:			speed: predkosc transmisji.
@@ -44,8 +60,7 @@ void TWI_Start() {
 	TWCR = (1 << TWINT) | (1 << TWSTA) | (1 << TWEN);
 
 	/* Czekaj az ustawiona zostanie flaga TWINT. */
-	while (!(TWCR & (1 << TWINT)))
-		;
+	TWI_WaitForFlag();
 	if ((TWSR & 0xF8) != TW_START) {
 		TWI_ERROR(I2C_START_ERROR);
 	}
@@ -60,8 +75,7 @@ void TWI_RStart() {
 	TWCR = (1 << TWINT) | (1 << TWSTA) | (1 << TWEN);
 
 	/* Czekaj az ustawiona zostanie flaga TWINT. */
-	while (!(TWCR & (1 << TWINT)))
-		;
+	TWI_WaitForFlag();
 	if ((TWSR & 0xF8) != TW_REP_START) {
 		TWI_ERROR(I2C_REP_START_ERROR);
 	}
@@ -89,8 +103,7 @@ void TWI_Write_SLA(uint8_t address) {
 		status = TW_MR_SLA_ACK;
 	TWDR = address;
 	TWCR = (1 << TWINT) | (1 << TWEN);
-	while (!(TWCR & (1 << TWINT)))
-		; //Czekaj na zakonczenie
+	TWI_WaitForFlag();
 	if (TW_STATUS != status) {
 		TWI_ERROR(I2C_ACK_ERROR); //NACK error
 	}
@@ -104,8 +117,7 @@ void TWI_Write_SLA(uint8_t address) {
 void TWI_WriteByte(uint8_t byte) {
 	TWDR = byte;
 	TWCR = (1 << TWINT) | (1 << TWEN);
-	while (!(TWCR & (1 << TWINT)))
-		;
+	TWI_WaitForFlag();
 	if (TW_STATUS != TW_MT_DATA_ACK)
 		TWI_ERROR(I2C_NACK_ERROR);
 }
@@ -117,8 +129,7 @@ void TWI_WriteByte(uint8_t byte) {
  */
 uint8_t TWI_ReadByte_NACK() {
 	TWCR = (1 << TWINT) | (1 << TWEN);
-	while (!(TWCR & (1 << TWINT)))
-		;
+	TWI_WaitForFlag();
 	if (TW_STATUS != TW_MR_DATA_ACK) {
 		TWI_ERROR(I2C_NACK_ERROR);
 	}
@@ -132,8 +143,7 @@ uint8_t TWI_ReadByte_NACK() {
  */
 uint8_t TWI_ReadByte_ACK() {
 	TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWEA);
-	while (!(TWCR & (1 << TWINT)))
-		;
+	TWI_WaitForFlag();
 	if (TW_STATUS != TW_MR_DATA_ACK)
 		TWI_ERROR(I2C_NACK_ERROR);
 	return TWDR;
@@ -146,8 +156,8 @@ uint8_t TWI_ReadByte_ACK() {
  */
 void TWI_ERROR(uint8_t error) {
 	TWI_ErrorFlag = error;
-	if (error == I2C_START_ERROR)
-		PORTB = 1 << PB1;  //??????????????????????????????
+	//if (error == I2C_START_ERROR)
+		//PORTB = 1 << PB1;  //??????????????????????????????
 }
 
 /**

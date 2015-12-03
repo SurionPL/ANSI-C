@@ -16,4 +16,7 @@
 			<item value="org.eclipse.egit.ui.commitSearchPage"/>
 		</list>
 	</section>
+	<section name="org.eclipse.cdt.ui.pdomSearchViewPage">
+		<item value="true" key="showEnclosingDefinitions"/>
+	</section>
 </section>

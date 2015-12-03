@@ -32,6 +32,13 @@ char table2[2] = {'N','O'};
 
 //void TWI_Init(TWI_InitTypeDef* TWI_InitStruct)
 
+void TWI_WaitForFlag()
+{
+	while (!(TWCR & (1<<TWINT)));
+}
+
+
+
 void TWI_Init(uint16_t speed)
 {
 	TWCR = (1<<TWEA) | (1<<TWEN);
@@ -52,7 +59,7 @@ void TWI_Start()  //Dodac zwracanie statusu wszedzie!
 	TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
 	//Wait for TWINT Flag set. This	indicates that the START condition
 	//has been transmitted
-	while (!(TWCR & (1<<TWINT)));
+	TWI_WaitForFlag();
 	if ((TWSR & 0xF8) != TW_START) {
 		TWI_ERROR(I2C_START_ERROR);
 		//return I2C_START_ERROR;
