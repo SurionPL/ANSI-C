@@ -39,7 +39,6 @@ inline void TWI_WaitForFlag()
  * @ Zwracana wartosc: 	Brak.
  */
 void TWI_Init(uint16_t speed) {
-
 	speed = (4000000 / speed / 100 - 16) / 2;
 	uint8_t prescaler = 0;
 	while (speed > 255) {
