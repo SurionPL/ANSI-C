@@ -116,7 +116,7 @@ void TWI_Write_SLA(uint8_t address) {
 	TWCR = (1 << TWINT) | (1 << TWEN);
 	TWI_WaitForFlag();
 	if (TW_STATUS != status) {
-		TWI_ERROR(I2C_SLA_ERROR);
+		TWI_ERROR(I2C_ACK_ERROR); //NACK error
 	}
 }
 
@@ -130,7 +130,7 @@ void TWI_WriteByte(uint8_t byte) {
 	TWCR = (1 << TWINT) | (1 << TWEN);
 	TWI_WaitForFlag();
 	if (TW_STATUS != TW_MT_DATA_ACK)
-		TWI_ERROR(I2C_ACK_ERROR);
+		TWI_ERROR(I2C_NACK_ERROR);
 }
 
 /**
@@ -141,7 +141,7 @@ void TWI_WriteByte(uint8_t byte) {
 uint8_t TWI_ReadByte_NACK() {
 	TWCR = (1 << TWINT) | (1 << TWEN);
 	TWI_WaitForFlag();
-	if (TW_STATUS != TW_MR_DATA_NACK) {
+	if (TW_STATUS != TW_MR_DATA_ACK) {
 		TWI_ERROR(I2C_NACK_ERROR);
 	}
 	return TWDR;
@@ -156,7 +156,7 @@ uint8_t TWI_ReadByte_ACK() {
 	TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWEA);
 	TWI_WaitForFlag();
 	if (TW_STATUS != TW_MR_DATA_ACK)
-		TWI_ERROR(I2C_ACK_ERROR);
+		TWI_ERROR(I2C_NACK_ERROR);
 	return TWDR;
 }
 

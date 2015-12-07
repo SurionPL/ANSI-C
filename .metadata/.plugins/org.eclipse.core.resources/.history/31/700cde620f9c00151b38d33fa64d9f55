@@ -20,7 +20,7 @@
 #define SIZE 8
 #define MASK (SIZE-1)
 
-volatile uint8_t seconds;
+//volatile uint8_t seconds;
 volatile uint8_t minutes;
 
 volatile uint8_t trigger_flag;				/* Flaga zezwolenia na wyzwolenie pomiarow */
@@ -39,14 +39,17 @@ uint16_t illuminance_avg;
 uint8_t humidity_avg;
 
 uint8_t idx;
-//---------------------------------------------------------------------
+
+
+/*============= Program glowny =============*/
 int main() {
 	DDRB  = 1 << PB1;
 	//PORTB = 1 << PB1;
 	idx = 0;
-	seconds = 0;
-	minutes = 0;
-
+	//seconds = 1;
+	minutes = 1;
+	trigger_flag = MEASUREMENTS_TRIGGER_DISABLE;
+	reset_connection_flag = RESET_CONNECTION_DISABLE;
 	initializeInterfaces();
 	initializeModules();
 
@@ -59,15 +62,17 @@ int main() {
 	/* Poczatkowa seria pomiarow */
 	for (uint8_t i = 0; i < SIZE; i++)
 	{
-		illuminance[i] = getIlluminance();
-////	temperature[i] = getTemperature();
-////	humidity[i]    = getHumidity();
+		//illuminance[i] = getIlluminance();
+		//temperature[i] = getTemperature();
+		humidity[i]    = getHumidity();
+		//pressure[i]    = getPressure();
 	}
-
+	//PORTB ^= 1<<PB1;
 	/* Obliczanie sredniej */
-	//humidity_avg = calcAVG_UINT8(humidity, SIZE);
+	humidity_avg = calcAVG_UINT8(humidity, SIZE);
 	//temperature_avg = calcAVG_INT8(temperature, SIZE);
-	illuminance_avg = calcAVG_UINT16(illuminance, SIZE);
+	//illuminance_avg = calcAVG_UINT16(illuminance, SIZE);
+	//pressure_avg = calcAVG_INT32(pressure, SIZE);
 
 
     /* Nawiazanie lacznosci z siecia */
@@ -76,38 +81,43 @@ int main() {
 
 	/* Wyslanie wynikow na ThingSpeak */
 	//sendTemperature(temperature_avg);
-	//sendHumidity(humidity_avg);
-	sendIlluminance(illuminance_avg);
+	sendHumidity(humidity_avg);
+	//sendIlluminance(illuminance_avg);
+	//sendPressure(pressure_avg);
 
 	/* Nieskonczona petla */
 	while (1) {
 		if (trigger_flag == MEASUREMENTS_TRIGGER_ENABLE)
 		{
 			/* Wykonywanie pomiarow i odczyt wynikow*/
-			illuminance[idx & MASK] = getIlluminance();
+			//illuminance[idx & MASK] = getIlluminance();
 			//temperature[idx & MASK] = getTemperature();
-			//humidity[idx & MASK]    = getHumidity();
+			humidity[idx & MASK]    = getHumidity();
+			//pressure[idx & MASK]    = getPressure();
 
 			/* Obliczanie sredniej */
-			//humidity_avg = calcAVG_UINT8(humidity, SIZE);
+			humidity_avg = calcAVG_UINT8(humidity, SIZE);
 			//temperature_avg = calcAVG_INT8(temperature, SIZE);
-			illuminance_avg = calcAVG_UINT16(illuminance, SIZE);
+			//illuminance_avg = calcAVG_UINT16(illuminance, SIZE);
+			//pressure_avg = calcAVG_INT32(pressure, SIZE);
 
 			/* Wyslanie wynikow na ThingSpeak */
 			//sendTemperature(temperature_avg);
-			//sendHumidity(humidity_avg);
-			sendIlluminance(illuminance_avg);
+			sendHumidity(humidity_avg);
+			//sendIlluminance(illuminance_avg);
+			//sendPressure(pressure_avg);
 
 			trigger_flag = MEASUREMENTS_TRIGGER_DISABLE;
 			idx++;
 		}
 
-		if (minutes % 5 == 0)
+		if (reset_connection_flag == RESET_CONNECTION_ENABLE)
 		{
 			ESP_Disconnect();
 			_delay_ms(2000);
 			ESP_Connect();
 			_delay_ms(3000);
+			reset_connection_flag = RESET_CONNECTION_DISABLE;
 		}
 	}
 }
@@ -116,19 +126,24 @@ int main() {
 /* Procedura obslugi przerwanie CTC od Timera 1. */
 ISR(TIMER1_COMPA_vect)
 {
-
-	if (seconds % 60 == 0)
+	minutes++;
+	trigger_flag = MEASUREMENTS_TRIGGER_ENABLE;
+	if(minutes % 5 == 0)
 	{
-		seconds = 0;
-		minutes++;
-		trigger_flag = MEASUREMENTS_TRIGGER_ENABLE;
-	}
-	if (minutes % 5 == 0)
-	{
-		minutes = 0;
 		reset_connection_flag = RESET_CONNECTION_ENABLE;
-
 	}
-	PORTB ^= 1<<PB1;
-	seconds++;
+//	if (seconds % 60 == 0)
+//	{
+//		seconds = 0;
+//		minutes++;
+//		trigger_flag = MEASUREMENTS_TRIGGER_ENABLE;
+//	}
+//	if (minutes % 5 == 0)
+//	{
+//		minutes = 0;
+//		reset_connection_flag = RESET_CONNECTION_ENABLE;
+//	}
+//	//PORTB ^= 1<<PB1;
+//	seconds++;
+
 }

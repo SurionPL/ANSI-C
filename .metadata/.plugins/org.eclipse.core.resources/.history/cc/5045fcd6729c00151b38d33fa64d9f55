@@ -17,7 +17,8 @@
 #define I2C_REP_START_ERROR (0x02)
 #define I2C_NACK_ERROR 		(0x05)
 #define I2C_ACK_ERROR 		(0x04)
-#define I2C_SLA_ERROR		(0x06)
+
+//extern uint8_t TWI_ErrorFlag = 0;
 
 void TWI_Init(uint32_t speed);
 void TWI_Start();

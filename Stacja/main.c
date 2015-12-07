@@ -20,7 +20,7 @@
 #define SIZE 8
 #define MASK (SIZE-1)
 
-volatile uint8_t seconds;
+//volatile uint8_t seconds;
 volatile uint8_t minutes;
 
 volatile uint8_t trigger_flag;				/* Flaga zezwolenia na wyzwolenie pomiarow */
@@ -46,8 +46,8 @@ int main() {
 	DDRB  = 1 << PB1;
 	//PORTB = 1 << PB1;
 	idx = 0;
-	seconds = 1;
-	minutes = 1;
+	//seconds = 1;
+	minutes = 0;
 	trigger_flag = MEASUREMENTS_TRIGGER_DISABLE;
 	reset_connection_flag = RESET_CONNECTION_DISABLE;
 	initializeInterfaces();
@@ -126,17 +126,26 @@ int main() {
 /* Procedura obslugi przerwanie CTC od Timera 1. */
 ISR(TIMER1_COMPA_vect)
 {
-	if (seconds % 60 == 0)
+	minutes++;
+	trigger_flag = MEASUREMENTS_TRIGGER_ENABLE;
+
+	if(minutes % 5 == 0)
 	{
-		seconds = 0;
-		minutes++;
-		trigger_flag = MEASUREMENTS_TRIGGER_ENABLE;
-	}
-	if (minutes % 5 == 0)
-	{
-		minutes = 0;
 		reset_connection_flag = RESET_CONNECTION_ENABLE;
 	}
-	//PORTB ^= 1<<PB1;
-	seconds++;
+
+//	if (seconds % 60 == 0)
+//	{
+//		seconds = 0;
+//		minutes++;
+//		trigger_flag = MEASUREMENTS_TRIGGER_ENABLE;
+//	}
+//	if (minutes % 5 == 0)
+//	{
+//		minutes = 0;
+//		reset_connection_flag = RESET_CONNECTION_ENABLE;
+//	}
+//	//PORTB ^= 1<<PB1;
+//	seconds++;
+
 }

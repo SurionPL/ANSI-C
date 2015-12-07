@@ -17,9 +17,11 @@
 #define I2C_REP_START_ERROR (0x02)
 #define I2C_NACK_ERROR 		(0x05)
 #define I2C_ACK_ERROR 		(0x04)
-#define I2C_SLA_ERROR		(0x06)
 
-void TWI_Init(uint32_t speed);
+//extern uint8_t TWI_ErrorFlag = 0;
+
+void TWI_Init(uint16_t speed);
+//void TWI_Init(TWI_InitTypeDef* TWI_InitStruct);
 void TWI_Start();
 void TWI_RStart();
 void TWI_Stop();
@@ -29,7 +31,6 @@ uint8_t TWI_ReadByte_ACK();
 uint8_t TWI_ReadByte_NACK();
 void TWI_WriteBytes(uint8_t SLA, uint8_t address, uint8_t size, uint8_t* buffer);
 void TWI_ReadBytes(uint8_t SLA, uint8_t address, uint8_t size, uint8_t* buffer);
-//void TWI_ERROR(uint8_t error);
-uint8_t TWI_CheckErrorFlag();
+void TWI_ERROR(uint8_t error);
 
 #endif /* TWI_H_ */

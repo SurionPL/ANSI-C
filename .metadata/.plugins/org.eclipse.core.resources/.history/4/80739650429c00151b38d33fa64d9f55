@@ -18,21 +18,18 @@
 volatile uint8_t TWI_ErrorFlag; /* Flaga bledu */
 
 
-inline void TWI_WaitForFlag() {
+inline void TWI_WaitForFlag()
+{
+	uint16_t cnt = 0;
 	/* Czekaj az ustawiona zostanie flaga TWINT */
 	while (!(TWCR & (1 << TWINT)))
-	;
-}
-
-/**
- * @ Opis:				Ustawia flage bledu
- * @ Parametry:			error: kod bledu.
- * @ Zwracana wartosc:  Brak.
- */
-void TWI_ERROR(uint8_t error) {
-	TWI_ErrorFlag = error;
-	//if (error == I2C_START_ERROR)
-		//PORTB = 1 << PB1;  //??????????????????????????????
+	{
+		if(cnt >= 4000) {
+			TWI_ERROR(5);
+			break;
+		}
+		cnt++;t
+	}
 }
 
 
@@ -41,25 +38,17 @@ void TWI_ERROR(uint8_t error) {
  * @ Parametry:			speed: predkosc transmisji.
  * @ Zwracana wartosc: 	Brak.
  */
-void TWI_Init(uint32_t speed) {
-	speed = (F_CPU / speed - 16) / 2;
+void TWI_Init(uint16_t speed) {
+
+	speed = (4000000 / speed / 100 - 16) / 2;
 	uint8_t prescaler = 0;
-		while (speed > 255) {
-			prescaler++;
-			speed /= 4;
-		}
+	while (speed > 255) {
+		prescaler++;
+		speed /= 4;
+	}
 	TWSR = (TWSR & ((1 << TWPS1) | (1 << TWPS0))) | prescaler;
-	TWBR = (uint8_t)speed;
+	TWBR = speed;
 	TWCR = (1 << TWEA) | (1 << TWEN);
-//	speed = (4000000 / speed / 100 - 16) / 2;
-//	uint8_t prescaler = 0;
-//	while (speed > 255) {
-//		prescaler++;
-//		speed /= 4;
-//	}
-//	TWSR = (TWSR & ((1 << TWPS1) | (1 << TWPS0))) | prescaler;
-//	TWBR = speed;
-//	TWCR = (1 << TWEA) | (1 << TWEN);
 }
 
 /**
@@ -116,7 +105,7 @@ void TWI_Write_SLA(uint8_t address) {
 	TWCR = (1 << TWINT) | (1 << TWEN);
 	TWI_WaitForFlag();
 	if (TW_STATUS != status) {
-		TWI_ERROR(I2C_SLA_ERROR);
+		TWI_ERROR(I2C_ACK_ERROR); //NACK error
 	}
 }
 
@@ -130,7 +119,7 @@ void TWI_WriteByte(uint8_t byte) {
 	TWCR = (1 << TWINT) | (1 << TWEN);
 	TWI_WaitForFlag();
 	if (TW_STATUS != TW_MT_DATA_ACK)
-		TWI_ERROR(I2C_ACK_ERROR);
+		TWI_ERROR(I2C_NACK_ERROR);
 }
 
 /**
@@ -141,7 +130,7 @@ void TWI_WriteByte(uint8_t byte) {
 uint8_t TWI_ReadByte_NACK() {
 	TWCR = (1 << TWINT) | (1 << TWEN);
 	TWI_WaitForFlag();
-	if (TW_STATUS != TW_MR_DATA_NACK) {
+	if (TW_STATUS != TW_MR_DATA_ACK) {
 		TWI_ERROR(I2C_NACK_ERROR);
 	}
 	return TWDR;
@@ -156,10 +145,20 @@ uint8_t TWI_ReadByte_ACK() {
 	TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWEA);
 	TWI_WaitForFlag();
 	if (TW_STATUS != TW_MR_DATA_ACK)
-		TWI_ERROR(I2C_ACK_ERROR);
+		TWI_ERROR(I2C_NACK_ERROR);
 	return TWDR;
 }
 
+/**
+ * @ Opis:				Ustawia flage bledu
+ * @ Parametry:			error: kod bledu.
+ * @ Zwracana wartosc:  Brak.
+ */
+void TWI_ERROR(uint8_t error) {
+	TWI_ErrorFlag = error;
+	//if (error == I2C_START_ERROR)
+		//PORTB = 1 << PB1;  //??????????????????????????????
+}
 
 /**
  * @ Opis:				Odczytuje ciag bajtow.
@@ -196,8 +195,4 @@ void TWI_WriteBytes(uint8_t SLA, uint8_t address, uint8_t size, uint8_t* buffer)
 	while (size--)
 		TWI_WriteByte(*buffer++);
 	TWI_Stop();
-}
-
-uint8_t TWI_CheckErrorFlag() {
-	return TWI_ErrorFlag;
 }
