@@ -1,0 +1,203 @@
+/**
+ *******************************************************************************
+ * @ Plik    .h
+ * @ Autor   Bartlomiej Kusmierczyk
+ * @ Wersja  V1.0
+ * @ Data    26 lipca 2015
+ * @ Opis    Ten plik zawiera funkcje do obslugi inerfejsu I2C.
+ *******************************************************************************
+ */
+
+/*-------------------------------------------------------------------*/
+#include <avr/io.h>
+#include <util/delay.h>
+#include <util/I2C.h>
+#include ".h"
+/*-------------------------------------------------------------------*/
+
+volatile _ErrorFlag I2C_ErrorFlag; /* Flaga bledu */
+
+
+inline void I2C_WaitForFlag() {
+	/* Czekaj az ustawiona zostanie flaga I2CNT */
+	while (!(TWCR & (1 << I2CNT)))
+	;
+}
+
+/**
+ * @ Opis:				Ustawia flage bledu
+ * @ Parametry:			error: kod bledu.
+ * @ Zwracana wartosc:  Brak.
+ */
+void I2C_ERROR(uint8_t error) {
+	I2C_ErrorFlag = error;
+	//if (error == _START_ERROR)
+		//PORTB = 1 << PB1;  //??????????????????????????????
+}
+
+
+/**
+ * @ Opis:				Inicjalizuje interfejs I2C.
+ * @ Parametry:			speed: predkosc transmisji.
+ * @ Zwracana wartosc: 	Brak.
+ */
+void I2C_Init(uint32_t speed) {
+	speed = (F_CPU / speed - 16) / 2;
+	uint8_t prescaler = 0;
+		while (speed > 255) {
+			prescaler++;
+			speed /= 4;
+		}
+	TWSR = (TWSR & ((1 << TWPS1) | (1 << TWPS0))) | prescaler;
+	TWBR = (uint8_t)speed;
+	TWCR = (1 << TWEA) | (1 << TWEN);
+//	speed = (4000000 / speed / 100 - 16) / 2;
+//	uint8_t prescaler = 0;
+//	while (speed > 255) {
+//		prescaler++;
+//		speed /= 4;
+//	}
+//	TWSR = (TWSR & ((1 << TWPS1) | (1 << TWPS0))) | prescaler;
+//	TWBR = speed;
+//	TWCR = (1 << TWEA) | (1 << TWEN);
+}
+
+/**
+ * @ Opis:				Wysyla bit startu.
+ * @ Parametry:			Brak.
+ * @ Zwracana wartosc: 	Brak.
+ */
+void I2C_Start() {
+	TWCR = (1 << I2CNT) | (1 << TWSTA) | (1 << TWEN);
+
+	/* Czekaj az ustawiona zostanie flaga I2CNT. */
+	I2C_WaitForFlag();
+	if ((TWSR & 0xF8) != TW_START) {
+		I2C_ERROR(_Start_Error);
+	}
+}
+
+/**
+ * @ Opis:				Wysyla bit powtorzonego startu.
+ * @ Parametry:			Brak.
+ * @ Zwracana wartosc: 	Brak.
+ */
+void I2C_RStart() {
+	TWCR = (1 << I2CNT) | (1 << TWSTA) | (1 << TWEN);
+
+	/* Czekaj az ustawiona zostanie flaga I2CNT. */
+	I2C_WaitForFlag();
+	if ((TWSR & 0xF8) != TW_REP_START) {
+		I2C_ERROR(_Rep_Start_Error);
+	}
+}
+
+/**
+ * @ Opis:				Wysyla bit stopu.
+ * @ Parametry:			Brak.
+ * @ Zwracana wartosc: 	Brak.
+ */
+void I2C_Stop() {
+	TWCR = (1 << I2CNT) | (1 << TWEN) | (1 << TWSTO);
+}
+
+/**
+ * @ Opis:				Wysyla adres ukladu slave.
+ * @ Parametry:			address: adres ukladu.
+ * @ Zwracana wartosc:	Brak.
+ */
+void I2C_Write_SLA(uint8_t address) {
+	uint8_t status;
+	if ((address & 0x01) == 0)
+		status = TW_MT_SLA_ACK;
+	else
+		status = TW_MR_SLA_ACK;
+	TWDR = address;
+	TWCR = (1 << I2CNT) | (1 << TWEN);
+	I2C_WaitForFlag();
+	if (TW_STATUS != status) {
+		I2C_ERROR(_SLA_Error);
+	}
+}
+
+/**
+ * @ Opis:				Wysyla bajt danych.
+ * @ Parametry:			byte: bajt danych.
+ * @ Zwracana wartosc: 	Brak.
+ */
+void I2C_WriteByte(uint8_t byte) {
+	TWDR = byte;
+	TWCR = (1 << I2CNT) | (1 << TWEN);
+	I2C_WaitForFlag();
+	if (TW_STATUS != TW_MT_DATA_ACK)
+		I2C_ERROR(_ACK_Error);
+}
+
+/**
+ * @ Opis:				Odbiera bajt danych i wysyla bit NACK.
+ * @ Parametry:			Brak.
+ * @ Zwracana wartosc: 	Bajt danych.
+ */
+uint8_t I2C_ReadByte_NACK() {
+	TWCR = (1 << I2CNT) | (1 << TWEN);
+	I2C_WaitForFlag();
+	if (TW_STATUS != TW_MR_DATA_NACK) {
+		I2C_ERROR(_NACK_Error);
+	}
+	return TWDR;
+}
+
+/**
+ * @ Opis:				Odbiera bajt danych i wysyla bit ACK.
+ * @ Parametry:			Brak.
+ * @ Zwracana wartosc: 	Bajt danych.
+ */
+uint8_t I2C_ReadByte_ACK() {
+	TWCR = (1 << I2CNT) | (1 << TWEN) | (1 << TWEA);
+	I2C_WaitForFlag();
+	if (TW_STATUS != TW_MR_DATA_ACK)
+		I2C_ERROR(_ACK_Error);
+	return TWDR;
+}
+
+
+/**
+ * @ Opis:				Odczytuje ciag bajtow.
+ * @ Parametry:			-SLA: adres slave ukladu.
+ * 						-address: adres rejestru.
+ * 						-size: liczba bajtow do odebrania.
+ * 						-buffer: wskaznik na tablice zawierajaca dane.
+ * @ Zwracana wartosc: 	Brak.
+ */
+void I2C_ReadBytes(uint8_t SLA, uint8_t address, uint8_t size, uint8_t* buffer) {
+	I2C_Start();
+	I2C_Write_SLA(SLA);
+	I2C_WriteByte(address);
+	I2C_RStart();
+	I2C_Write_SLA(SLA + 1);
+
+	while (size--) {
+		*buffer++ = size ? I2C_ReadByte_ACK() : I2C_ReadByte_NACK();
+	}
+}
+
+/**
+ * @ Opis:				Wysyla ciag bajtow.
+ * @ Parametry:			-SLA: adres slave ukladu.
+ * 						-address: adres rejestru.
+ * 						-size: liczba bajtow do wyslania.
+ * 						-buffer: wskaznik na tablice zawierajaca dane.
+ * @ Zwracana wartosc: 	Brak.
+ */
+void I2C_WriteBytes(uint8_t SLA, uint8_t address, uint8_t size, uint8_t* buffer) {
+	I2C_Start();
+	I2C_Write_SLA(SLA);
+	I2C_WriteByte(address);
+	while (size--)
+		I2C_WriteByte(*buffer++);
+	I2C_Stop();
+}
+
+I2C_ErrorFlag I2C_CheckErrorFlag() {
+	return I2C_ErrorFlag;
+}

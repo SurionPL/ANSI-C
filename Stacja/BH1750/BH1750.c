@@ -32,10 +32,10 @@ void BH1750_PowerOn()
 	state_ = BH1750_Power_ON;
 
 	/* Wyslanie komendy wybudzenia */
-	TWI_Start();
-	TWI_Write_SLA(BH1750_SLA);
-	TWI_WriteByte(BH1750_Power_ON);
-	TWI_Stop();
+	I2C_Start();
+	I2C_Write_SLA(BH1750_SLA);
+	I2C_WriteByte(BH1750_Power_ON);
+	I2C_Stop();
 }
 
 
@@ -49,10 +49,10 @@ void BH1750_PowerDown()
 	state_ = BH1750_Power_OFF;
 
 	/* Wyslanie komendy wprowadzenia w stan uspienia */
-	TWI_Start();
-	TWI_Write_SLA(BH1750_SLA);
-	TWI_WriteByte(BH1750_Power_OFF);
-	TWI_Stop();
+	I2C_Start();
+	I2C_Write_SLA(BH1750_SLA);
+	I2C_WriteByte(BH1750_Power_OFF);
+	I2C_Stop();
 }
 
 
@@ -66,10 +66,10 @@ void BH1750_Start(uint8_t mode)
 	mode_ = mode;
 
 	/* Wyslanie komendy rozpoczecia pomiaru */
-	TWI_Start();
-	TWI_Write_SLA(BH1750_SLA);
-	TWI_WriteByte(mode_);
-	TWI_Stop();
+	I2C_Start();
+	I2C_Write_SLA(BH1750_SLA);
+	I2C_WriteByte(mode_);
+	I2C_Stop();
 }
 
 
@@ -85,11 +85,11 @@ uint16_t BH1750_Read()
 	uint16_t illuminance = 0;
 
 	/* Odczyt wyniku z rejestru */
-	TWI_Start();
-	TWI_Write_SLA(BH1750_SLA + 1);
-	msb = TWI_ReadByte_ACK();
-	lsb = TWI_ReadByte_NACK();
-	TWI_Stop();
+	I2C_Start();
+	I2C_Write_SLA(BH1750_SLA + 1);
+	msb = I2C_ReadByte_ACK();
+	lsb = I2C_ReadByte_NACK();
+	I2C_Stop();
 
 	/* Konwersja na fizyczne jednostki */
 	result = ((msb << 8) | lsb) * 10;
@@ -116,10 +116,10 @@ void BH1750_ResetDR()
 	if(state_ == BH1750_Power_OFF) BH1750_PowerOn();
 
 	/* Wyslanie komendy */
-	TWI_Start();
-	TWI_Write_SLA(BH1750_SLA);
-	TWI_WriteByte(BH1750_RESET);
-	TWI_Stop();
+	I2C_Start();
+	I2C_Write_SLA(BH1750_SLA);
+	I2C_WriteByte(BH1750_RESET);
+	I2C_Stop();
 
 	/* Wprowadzenie w tryb uspienia */
 	BH1750_PowerDown();

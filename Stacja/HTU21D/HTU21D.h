@@ -27,11 +27,6 @@
 #define HTU21D_TYPE_TEMPERATURE ((uint8_t)0x00)		/* Temperatura */
 #define HTU21D_TYPE_HUMIDITY	((uint8_t)0x02)		/* Wilgotnosc */
 
-/* Struktura rejestrow HTU21D */
-typedef struct {
-	uint8_t UR;
-} HTU21D_RegistersTypeDef;
-
 /* Rozdzielczosci pomiarow */
 typedef enum {
 	Humidity12b_Temperature14b = 0,

@@ -28,7 +28,6 @@
 #define BH1750_OTHR_MODE2  ((uint8_t)0x21)		/* One Time H-Resolution Mode2 */
 #define BH1750_OTLR_MODE   ((uint8_t)0x23)		/* One Time L-Resolution Mode */
 
-
 /* Funkcje BH1750 */
 void BH1750_PowerOn();
 void BH1750_PowerDown();

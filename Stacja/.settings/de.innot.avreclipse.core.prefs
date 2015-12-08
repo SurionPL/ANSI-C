@@ -1,4 +1,4 @@
-avrtarget/ClockFrequency=7372800
+avrtarget/ClockFrequency=3686400
 avrtarget/ExtRAMSize=0
 avrtarget/ExtendedRAM=false
 avrtarget/MCUType=atmega328p

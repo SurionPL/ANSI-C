@@ -1,33 +1,13 @@
-00:51:04 **** Incremental Build of configuration Release for project Stacja ****
+20:22:28 **** Incremental Build of configuration Release for project Stacja ****
 make all 
-Building file: ../I2C/I2C.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=7372800UL -MMD -MP -MF"I2C/I2C.d" -MT"I2C/I2C.d" -c -o "I2C/I2C.o" "../I2C/I2C.c"
-Finished building: ../I2C/I2C.c
- 
-Building file: ../HTU21D/HTU21D.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=7372800UL -MMD -MP -MF"HTU21D/HTU21D.d" -MT"HTU21D/HTU21D.d" -c -o "HTU21D/HTU21D.o" "../HTU21D/HTU21D.c"
-Finished building: ../HTU21D/HTU21D.c
- 
-Building file: ../BMP180/BMP180.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=7372800UL -MMD -MP -MF"BMP180/BMP180.d" -MT"BMP180/BMP180.d" -c -o "BMP180/BMP180.o" "../BMP180/BMP180.c"
-Finished building: ../BMP180/BMP180.c
- 
-Building file: ../BH1750/BH1750.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=7372800UL -MMD -MP -MF"BH1750/BH1750.d" -MT"BH1750/BH1750.d" -c -o "BH1750/BH1750.o" "../BH1750/BH1750.c"
-Finished building: ../BH1750/BH1750.c
- 
 Building file: ../AuxiliaryLib/AuxiliaryLib.c
 Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=7372800UL -MMD -MP -MF"AuxiliaryLib/AuxiliaryLib.d" -MT"AuxiliaryLib/AuxiliaryLib.d" -c -o "AuxiliaryLib/AuxiliaryLib.o" "../AuxiliaryLib/AuxiliaryLib.c"
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=3686400UL -MMD -MP -MF"AuxiliaryLib/AuxiliaryLib.d" -MT"AuxiliaryLib/AuxiliaryLib.d" -c -o "AuxiliaryLib/AuxiliaryLib.o" "../AuxiliaryLib/AuxiliaryLib.c"
 Finished building: ../AuxiliaryLib/AuxiliaryLib.c
  
 Building file: ../main.c
 Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=7372800UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=3686400UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
 Finished building: ../main.c
  
 Building target: Stacja.elf
@@ -53,10 +33,10 @@ AVR Memory Usage
 ----------------
 Device: atmega328p
 
-Program:    7566 bytes (23.1% Full)
+Program:    7848 bytes (24.0% Full)
 (.text + .data + .bootloader)
 
-Data:        553 bytes (27.0% Full)
+Data:        556 bytes (27.1% Full)
 (.data + .bss + .noinit)
 
 

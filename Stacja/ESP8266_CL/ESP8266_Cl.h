@@ -11,28 +11,20 @@
 #ifndef ESP8266_H_
 #define ESP8266_H_
 
-#define ESP_CHIP_PIN	PB0
-#define ESP_CHIP_PORT	PORTB
-#define ESP_CHIP_DIR	DDRB
-
-/* Bledy */
-typedef enum
-{
-	ESP_OK = 0,
-	ESP_Error = 1,
-	ESP_Chan_Error,
-	ESP_Protocol_Error
-}ESP_ErrorFlag;
-
+/* Pin CH_PD */
+#define ESP_CHPD_PIN	PB0
+#define ESP_CHPD_PORT	PORTB
+#define ESP_CHPD_DIR	DDRB
 
 /*  Funkcje ESP8266 */
 void ESP_PowerOn();
+void ESP_PowerOff();
 void ESP_Init();
-void ESP_Restart();	//++
 void ESP_Connect();
 void ESP_Disconnect();
-ESP_ErrorFlag ESP_ConnectServer(char* ip_address, char* port);
+void ESP_ConnectServer(char* ip_address, char* port);
 void ESP_DisconnectServer();
 void ESP_SendData(char* data, uint8_t length);
+void ESP_Restart();
 
 #endif /* ESP8266_H_ */

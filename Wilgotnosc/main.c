@@ -41,7 +41,7 @@ int main() {
 	DDRB  = 1<<PB1;
 
 	USART_Init(__UBRR);
-	TWI_Init(100000/100);
+	TWI_Init(100000);
 	//InterfaceInit();
 	sei();
 	HTU21D_Init(Humidity11b_Temperature11b);

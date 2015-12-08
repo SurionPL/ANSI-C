@@ -18,9 +18,42 @@
 BMP180_TypeDef BMP180_Struct;
 
 
+
+
+
+/**
+ * @ Brief  	Gets the uncompensed temperature value (UT) from sensor.
+ * @ Parameter  None.
+ * @ Retval 	Uncompensated temperature value (UP).
+ */
+int32_t BMP180_GetUT() {
+	int32_t UT = 0;
+	uint8_t buffer[2];
+	I2C_ReadBytes(BMP180_SLA, BMP180_ADC_MSB_REG, 2, buffer);
+	BMP180_Struct.UT = 0;
+	BMP180_Struct.UT = (((int32_t) buffer[0]) << 8) | ((int32_t) buffer[1]);
+	return UT;
+}
+
+
+/**
+ * @ Brief  	Gets the uncompensed pressure value (UP) from sensor.
+ * @ Parameter  None.
+ * @ Retval 	None
+ */
+int32_t BMP180_GetUP() {
+	int32_t UP = 0;
+	uint8_t OSS = ((BMP180_Struct.BMP180_Mode) & 0xC0) >> 6;  // ? czy uint8_t
+	uint8_t buffer[3];
+	I2C_ReadBytes(BMP180_SLA, BMP180_ADC_MSB_REG, 3, buffer);
+	UP = ((((int32_t) buffer[0]) << 16) | (((int32_t) buffer[1]) << 8) | (((int32_t) buffer[2]))) >> (8 - OSS);
+	return UP;
+}
+
+
 /**
  * @ Opis:				Initializes the BMP180 sensor.
- * @ Parametry:			BMP180Mode_TypeDef: tryb rozdzielczosci pomiaru.
+ * @ Parametry:			BMP180Mode_TypeDef: tryb pomiaru.
  * @ Zwracana wartosc:	None.
  */
 void BMP180_Init(BMP180Mode_TypeDef BMP180_Mode) {
@@ -28,7 +61,7 @@ void BMP180_Init(BMP180Mode_TypeDef BMP180_Mode) {
 
 	uint8_t buffer[22];
 
-	TWI_ReadBytes(BMP180_SLA, BMP180_MEM_START, 22, buffer);
+	I2C_ReadBytes(BMP180_SLA, BMP180_MEM_START, 22, buffer);
 
 	BMP180_Struct.AC1 = ((short) buffer[0] << 8 		| ((short) buffer[1]));
 	BMP180_Struct.AC2 = ((short) buffer[2] << 8 		| ((short) buffer[3]));
@@ -49,12 +82,12 @@ void BMP180_Init(BMP180Mode_TypeDef BMP180_Mode) {
  * @ Parameter  None.
  * @ Retval 	None.
  */
-void BMP180_StartTemp() {
-	TWI_Start();
-	TWI_Write_SLA(BMP180_SLA);
-	TWI_WriteByte(BMP180_CTRL_MEAS_REG);
-	TWI_WriteByte(BMP180_T_MEASURE);
-	TWI_Stop();
+void BMP180_StartTemperature() {
+	I2C_Start();
+	I2C_Write_SLA(BMP180_SLA);
+	I2C_WriteByte(BMP180_CTRL_MEAS_REG);
+	I2C_WriteByte(BMP180_T_MEASURE);
+	I2C_Stop();
 }
 
 
@@ -64,12 +97,12 @@ void BMP180_StartTemp() {
  * @ Parameter   None.
  * @ Retval 	 None.
  */
-void BMP180_StartPress() {
-	TWI_Start();
-	TWI_Write_SLA(BMP180_SLA);
-	TWI_WriteByte(BMP180_CTRL_MEAS_REG);
-	TWI_WriteByte(BMP180_Struct.BMP180_Mode);
-	TWI_Stop();
+void BMP180_StartPressure() {
+	I2C_Start();
+	I2C_Write_SLA(BMP180_SLA);
+	I2C_WriteByte(BMP180_CTRL_MEAS_REG);
+	I2C_WriteByte(BMP180_Struct.BMP180_Mode);
+	I2C_Stop();
 }
 
 
@@ -78,7 +111,7 @@ void BMP180_StartPress() {
  * @ Parameter  None.
  * @ Retval 	Temperature in 0.1*C.
  */
-int32_t BMP180_GetTemp() {
+int32_t BMP180_GetTemperature() {
 	BMP180_Struct.UT = BMP180_GetUT();
 
 	/* Algorytm */
@@ -102,7 +135,7 @@ int32_t BMP180_GetTemp() {
  * @ Parameter  None.
  * @ Retval 	Pressure in Pa.
  */
-int32_t BMP180_GetPress() {
+int32_t BMP180_GetPressure() {
 	uint8_t OSS = ((BMP180_Struct.BMP180_Mode) & 0xC0) >> 6;
 	BMP180_Struct.UP = BMP180_GetUP();
 	int32_t pressure = 0;
@@ -134,31 +167,3 @@ int32_t BMP180_GetPress() {
 	return pressure;
 }
 
-/**
- * @ Brief  	Gets the uncompensed temperature value (UT) from sensor.
- * @ Parameter  None.
- * @ Retval 	Uncompensated temperature value (UP).
- */
-int32_t BMP180_GetUT() {
-	int32_t UT = 0;
-	uint8_t buffer[2];
-	TWI_ReadBytes(BMP180_SLA, BMP180_ADC_MSB_REG, 2, buffer);
-	BMP180_Struct.UT = 0;
-	BMP180_Struct.UT = (((int32_t) buffer[0]) << 8) | ((int32_t) buffer[1]);
-	return UT;
-}
-
-
-/**
- * @ Brief  	Gets the uncompensed pressure value (UP) from sensor.
- * @ Parameter  None.
- * @ Retval 	None
- */
-int32_t BMP180_GetUP() {
-	int32_t UP = 0;
-	uint8_t OSS = ((BMP180_Struct.BMP180_Mode) & 0xC0) >> 6;  // ? czy uint8_t
-	uint8_t buffer[3];
-	TWI_ReadBytes(BMP180_SLA, BMP180_ADC_MSB_REG, 3, buffer);
-	UP = ((((int32_t) buffer[0]) << 16) | (((int32_t) buffer[1]) << 8) | (((int32_t) buffer[2]))) >> (8 - OSS);
-	return UP;
-}

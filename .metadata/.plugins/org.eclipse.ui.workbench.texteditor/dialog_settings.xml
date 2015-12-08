@@ -6,30 +6,30 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="" key="selection"/>
+		<item value="cnt" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="idx"/>
+			<item value="regis"/>
+			<item value="CHIP"/>
+			<item value="TWI"/>
+			<item value="I2C"/>
+			<item value="I2CNT"/>
 			<item value="PSTR"/>
 			<item value="PORTB"/>
-			<item value="index"/>
-			<item value="reset_counter"/>
-			<item value="trigger_counter"/>
-			<item value="int0_flag"/>
-			<item value="long"/>
-			<item value="unsigned long"/>
 		</list>
 		<list key="replacehistory">
+			<item value="cnt"/>
+			<item value="CHPD"/>
+			<item value="I2C"/>
+			<item value=""/>
+			<item value="TWINT"/>
 			<item value="idx"/>
 			<item value="minutes"/>
 			<item value="seconds"/>
-			<item value="trigger_flag"/>
-			<item value="int32_t"/>
-			<item value="uint32_t"/>
-			<item value="I2C"/>
-			<item value="DS3231"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

@@ -17,8 +17,8 @@
 #include "../MKUART/mkuart.h"
 /*-------------------------------------------------------------------*/
 
-HTU21D_RegistersTypeDef RegistersStruct; /* Struktura rejestrow HTU21D */
-
+//HTU21D_RegistersTypeDef RegistersStruct; /* Struktura rejestrow HTU21D */
+uint8_t UR;
 /**
  * @ Opis:				Inicjalizuje modul HTU21D.
  * @ Parametry:  		HTU21D_ResolutionTypeDef: wartosc powiazana z trybem pomiaru.
@@ -26,34 +26,34 @@ HTU21D_RegistersTypeDef RegistersStruct; /* Struktura rejestrow HTU21D */
  */
 void HTU21D_Init(HTU21D_ResolutionTypeDef Resolution) {
 	/* Odczyt zawartosc rejestru uzytkownika */
-	TWI_Start();
-	TWI_Write_SLA(HTU21D_SLA);
-	TWI_WriteByte(HTU21D_READ_UR);
-	TWI_RStart();
-	TWI_Write_SLA(HTU21D_SLA + 1);
-	RegistersStruct.UR = TWI_ReadByte_NACK();
-	TWI_Stop();
+	I2C_Start();
+	I2C_Write_SLA(HTU21D_SLA);
+	I2C_WriteByte(HTU21D_READ_UR);
+	I2C_RStart();
+	I2C_Write_SLA(HTU21D_SLA + 1);
+	UR = I2C_ReadByte_NACK();
+	I2C_Stop();
 
-	RegistersStruct.UR &= 0x38;	// Save reserved bits
+	UR &= 0x38;	// Save reserved bits
 
 	/* Wybor rozdzielczosci pomiarow */
 	if (Resolution == Humidity12b_Temperature14b) {
-		RegistersStruct.UR |= 0x02;
+		UR |= 0x02;
 	} else if (Resolution == Humidity8b_Temperature12b) {
-		RegistersStruct.UR |= 0x03;
+		UR |= 0x03;
 	} else if (Resolution == Humidity10b_Temperature13b) {
-		RegistersStruct.UR |= 0x82;
+		UR |= 0x82;
 	} else {
-		RegistersStruct.UR |= HTU21D_UR_DEFAULT;
+		UR |= HTU21D_UR_DEFAULT;
 		//Domyslna wartosc - 11/11 bitow
 	}
 
 	/* Wyslanie zmienionej wartosci rejestru uzytkownika */
-	TWI_Start();
-	TWI_Write_SLA(HTU21D_SLA);
-	TWI_WriteByte(HTU21D_WRITE_UR);
-	TWI_WriteByte(RegistersStruct.UR);
-	TWI_Stop();
+	I2C_Start();
+	I2C_Write_SLA(HTU21D_SLA);
+	I2C_WriteByte(HTU21D_WRITE_UR);
+	I2C_WriteByte(UR);
+	I2C_Stop();
 }
 
 /**
@@ -63,10 +63,10 @@ void HTU21D_Init(HTU21D_ResolutionTypeDef Resolution) {
  */
 void HTU21D_StartTemperature() {
 	/* Wyslanie komendy rozpoczecia pomiaru temperatury */
-	TWI_Start();
-	TWI_Write_SLA(HTU21D_SLA);
-	TWI_WriteByte(HTU21D_TEMP_MEAS_NHM);
-	TWI_Stop();
+	I2C_Start();
+	I2C_Write_SLA(HTU21D_SLA);
+	I2C_WriteByte(HTU21D_TEMP_MEAS_NHM);
+	I2C_Stop();
 }
 
 /**
@@ -76,10 +76,10 @@ void HTU21D_StartTemperature() {
  */
 void HTU21D_StartHumidity() {
 	/* Wyslanie komendy rozpoczecia pomiaru wilgotnosci */
-	TWI_Start();
-	TWI_Write_SLA(HTU21D_SLA);
-	TWI_WriteByte(HTU21D_HUM_MEAS_NHM);
-	TWI_Stop();
+	I2C_Start();
+	I2C_Write_SLA(HTU21D_SLA);
+	I2C_WriteByte(HTU21D_HUM_MEAS_NHM);
+	I2C_Stop();
 }
 
 /**
@@ -95,11 +95,11 @@ void HTU21D_GetTemperature(int8_t* integer, uint8_t* fractional) {
 	int32_t temperature;
 
 	/* Odczyt wyniku pomiaru z rejestru sensora */
-	TWI_Start();
-	TWI_Write_SLA(HTU21D_SLA + 1);
-	result = TWI_ReadByte_ACK() << 8;
-	result |= TWI_ReadByte_NACK();
-	TWI_Stop();
+	I2C_Start();
+	I2C_Write_SLA(HTU21D_SLA + 1);
+	result = I2C_ReadByte_ACK() << 8;
+	result |= I2C_ReadByte_NACK();
+	I2C_Stop();
 
 	if ((result & 0x02) == HTU21D_TYPE_TEMPERATURE) {
 		/* Konwersja wartosci z rejestru na stopnie Celsjusza */
@@ -133,11 +133,11 @@ uint8_t HTU21D_GetHumidity() {
 	uint32_t humidity;
 
 	/* Odczyt danych z rejestru */
-	TWI_Start();
-	TWI_Write_SLA(HTU21D_SLA + 1);
-	msb = TWI_ReadByte_ACK();
-	lsb = TWI_ReadByte_NACK();
-	TWI_Stop();
+	I2C_Start();
+	I2C_Write_SLA(HTU21D_SLA + 1);
+	msb = I2C_ReadByte_ACK();
+	lsb = I2C_ReadByte_NACK();
+	I2C_Stop();
 
 	result = (msb << 8) | lsb;
 

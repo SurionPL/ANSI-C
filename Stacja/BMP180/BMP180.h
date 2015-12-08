@@ -1,20 +1,18 @@
 /**
-  *******************************************************************************
-  * @ Plik    BMP180.h
-  * @ Autor   Bartlomiej Kusmierczyk
-  * @ Wersja  V1.0
-  * @ Data    28 lipca 2015
-  * @ Opis    Ten plik zawiera wszystkie prototypy funkcji do obslugi czujnika
-  * 		  cisnienia BMP180.
-  *******************************************************************************
-  */
-
+ *******************************************************************************
+ * @ Plik    BMP180.h
+ * @ Autor   Bartlomiej Kusmierczyk
+ * @ Wersja  V1.0
+ * @ Data    28 lipca 2015
+ * @ Opis    Ten plik zawiera wszystkie prototypy funkcji do obslugi czujnika
+ * 		  cisnienia BMP180.
+ *******************************************************************************
+ */
 
 #ifndef BMP180_H_
 #define BMP180_H_
 
 #define BMP180_SLA ((uint8_t)0xEE) 				/* Adres slave ukladu */
-
 
 /* Adresy rejestrow czujnika */
 #define BMP180_ADC_XLSB_REG  ((uint8_t)0xF8)
@@ -24,10 +22,8 @@
 #define BMP180_SOFT_RST_REG  ((uint8_t)0xE0)
 #define BMP180_SOFT_RST_VAL  ((uint8_t)0xB6)
 
-
 /* Poczatek pamieci czujnika */
 #define BMP180_MEM_START 0xAA
-
 
 /* Adresy parametrów kalibracyjnych */
 #define BMP180_AC1_MSB	((uint8_t)0xAA)			/* Parametr AC1 - adres MSB */
@@ -64,38 +60,30 @@
 #define BMP180_P_MEASURE_UHR 	((uint8_t)0xF4)	/* Ultra High Resolution */
 
 /* Tryby pomiaru cisnienia */
-typedef enum
-{
-  BMP180_Mode_ULP = 0x34,	/* Ultra Low Power mode */
-  BMP180_Mode_ST = 	0x74,	/* Standard mode */
-  BMP180_Mode_HR = 	0xB4,	/* High Resolution mode */
-  BMP180_Mode_UHR = 0xF4	/* Ultra High Resolution mode */
-}BMP180Mode_TypeDef;
-
+typedef enum {
+	BMP180_Mode_ULP = 0x34, /* Ultra Low Power mode */
+	BMP180_Mode_ST = 0x74,  /* Standard mode */
+	BMP180_Mode_HR = 0xB4,  /* High Resolution mode */
+	BMP180_Mode_UHR = 0xF4  /* Ultra High Resolution mode */
+} BMP180Mode_TypeDef;
 
 /* Struktura BMP180 z danymi konfiguracyjnymi */
-typedef struct
-{
+typedef struct {
 	BMP180Mode_TypeDef BMP180_Mode;
-	short AC1,AC2,AC3;
-	unsigned short AC4,AC5,AC6;
-	short B1,B2;
-	short MB,MC,MD;
+	short AC1, AC2, AC3;
+	unsigned short AC4, AC5, AC6;
+	short B1, B2;
+	short MB, MC, MD;
 	long B5;
 	long UT;
 	long UP;
-}BMP180_TypeDef;
-
+} BMP180_TypeDef;
 
 /* Funkcje BMP180 */
 void BMP180_Init(BMP180Mode_TypeDef BMP180_Mode);
-void BMP180_StartTemp();
-void BMP180_StartPress();
-int32_t BMP180_GetTemp();
-int32_t BMP180_GetPress();
-int32_t BMP180_GetUT();
-int32_t BMP180_GetUP();
-
-
+void BMP180_StartTemperature();
+void BMP180_StartPressure();
+int32_t BMP180_GetTemperature();
+int32_t BMP180_GetPressure();
 
 #endif /* BMP180_H_ */
