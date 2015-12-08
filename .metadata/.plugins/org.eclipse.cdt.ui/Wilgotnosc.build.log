@@ -1,5 +1,20 @@
-16:15:42 **** Build of configuration Release for project Wilgotnosc ****
+21:36:12 **** Incremental Build of configuration Release for project Wilgotnosc ****
 make all 
+Building file: ../MKUART/mkuart.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=3686400UL -MMD -MP -MF"MKUART/mkuart.d" -MT"MKUART/mkuart.d" -c -o "MKUART/mkuart.o" "../MKUART/mkuart.c"
+Finished building: ../MKUART/mkuart.c
+ 
+Building file: ../HTU21D.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=3686400UL -MMD -MP -MF"HTU21D.d" -MT"HTU21D.d" -c -o "HTU21D.o" "../HTU21D.c"
+Finished building: ../HTU21D.c
+ 
+Building file: ../I2C.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=3686400UL -MMD -MP -MF"I2C.d" -MT"I2C.d" -c -o "I2C.o" "../I2C.c"
+Finished building: ../I2C.c
+ 
 Building file: ../main.c
 Invoking: AVR Compiler
 avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=3686400UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
@@ -40,5 +55,5 @@ Data:        159 bytes (7.8% Full)
 Finished building: sizedummy
  
 
-16:15:44 Build Finished (took 2s.47ms)
+21:36:15 Build Finished (took 2s.799ms)
 

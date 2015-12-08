@@ -70,7 +70,7 @@ int8_t getTemperature() {
 	_delay_ms(20);
 	HTU21D_GetTemperature(&temperature_int, &temperature_fract);
 
-	return temperature_int;
+	return temperature_int;	// Temperatura w *C
 
 }
 
@@ -81,7 +81,7 @@ uint8_t getHumidity() {
 	_delay_ms(20);
 	humidity = HTU21D_GetHumidity();
 
-	return humidity;
+	return humidity; // Wilgotnosc w %
 }
 
 uint16_t getIlluminance() {
@@ -91,7 +91,7 @@ uint16_t getIlluminance() {
 	_delay_ms(150);
 	illuminance = BH1750_Read();
 
-	return illuminance;
+	return illuminance;	// Natezenie oswietlenia w luksach
 }
 
 int32_t getPressure() {
@@ -99,9 +99,9 @@ int32_t getPressure() {
 
 	BMP180_StartPressure();
 	_delay_ms(30);
-	pressure = BMP180_GetPressure();
+	pressure = BMP180_GetPressure() / 100;
 
-	return pressure;
+	return pressure; // Cisnienie w hPa
 }
 
 void initializeTimers() {

@@ -145,8 +145,9 @@ uint8_t HTU21D_GetHumidity() {
 		/* Konwersja wartosci z rejestru na % */
 		humidity = ((((uint32_t) 12500 * (result & 0xFFFFFFFC)) >> 16)
 				- (uint32_t) 600);
-
-		return ((uint8_t) (humidity / 100));
+		humidity/=100;
+		if (humidity > 100) humidity = 0;
+		return ((uint8_t)humidity) ;
 	}
 	return (0);
 }

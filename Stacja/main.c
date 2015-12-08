@@ -16,52 +16,54 @@
 #include "BH1750/BH1750.h"
 #include "MKUART/mkuart.h"
 
-#define DISABLE 0x00
-#define ENABLE  0x01
+#define DISABLE 0x00	/* Aktywacja   */
+#define ENABLE  0x01	/* Deaktywacja */
 
-#define SIZE 8
-#define MASK (SIZE-1)
+#define LED_ON 	DDRB = (1<<PB1); PORTB = (1<<PB1)	/* Zapalanie diody */
 
-//volatile uint8_t seconds;
-volatile uint8_t minutes;
-volatile uint8_t seconds;
+#define SIZE 8								/* Rozmiar buforow przechowujacych wyniki */
+#define MASK (SIZE-1)						/* Maska bufora cyrkulacyjnego */
 
-volatile uint8_t trigger_flag; /* Flaga zezwolenia na wyzwolenie pomiarow */
-volatile uint8_t reset_connection_flag; /* Flaga zezwolenia na restart polaczenia z siecia */
-volatile uint8_t selector;
+volatile uint8_t seconds; 					/* Licznik sekund */
+volatile uint8_t minutes; 					/* Licznik minut */
 
-/* Tablice wynikow pomiarow do sredniej kroczacej */
+volatile uint8_t trigger_flag; 				/* Flaga zezwolenia na wyzwolenie pomiarow */
+volatile uint8_t reset_connection_flag; 	/* Flaga zezwolenia na restart polaczenia z siecia */
+volatile uint8_t selector; 					/* Selektor */
+
+/* Bufory wynikow pomiarow do sredniej kroczacej */
 int8_t temperature[SIZE];
 uint16_t illuminance[SIZE];
 uint8_t humidity[SIZE];
 int32_t pressure[SIZE];
 
-/* Usrednione wartosci */
+/* Usrednione wartosci pomiarow*/
 int8_t temperature_avg;
 int32_t pressure_avg;
 uint16_t illuminance_avg;
 uint8_t humidity_avg;
 
-uint8_t cnt;
-uint8_t idx;
+uint8_t cnt; /* Licznik */
+uint8_t idx; /* Indeks */
 
 /*============= Program glowny =============*/
 int main() {
-	DDRB = 1 << PB1;
-	//PORTB = 1 << PB1;
+	LED_ON
+	;
 	cnt = 0;
 	idx = 0;
 	seconds = 0;
 	minutes = 1;
-	trigger_flag = DISABLE;
+	trigger_flag = ENABLE;
 	reset_connection_flag = DISABLE;
+
+	/* Inicjalizacja interfejsow komunikacyjnych i modulow */
 	initializeInterfaces();
 	initializeModules();
 
 	sei();
+	/* Konfiguracja timera 1. w trybie CTC */
 	initializeTimers();
-	//PORTB = 2;
-	//uart_puts("Siema to uklad! \r\n");
 
 	/* Poczatkowa seria pomiarow */
 	for (uint8_t i = 1; i < SIZE; i++) {
@@ -70,30 +72,17 @@ int main() {
 		illuminance[i] = getIlluminance();
 		pressure[i] = getPressure();
 	}
-	//PORTB ^= 1<<PB1;
-
-	//humidity_avg = calcAVG_UINT8(humidity, SIZE);
-	//sendHumidity(humidity_avg);
-
-	//temperature_avg = calcAVG_INT8(temperature, SIZE);
-	//sendTemperature(temperature_avg);
-
-	//illuminance_avg = calcAVG_UINT16(illuminance, SIZE);
-	//sendIlluminance(illuminance_avg);
-
-	//pressure_avg = calcAVG_INT32(pressure, SIZE);
-	//sendPressure(pressure_avg);
 
 	/* Nawiazanie lacznosci z siecia */
 	ESP_Connect();
 	_delay_ms(3000);
 
-	/* Wyslanie wynikow na ThingSpeak */
-
 	/* Nieskonczona petla */
 	while (1) {
 		if (trigger_flag == ENABLE) {
 			selector = cnt & 0x03;
+
+			/* Wybor parametru do zmierzenia i wyslania na ThingSpeak*/
 			if (selector == 0) {
 				temperature[idx & MASK] = getTemperature();
 				temperature_avg = calcAVG_INT8(temperature, SIZE);
@@ -107,16 +96,14 @@ int main() {
 				illuminance_avg = calcAVG_UINT16(illuminance, SIZE);
 				sendIlluminance(illuminance_avg);
 			} else if (selector == 3) {
-				pressure[idx & MASK] = getPressure()/100;
+				pressure[idx & MASK] = getPressure() / 100;
 				pressure_avg = calcAVG_INT32(pressure, SIZE);
 				sendPressure(pressure_avg);
 				idx++;
 			}
 
-			/* Wykonywanie pomiarow i odczyt wynikow */
-
-			trigger_flag = DISABLE;
-			cnt++;
+			trigger_flag = DISABLE; 	/* Wyzerowanie flagi */
+			cnt++; 						/* Inkrementacja licznika cnt */
 		}
 
 		if (reset_connection_flag == ENABLE) {
@@ -129,7 +116,7 @@ int main() {
 	}
 }
 
-/* Procedura obslugi przerwanie CTC od Timera 1. */
+/* Procedura obslugi przerwania CTC od Timera 1. */
 ISR(TIMER1_COMPA_vect) {
 	seconds++;
 
@@ -142,5 +129,5 @@ ISR(TIMER1_COMPA_vect) {
 		minutes = 0;
 		reset_connection_flag = ENABLE;
 	}
-	PORTB ^= 1 << PB1;
+	//PORTB ^= 1 << PB1;
 }

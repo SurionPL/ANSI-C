@@ -1,10 +1,5 @@
-20:22:28 **** Incremental Build of configuration Release for project Stacja ****
+22:33:42 **** Incremental Build of configuration Release for project Stacja ****
 make all 
-Building file: ../AuxiliaryLib/AuxiliaryLib.c
-Invoking: AVR Compiler
-avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=3686400UL -MMD -MP -MF"AuxiliaryLib/AuxiliaryLib.d" -MT"AuxiliaryLib/AuxiliaryLib.d" -c -o "AuxiliaryLib/AuxiliaryLib.o" "../AuxiliaryLib/AuxiliaryLib.c"
-Finished building: ../AuxiliaryLib/AuxiliaryLib.c
- 
 Building file: ../main.c
 Invoking: AVR Compiler
 avr-gcc -Wall -Os -fpack-struct -fshort-enums -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=3686400UL -MMD -MP -MF"main.d" -MT"main.d" -c -o "main.o" "../main.c"
@@ -33,7 +28,7 @@ AVR Memory Usage
 ----------------
 Device: atmega328p
 
-Program:    7848 bytes (24.0% Full)
+Program:    7878 bytes (24.0% Full)
 (.text + .data + .bootloader)
 
 Data:        556 bytes (27.1% Full)
