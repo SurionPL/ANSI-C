@@ -29,7 +29,9 @@ void initializeModules() {
 	//PORTB = 2;
 	HTU21D_Init(Humidity11b_Temperature11b);
 	BMP180_Init(BMP180_Mode_ST);
-
+	BMP180_StartTemperature();
+	_delay_ms(30);
+	BMP180_GetTemperature();
 }
 
 void sendTemperature(int8_t temperature) {
@@ -78,7 +80,7 @@ uint8_t getHumidity() {
 	uint8_t humidity;
 
 	HTU21D_StartHumidity();
-	_delay_ms(20);
+	_delay_ms(25);
 	humidity = HTU21D_GetHumidity();
 
 	return humidity; // Wilgotnosc w %
@@ -96,12 +98,15 @@ uint16_t getIlluminance() {
 
 int32_t getPressure() {
 	int32_t pressure;
-
+	BMP180_StartTemperature();
+	_delay_ms(30);
+	BMP180_GetTemperature();
+	_delay_ms(10);
 	BMP180_StartPressure();
 	_delay_ms(30);
-	pressure = BMP180_GetPressure() / 100;
+	pressure = BMP180_GetPressure();
 
-	return pressure; // Cisnienie w hPa
+	return pressure; // Cisnienie w Pa
 }
 
 void initializeTimers() {

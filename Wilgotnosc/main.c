@@ -41,7 +41,7 @@ int main() {
 	DDRB  = 1<<PB1;
 
 	USART_Init(__UBRR);
-	TWI_Init(100000);
+	TWI_Init(100000/100);
 	//InterfaceInit();
 	sei();
 	HTU21D_Init(Humidity11b_Temperature11b);
@@ -49,18 +49,19 @@ int main() {
 	PORTB=2;
 	while(1)
 	{
+		HTU21D_StartHumidity();
 		//PORTB^=2;
 		uart_puts("Pomiar:\r\n");
 
-		HTU21D_StartTemperature();
+		//HTU21D_StartTemperature();
 		_delay_ms(400);
-		//hum = HTU21D_GetHumidity();
-		//if( hum != -1){
-		//SendHumUSART();}
-		//else
-			//uart_puts(" error ");
-		HTU21D_GetTemperature(&t_integer, &t_fractional);
-		SendTempUSART();
+		hum = HTU21D_GetHumidity();
+		if( hum != -1){
+		SendHumUSART();}
+		else
+			uart_puts(" error ");
+		//HTU21D_GetTemperature(&t_integer, &t_fractional);
+		//SendTempUSART();
 		_delay_ms(2000);
 
 	}

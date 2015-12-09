@@ -18,9 +18,10 @@
 #include "ESP8266_Cl.h"
 /*-------------------------------------------------------------------*/
 
-char ssid[] = "PENTAGON";				/* SSID sieci*/
-char password[] = "BarT2014DST";		/* Haslo do sieci */
-
+//char ssid[] = "PENTAGON";				/* SSID sieci*/
+//char password[] = "BarT2014DST";		/* Haslo do sieci */
+char ssid[] = "SIEC_DOMOWA";				/* SSID sieci*/
+char password[] = "HASLO123";		/* Haslo do sieci */
 
 void ESP_PowerOn() {
 	ESP_CHPD_PORT |= (1 << ESP_CHPD_PIN);

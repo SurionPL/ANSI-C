@@ -21,7 +21,7 @@
 
 #define LED_ON 	DDRB = (1<<PB1); PORTB = (1<<PB1)	/* Zapalanie diody */
 
-#define SIZE 8								/* Rozmiar buforow przechowujacych wyniki */
+#define SIZE 4								/* Rozmiar buforow przechowujacych wyniki */
 #define MASK (SIZE-1)						/* Maska bufora cyrkulacyjnego */
 
 volatile uint8_t seconds; 					/* Licznik sekund */
@@ -89,15 +89,15 @@ int main() {
 				sendTemperature(temperature_avg);
 			} else if (selector == 1) {
 				humidity[idx & MASK] = getHumidity();
-				humidity_avg = calcAVG_UINT8(humidity, SIZE);
+				humidity_avg = calcAVG_UINT8(humidity, SIZE);			// Wilgotnosc w %
 				sendHumidity(humidity_avg);
 			} else if (selector == 2) {
 				illuminance[idx & MASK] = getIlluminance();
-				illuminance_avg = calcAVG_UINT16(illuminance, SIZE);
+				illuminance_avg = calcAVG_UINT16(illuminance, SIZE);	// Natezenie osw. w luksach
 				sendIlluminance(illuminance_avg);
 			} else if (selector == 3) {
-				pressure[idx & MASK] = getPressure() / 100;
-				pressure_avg = calcAVG_INT32(pressure, SIZE);
+				pressure[idx & MASK] = getPressure();
+				pressure_avg = calcAVG_INT32(pressure, SIZE) / 100;		// Cisnienie w hPa
 				sendPressure(pressure_avg);
 				idx++;
 			}
@@ -129,5 +129,5 @@ ISR(TIMER1_COMPA_vect) {
 		minutes = 0;
 		reset_connection_flag = ENABLE;
 	}
-	//PORTB ^= 1 << PB1;
+	PORTB ^= 1 << PB1;
 }

@@ -30,7 +30,7 @@ int32_t BMP180_GetUT() {
 	int32_t UT = 0;
 	uint8_t buffer[2];
 	I2C_ReadBytes(BMP180_SLA, BMP180_ADC_MSB_REG, 2, buffer);
-	BMP180_Struct.UT = 0;
+	//BMP180_Struct.UT = 0;
 	BMP180_Struct.UT = (((int32_t) buffer[0]) << 8) | ((int32_t) buffer[1]);
 	return UT;
 }
@@ -43,7 +43,7 @@ int32_t BMP180_GetUT() {
  */
 int32_t BMP180_GetUP() {
 	int32_t UP = 0;
-	uint8_t OSS = ((BMP180_Struct.BMP180_Mode) & 0xC0) >> 6;  // ? czy uint8_t
+	uint8_t OSS = ((BMP180_Struct.BMP180_Mode) & 0xC0) >> 6;
 	uint8_t buffer[3];
 	I2C_ReadBytes(BMP180_SLA, BMP180_ADC_MSB_REG, 3, buffer);
 	UP = ((((int32_t) buffer[0]) << 16) | (((int32_t) buffer[1]) << 8) | (((int32_t) buffer[2]))) >> (8 - OSS);
@@ -74,6 +74,18 @@ void BMP180_Init(BMP180Mode_TypeDef BMP180_Mode) {
 	BMP180_Struct.MB  = ((short) buffer[16] << 8 		| ((short) buffer[17]));
 	BMP180_Struct.MC  = ((short) buffer[18] << 8 		| ((short) buffer[19]));
 	BMP180_Struct.MD  = ((short) buffer[20] << 8 		| ((short) buffer[21]));
+
+//	BMP180_Struct.AC1 = 408;
+//	BMP180_Struct.AC2 = -72;
+//	BMP180_Struct.AC3 = -14383;
+//	BMP180_Struct.AC4 = 32741;
+//	BMP180_Struct.AC5 = 32757;
+//	BMP180_Struct.AC6 = 23153;
+//	BMP180_Struct.B1  = 6190;
+//	BMP180_Struct.B2  = 4;
+//	BMP180_Struct.MB  = -32768;
+//	BMP180_Struct.MC  = -8711;
+//	BMP180_Struct.MD  = 2868;
 }
 
 
@@ -138,7 +150,7 @@ int32_t BMP180_GetTemperature() {
 int32_t BMP180_GetPressure() {
 	uint8_t OSS = ((BMP180_Struct.BMP180_Mode) & 0xC0) >> 6;
 	BMP180_Struct.UP = BMP180_GetUP();
-	int32_t pressure = 0;
+	int32_t pressure;
 
 	/* Pressure algorithm */
 	int32_t B6 = BMP180_Struct.B5 - 4000L;
