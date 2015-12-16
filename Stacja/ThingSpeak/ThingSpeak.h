@@ -1,10 +1,13 @@
-/*
- * ThingSpeak.h
- *
- *  Created on: 23 paü 2015
- *      Author: Bartek
+/**
+ *******************************************************************************
+ * @ Plik    ThingSpeak.h
+ * @ Autor   Bartlomiej Kusmierczyk
+ * @ Wersja  V1.0
+ * @ Data    10 listopada 2015
+ * @ Opis    Plik zawiera definicje funkcji do uaktualniania pola kana≥u na
+ * 			 ThingSpeak.com
+ *******************************************************************************
  */
-
 #ifndef THINGSPEAK_H_
 #define THINGSPEAK_H_
 

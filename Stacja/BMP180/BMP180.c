@@ -1,10 +1,10 @@
 /**
  *******************************************************************************
- * @ File    BMP180.c
- * @ Author  Bartlomiej Kusmierczyk
- * @ Version V1.0
- * @ Date    28-July-2015
- * @ Brief   This file contains all the BMP180 sensor firmware functions.
+ * @ Plik	BMP180.c
+ * @ Autor	Bartlomiej Kusmierczyk
+ * @ Wersja	V1.0
+ * @ Data	28 lipca 2015
+ * @ Opis   Plik zawiera wszystkie funkcje do obslugi czujnika cisnienia BMP180.
  *******************************************************************************
  */
 
@@ -17,14 +17,10 @@
 
 BMP180_TypeDef BMP180_Struct;
 
-
-
-
-
 /**
- * @ Brief  	Gets the uncompensed temperature value (UT) from sensor.
- * @ Parameter  None.
- * @ Retval 	Uncompensated temperature value (UP).
+ * @ Opis  				Pobiera wartosc UT z rejestru czujnika.
+ * @ Parametry  		Brak.
+ * @ Zwracana wartosc 	Surowa wartosc pomiaru temperatury (UT).
  */
 int32_t BMP180_GetUT() {
 	int32_t UT = 0;
@@ -37,9 +33,9 @@ int32_t BMP180_GetUT() {
 
 
 /**
- * @ Brief  	Gets the uncompensed pressure value (UP) from sensor.
- * @ Parameter  None.
- * @ Retval 	None
+ * @ Opis  				Pobiera wartosc UP z rejestru czujnika.
+ * @ Parametry  		Brak.
+ * @ Zwracana wartosc 	Surowa wartosc pomiaru cisnienia (UT).
  */
 int32_t BMP180_GetUP() {
 	int32_t UP = 0;
@@ -52,17 +48,19 @@ int32_t BMP180_GetUP() {
 
 
 /**
- * @ Opis:				Initializes the BMP180 sensor.
+ * @ Opis:				Inicjalizuje BMP180 do pracy.
  * @ Parametry:			BMP180Mode_TypeDef: tryb pomiaru.
- * @ Zwracana wartosc:	None.
+ * @ Zwracana wartosc:	Brak.
  */
 void BMP180_Init(BMP180Mode_TypeDef BMP180_Mode) {
 	BMP180_Struct.BMP180_Mode = BMP180_Mode;
 
 	uint8_t buffer[22];
 
+	/* Pobranie parametrow kalibracyjnych */
 	I2C_ReadBytes(BMP180_SLA, BMP180_MEM_START, 22, buffer);
 
+	/* Zapis parametrow kalibracyjnych */
 	BMP180_Struct.AC1 = ((short) buffer[0] << 8 		| ((short) buffer[1]));
 	BMP180_Struct.AC2 = ((short) buffer[2] << 8 		| ((short) buffer[3]));
 	BMP180_Struct.AC3 = ((short) buffer[4] << 8 		| ((short) buffer[5]));
@@ -74,25 +72,13 @@ void BMP180_Init(BMP180Mode_TypeDef BMP180_Mode) {
 	BMP180_Struct.MB  = ((short) buffer[16] << 8 		| ((short) buffer[17]));
 	BMP180_Struct.MC  = ((short) buffer[18] << 8 		| ((short) buffer[19]));
 	BMP180_Struct.MD  = ((short) buffer[20] << 8 		| ((short) buffer[21]));
-
-//	BMP180_Struct.AC1 = 408;
-//	BMP180_Struct.AC2 = -72;
-//	BMP180_Struct.AC3 = -14383;
-//	BMP180_Struct.AC4 = 32741;
-//	BMP180_Struct.AC5 = 32757;
-//	BMP180_Struct.AC6 = 23153;
-//	BMP180_Struct.B1  = 6190;
-//	BMP180_Struct.B2  = 4;
-//	BMP180_Struct.MB  = -32768;
-//	BMP180_Struct.MC  = -8711;
-//	BMP180_Struct.MD  = 2868;
 }
 
 
 /**
- * @ Brief  	Starts the BMP180 temperature measurement.
- * @ Parameter  None.
- * @ Retval 	None.
+ * @ Opis  				Rozpoczyna pomiar temperatury.
+ * @ Parametry  		Brak.
+ * @ Zwracana wartosc 	Brak.
  */
 void BMP180_StartTemperature() {
 	I2C_Start();
@@ -104,10 +90,9 @@ void BMP180_StartTemperature() {
 
 
 /**
- * @ Brief  	 Starts the BMP180 pressure measurement.
- * 		 	 	 First needs a single temperature measurement.
- * @ Parameter   None.
- * @ Retval 	 None.
+ * @ Opis  	 				Rozpoczyna pomiar cisnienia.
+ * @ Parametry   			Brak.
+ * @ Zwracana wartosc		Brak.
  */
 void BMP180_StartPressure() {
 	I2C_Start();
@@ -119,9 +104,9 @@ void BMP180_StartPressure() {
 
 
 /**
- * @ Brief  	Gets the uncompensed temperature from sensor and calculate it to Celsius degrees.
- * @ Parameter  None.
- * @ Retval 	Temperature in 0.1*C.
+ * @ Opis  				Odczytuje wynik pomiaru i przelicza go na jednostki fizyczne (st. C).
+ * @ Parametry  		Brak.
+ * @ Zwracana wartosc 	Temperatura w 0.1*C.
  */
 int32_t BMP180_GetTemperature() {
 	BMP180_Struct.UT = BMP180_GetUT();
@@ -143,16 +128,16 @@ int32_t BMP180_GetTemperature() {
 
 
 /**
- * @ Brief  	Gets the uncompensed pressure from sensor and calculate it to Pa (Pascal) units.
- * @ Parameter  None.
- * @ Retval 	Pressure in Pa.
+ * @ Opis  				Odczytuje wynik pomiaru cisnienia i przelicza go na Paskale.
+ * @ Parametry  		Brak.
+ * @ Zwracana wartosc 	Cisnienie w Paskalach.
  */
 int32_t BMP180_GetPressure() {
 	uint8_t OSS = ((BMP180_Struct.BMP180_Mode) & 0xC0) >> 6;
 	BMP180_Struct.UP = BMP180_GetUP();
 	int32_t pressure;
 
-	/* Pressure algorithm */
+	/* Algorytm */
 	int32_t B6 = BMP180_Struct.B5 - 4000L;
 	int32_t X1 = (BMP180_Struct.B2 * ((B6 * B6) >> 12)) >> 11;
 	int32_t X2 = (BMP180_Struct.AC2 * B6) >> 11;

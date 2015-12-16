@@ -1,10 +1,13 @@
-/*
- * main.c
- *
- *  Created on: 12 lis 2015
- *      Author: Bartek
+/**
+ *******************************************************************************
+ * @ Plik    main.c
+ * @ Autor   Bartlomiej Kusmierczyk
+ * @ Wersja  V1.0
+ * @ Data    12 listopada 2015
+ * @ Opis    Plik programu g³ównego.
+ *******************************************************************************
  */
-
+/*-------------------------------------------------------------------*/
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
@@ -15,6 +18,7 @@
 #include "AuxiliaryLib/AuxiliaryLib.h"
 #include "BH1750/BH1750.h"
 #include "MKUART/mkuart.h"
+/*-------------------------------------------------------------------*/
 
 #define DISABLE 0x00	/* Aktywacja   */
 #define ENABLE  0x01	/* Deaktywacja */
@@ -85,7 +89,7 @@ int main() {
 			/* Wybor parametru do zmierzenia i wyslania na ThingSpeak*/
 			if (selector == 0) {
 				temperature[idx & MASK] = getTemperature();
-				temperature_avg = calcAVG_INT8(temperature, SIZE);
+				temperature_avg = calcAVG_INT8(temperature, SIZE);		// Temperatura w *C
 				sendTemperature(temperature_avg);
 			} else if (selector == 1) {
 				humidity[idx & MASK] = getHumidity();
@@ -107,11 +111,11 @@ int main() {
 		}
 
 		if (reset_connection_flag == ENABLE) {
-			ESP_Disconnect();
+			ESP_Disconnect();					/* Odlaczenie z siecia */
 			_delay_ms(2000);
-			ESP_Connect();
+			ESP_Connect();						/* Polaczenie z siecia */
 			_delay_ms(3000);
-			reset_connection_flag = DISABLE;
+			reset_connection_flag = DISABLE;	/* Wyzerowanie flagi */
 		}
 	}
 }
@@ -129,5 +133,4 @@ ISR(TIMER1_COMPA_vect) {
 		minutes = 0;
 		reset_connection_flag = ENABLE;
 	}
-	PORTB ^= 1 << PB1;
 }

@@ -1,10 +1,11 @@
 /**
  *******************************************************************************
- * @ Plik    I2C.h
+ * @ Plik    I2C.c
  * @ Autor   Bartlomiej Kusmierczyk
  * @ Wersja  V1.0
  * @ Data    26 lipca 2015
- * @ Opis    Ten plik zawiera funkcje do obslugi inerfejsu I2C.
+ * @ Opis    Ten plik zawiera funkcje do obslugi inerfejsu TWI w
+ * 			 mikrokontrolerach AVR.
  *******************************************************************************
  */
 
@@ -31,10 +32,7 @@ inline void I2C_WaitForFlag() {
  */
 void I2C_ERROR(I2C_ErrorFlag error) {
 	errorFlag = error;
-	//if (error == I2C_START_ERROR)
-		//PORTB = 1 << PB1;  //??????????????????????????????
 }
-
 
 /**
  * @ Opis:				Inicjalizuje interfejs I2C.
@@ -51,15 +49,6 @@ void I2C_Init(uint32_t speed) {
 	TWSR = (TWSR & ((1 << TWPS1) | (1 << TWPS0))) | prescaler;
 	TWBR = (uint8_t)speed;
 	TWCR = (1 << TWEA) | (1 << TWEN);
-//	speed = (4000000 / speed / 100 - 16) / 2;
-//	uint8_t prescaler = 0;
-//	while (speed > 255) {
-//		prescaler++;
-//		speed /= 4;
-//	}
-//	TWSR = (TWSR & ((1 << TWPS1) | (1 << TWPS0))) | prescaler;
-//	TWBR = speed;
-//	TWCR = (1 << TWEA) | (1 << TWEN);
 }
 
 /**
@@ -75,6 +64,10 @@ void I2C_Start() {
 	if ((TWSR & 0xF8) != TW_START) {
 		I2C_ERROR(I2C_Start_Error);
 	}
+	else
+	{
+		errorFlag = I2C_OK;
+	}
 }
 
 /**
@@ -89,6 +82,10 @@ void I2C_RStart() {
 	I2C_WaitForFlag();
 	if ((TWSR & 0xF8) != TW_REP_START) {
 		I2C_ERROR(I2C_Rep_Start_Error);
+	}
+	else
+	{
+		errorFlag = I2C_OK;
 	}
 }
 
@@ -118,6 +115,10 @@ void I2C_Write_SLA(uint8_t address) {
 	if (TW_STATUS != status) {
 		I2C_ERROR(I2C_SLA_Error);
 	}
+	else
+	{
+		errorFlag = I2C_OK;
+	}
 }
 
 /**
@@ -130,7 +131,13 @@ void I2C_WriteByte(uint8_t byte) {
 	TWCR = (1 << TWINT) | (1 << TWEN);
 	I2C_WaitForFlag();
 	if (TW_STATUS != TW_MT_DATA_ACK)
+	{
 		I2C_ERROR(I2C_ACK_Error);
+	}
+	else
+	{
+		errorFlag = I2C_OK;
+	}
 }
 
 /**
@@ -144,6 +151,10 @@ uint8_t I2C_ReadByte_NACK() {
 	if (TW_STATUS != TW_MR_DATA_NACK) {
 		I2C_ERROR(I2C_NACK_Error);
 	}
+	else
+	{
+		errorFlag = I2C_OK;
+	}
 	return TWDR;
 }
 
@@ -156,7 +167,13 @@ uint8_t I2C_ReadByte_ACK() {
 	TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWEA);
 	I2C_WaitForFlag();
 	if (TW_STATUS != TW_MR_DATA_ACK)
+	{
 		I2C_ERROR(I2C_ACK_Error);
+	}
+	else
+	{
+		errorFlag = I2C_OK;
+	}
 	return TWDR;
 }
 
@@ -198,6 +215,11 @@ void I2C_WriteBytes(uint8_t SLA, uint8_t address, uint8_t size, uint8_t* buffer)
 	I2C_Stop();
 }
 
+/**
+ * @ Opis:				Zwraca kod flagi bledu.
+ * @ Parametry:			Brak.
+ * @ Zwracana wartosc: 	Kod flagi bledu.
+ */
 I2C_ErrorFlag I2C_CheckErrorFlag() {
 	return errorFlag;
 }

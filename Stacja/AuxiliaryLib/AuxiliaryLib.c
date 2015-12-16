@@ -24,46 +24,77 @@
 #include "../I2C/I2C.h"
 /*-------------------------------------------------------------------*/
 
+
+/**
+ * @ Opis  				Inicjalizuje moduly do pracy.
+ * @ Parametry  		Brak.
+ * @ Zwracana wartosc 	Brak.
+ */
 void initializeModules() {
 	ESP_Init();
-	//PORTB = 2;
 	HTU21D_Init(Humidity11b_Temperature11b);
 	BMP180_Init(BMP180_Mode_ST);
-	BMP180_StartTemperature();
-	_delay_ms(30);
-	BMP180_GetTemperature();
 }
 
+/**
+ * @ Opis  				Wysyla temperature na Thingspeak.com.
+ * @ Parametry  		Brak.
+ * @ Zwracana wartosc 	Brak.
+ */
 void sendTemperature(int8_t temperature) {
 	char value[7];
 	sprintf(value, "%d", temperature);
 	TS_UpdateField(value, 1);
 }
 
+/**
+ * @ Opis  				Wysyla wilgotnosc na Thingspeak.com.
+ * @ Parametry  		Brak.
+ * @ Zwracana wartosc 	Brak.
+ */
 void sendHumidity(uint8_t humidity) {
 	char value[7];
 	sprintf(value, "%d", humidity);
 	TS_UpdateField(value, 2);
 }
 
+/**
+ * @ Opis  				Wysyla natezenie oswietlenia na Thingspeak.com.
+ * @ Parametry  		Brak.
+ * @ Zwracana wartosc 	Brak.
+ */
 void sendIlluminance(uint16_t illuminance) {
 	char value[7];
 	sprintf(value, "%d", illuminance);
 	TS_UpdateField(value, 3);
 }
 
+/**
+ * @ Opis  				Wysyla cisnienie na Thingspeak.com.
+ * @ Parametry  		Brak.
+ * @ Zwracana wartosc 	Brak.
+ */
 void sendPressure(int32_t pressure) {
 	char value[7];
 	sprintf(value, "%d", (int) pressure);
 	TS_UpdateField(value, 4);
 }
 
+/**
+ * @ Opis  				Inicjalizuje interfejsy komunikacyjne.
+ * @ Parametry  		Brak.
+ * @ Zwracana wartosc 	Brak.
+ */
 void initializeInterfaces() {
-	I2C_Init(100000);
-	USART_Init(__UBRR);
-	//PORTB = 1 << PB1;
+	I2C_Init(100000);			// 100kHz
+	USART_Init(__UBRR);			// 9600 bodow
 }
 
+/**
+ * @ Opis  				Wykonuje pomiar temperatury i odczytuje wynik.
+ * @ Parametry  		Brak.
+ * @ Zwracana wartosc 	Temperatura w *C.
+ */
 int8_t getTemperature() {
 	int8_t temperature_int;
 	uint8_t temperature_fract;
@@ -76,6 +107,11 @@ int8_t getTemperature() {
 
 }
 
+/**
+ * @ Opis  				Wykonuje pomiar wilgotnosci i odczytuje wynik.
+ * @ Parametry  		Brak.
+ * @ Zwracana wartosc 	Wilgotnosc w %.
+ */
 uint8_t getHumidity() {
 	uint8_t humidity;
 
@@ -86,6 +122,11 @@ uint8_t getHumidity() {
 	return humidity; // Wilgotnosc w %
 }
 
+/**
+ * @ Opis  				Wykonuje pomiar natezenia oswietlenia i odczytuje wynik.
+ * @ Parametry  		Brak.
+ * @ Zwracana wartosc 	Natezenia oswietlenia w luksach.
+ */
 uint16_t getIlluminance() {
 	uint16_t illuminance;
 
@@ -93,9 +134,14 @@ uint16_t getIlluminance() {
 	_delay_ms(150);
 	illuminance = BH1750_Read();
 
-	return illuminance;	// Natezenie oswietlenia w luksach
+	return illuminance;
 }
 
+/**
+ * @ Opis  				Wykonuje pomiar cisnienia i odczytuje wynik.
+ * @ Parametry  		Brak.
+ * @ Zwracana wartosc 	Cisnienie w Pa.
+ */
 int32_t getPressure() {
 	int32_t pressure;
 	BMP180_StartTemperature();
@@ -106,9 +152,14 @@ int32_t getPressure() {
 	_delay_ms(30);
 	pressure = BMP180_GetPressure();
 
-	return pressure; // Cisnienie w Pa
+	return pressure;
 }
 
+/**
+ * @ Opis  				Inicjalizuje Timer 1. w tryb CTC.
+ * @ Parametry  		Brak.
+ * @ Zwracana wartosc 	Brak.
+ */
 void initializeTimers() {
 	TCCR1B = (1 << WGM12) | (1 << CS12) | (1 << CS10); //Preskaler 1024
 	OCR1A = 3600;

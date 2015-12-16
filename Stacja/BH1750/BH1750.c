@@ -104,7 +104,6 @@ uint16_t BH1750_Read()
 	return illuminance;
 }
 
-
 /**
  * @ Opis:				Resetuje rejest danych. Na koncu wprowadza modul w stan uspienia.
  * @ Parametry:  		Brak.

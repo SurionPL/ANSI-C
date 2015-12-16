@@ -4,8 +4,9 @@
   * @ Autor   Bartlomiej Kusmierczyk
   * @ Wersja  V1.0
   * @ Data    28 sierpnia 2015
-  * @ Opis    Ten plik zawiera wszystkie prototypu funkcji do obslugi wysylania
-  * 		  danych modulu Wi-Fi ESP8266 w trybie klienckim (STA).
+  * @ Opis    Ten plik zawiera wszystkie prototypy funkcji do obslugi
+  * 		  modulu Wi-Fi ESP8266 w trybie klienta, obsluge jednego kanalu
+  * 		  wykorzystujac protokol TCP.
   ******************************************************************************
   */
 #ifndef ESP8266_H_

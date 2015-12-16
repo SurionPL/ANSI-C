@@ -10,10 +10,12 @@
 
 #include <avr/io.h>
 
-
-
-
-
+/**
+ * @ Opis  				Oblicza srednia 32-bitowych wartosci ze znakiem.
+ * @ Parametry  		-array: wskaznik na tablice zawierajaca wartosci.
+ * 						-size: rozmiar tablicy.
+ * @ Zwracana wartosc 	Srednia.
+ */
 int32_t calcAVG_INT32(int32_t* array, uint8_t size)
 {
 	int32_t sum = 0;
@@ -24,7 +26,12 @@ int32_t calcAVG_INT32(int32_t* array, uint8_t size)
 	return ((int32_t)(sum / size));
 }
 
-
+/**
+ * @ Opis  				Oblicza srednia 8-bitowych wartosci ze znakiem.
+ * @ Parametry  		-array: wskaznik na tablice zawierajaca wartosci.
+ * 						-size: rozmiar tablicy.
+ * @ Zwracana wartosc 	Srednia.
+ */
 int8_t calcAVG_INT8(int8_t* array, uint8_t size)
 {
 	int32_t sum = 0;
@@ -35,7 +42,12 @@ int8_t calcAVG_INT8(int8_t* array, uint8_t size)
 	return ((int8_t)(sum / size));
 }
 
-
+/**
+ * @ Opis  				Oblicza srednia 8-bitowych wartosci bez znaku.
+ * @ Parametry  		-array: wskaznik na tablice zawierajaca wartosci.
+ * 						-size: rozmiar tablicy.
+ * @ Zwracana wartosc 	Srednia.
+ */
 uint8_t calcAVG_UINT8(uint8_t* array, uint8_t size)
 {
 	uint32_t sum = 0;
@@ -46,7 +58,12 @@ uint8_t calcAVG_UINT8(uint8_t* array, uint8_t size)
 	return ((uint8_t)(sum / size));
 }
 
-
+/**
+ * @ Opis  				Oblicza srednia 16-bitowych wartosci bez znaku.
+ * @ Parametry  		-array: wskaznik na tablice zawierajaca wartosci.
+ * 						-size: rozmiar tablicy.
+ * @ Zwracana wartosc 	Srednia.
+ */
 uint8_t calcAVG_UINT16(uint16_t* array, uint8_t size)
 {
 	uint32_t sum = 0;

@@ -1,10 +1,10 @@
 /*
  *******************************************************************************
- * @ Plik    I2C.c
+ * @ Plik    I2C.h
  * @ Autor   Bartlomiej Kusmierczyk
  * @ Wersja  V1.0
  * @ Data    26 lipca 2015
- * @ Opis    Ten plik zawiera wszystkie funkcje do obslugi interfejsu I2C
+ * @ Opis    Ten plik zawiera wszystkie funkcje do obslugi interfejsu TWI
  * 			 w mikrokontrolerach AVR.
  *******************************************************************************
  */
@@ -13,6 +13,7 @@
 #ifndef I2C_H_
 #define I2C_H_
 
+/* Wartosci flagi bledu */
 typedef enum
 {
 	I2C_OK = 0,
@@ -24,6 +25,7 @@ typedef enum
 }I2C_ErrorFlag;
 
 
+/* Funkcje */
 void I2C_Init(uint32_t speed);
 void I2C_Start();
 void I2C_RStart();

@@ -5,7 +5,7 @@
  * @ Wersja  V1.0
  * @ Data    28 lipca 2015
  * @ Opis    Ten plik zawiera wszystkie prototypy funkcji do obslugi czujnika
- * 		  cisnienia BMP180.
+ * 		     cisnienia BMP180.
  *******************************************************************************
  */
 
@@ -61,10 +61,10 @@
 
 /* Tryby pomiaru cisnienia */
 typedef enum {
-	BMP180_Mode_ULP = 0x34, /* Ultra Low Power mode */
-	BMP180_Mode_ST = 0x74,  /* Standard mode */
-	BMP180_Mode_HR = 0xB4,  /* High Resolution mode */
-	BMP180_Mode_UHR = 0xF4  /* Ultra High Resolution mode */
+	BMP180_Mode_ULP = 0x34, /* Tryb Ultra Low Power */
+	BMP180_Mode_ST = 0x74,  /* Tryb Standard */
+	BMP180_Mode_HR = 0xB4,  /* Tryb High Resolution */
+	BMP180_Mode_UHR = 0xF4  /* Tryb Ultra High Resolution */
 } BMP180Mode_TypeDef;
 
 /* Struktura BMP180 z danymi konfiguracyjnymi */
